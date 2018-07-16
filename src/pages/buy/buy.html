@@ -1,0 +1,54 @@
+<!--
+  Generated template for the BuyPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Buy EEC Tokens</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div>
+    <ion-segment [(ngModel)]="currency">
+      <ion-segment-button value="eth">
+        ETH
+      </ion-segment-button>
+      <ion-segment-button value="btc">
+        BTC
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="currency">
+    <div *ngSwitchCase="'eth'">
+      <p>
+        Please enter sum in ETH and Press Confirm in order to Buy EEC. Minimum purchase is 200$, it's about 0.4197 ETH for the current
+        rate 476.512. Please mind the comissions: 0.01 ETH will be deducted from the payment and at least 0.005 ETH should
+        be remained on the wallet to run the transaction.
+      </p>
+      <ion-card>
+        <ion-list>
+          <ion-item>
+            <ion-input type="number" value="" placeholder="1 ETH"></ion-input>
+          </ion-item>
+        </ion-list>
+      </ion-card>
+      <button ion-button block>Yeah!</button>
+    </div>
+
+    <div *ngSwitchCase="'btc'">
+      <p>Send BTC to the address bellow using mobile wallet and get EEC Tokens! Minimum purchase is
+        <strong>200$</strong>, it's about
+        <strong>0.0299</strong> BTC for the current rate
+        <strong>6686.98</strong>
+      </p>
+      <p>Please mind bitcoin transactions and confirmations speed.</p>
+    </div>
+  </div>
+</ion-content>
