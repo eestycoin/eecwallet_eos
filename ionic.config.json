@@ -1,5 +1,12 @@
 {
   "name": "veiko-wallet",
   "integrations": {},
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "proxies": [
+    {
+      "path": "/v2",
+      "proxyUrl": "https://test.bitgo.com/api/v2",
+      "proxyNoAgent": true
+    }
+  ]
 }

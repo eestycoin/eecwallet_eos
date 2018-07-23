@@ -24,4 +24,8 @@ export class BuyPage {
     console.log('ionViewDidLoad BuyPage');
   }
 
+  onSelect() {
+    
+  }
+
 }

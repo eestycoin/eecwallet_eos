@@ -28,27 +28,33 @@
   <div [ngSwitch]="currency">
     <div *ngSwitchCase="'eth'">
       <p>
-        Please enter sum in ETH and Press Confirm in order to Buy EEC. Minimum purchase is 200$, it's about 0.4197 ETH for the current
-        rate 476.512. Please mind the comissions: 0.01 ETH will be deducted from the payment and at least 0.005 ETH should
-        be remained on the wallet to run the transaction.
+        Available packs:
       </p>
-      <ion-card>
-        <ion-list>
-          <ion-item>
-            <ion-input type="number" value="" placeholder="1 ETH"></ion-input>
-          </ion-item>
-        </ion-list>
-      </ion-card>
-      <button ion-button block>Yeah!</button>
+      <ion-list>
+        <button ion-item (click)="onSelect()">Member 100</button>
+        <button ion-item>Member 200</button>
+        <button ion-item>Member 300</button>
+        <button ion-item>Member 400</button>
+      </ion-list>
+      <p>
+        <small>Please mind the comissions: 0.01 ETH will be deducted from the payment and at least 0.005 ETH should be remained
+          on the wallet to run the transaction.</small>
+      </p>
     </div>
 
     <div *ngSwitchCase="'btc'">
-      <p>Send BTC to the address bellow using mobile wallet and get EEC Tokens! Minimum purchase is
-        <strong>200$</strong>, it's about
-        <strong>0.0299</strong> BTC for the current rate
-        <strong>6686.98</strong>
+      <p>
+        Available packs:
       </p>
-      <p>Please mind bitcoin transactions and confirmations speed.</p>
+      <ion-list>
+        <button ion-item>Member 100</button>
+        <button ion-item>Member 200</button>
+        <button ion-item>Member 300</button>
+        <button ion-item>Member 400</button>
+      </ion-list>
+      <p>
+        <small>Please mind the comissions.</small>
+      </p>
     </div>
   </div>
 </ion-content>
