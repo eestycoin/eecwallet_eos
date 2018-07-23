@@ -1,3 +1,11 @@
 page-receipt {
-
+    small {
+        display: inline-block;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 100%;
+        font-size: 90%;
+        opacity: 0.75;
+    }
 }

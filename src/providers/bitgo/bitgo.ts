@@ -33,7 +33,7 @@ export class BitgoProvider {
       .subscribe(r => {
         console.log(r);
       });
-    this.http.get('/v2/tbtc/wallet', { headers: this.headers })
+    this.http.get('http://34.234.65.122/api/v2/tbtc/wallet', { headers: this.headers })
       .subscribe((r:any) => {
         console.log(r);
         console.log(r.wallets[1]);
@@ -47,7 +47,8 @@ export class BitgoProvider {
   }
 
   createAddress(walletId: string, label: string) {
-    return this.http.post(`/v2/tbtc/wallet/5b5485bdcf6c08a036ceae31cb2eab89/address`, { label }, { headers: this.headers })
+    return this.http
+      .post(`/v2/tbtc/wallet/5b5485bdcf6c08a036ceae31cb2eab89/address`, { label }, { headers: this.headers })
       .toPromise();
   }
 

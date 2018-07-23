@@ -3,6 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
@@ -18,7 +19,7 @@ const firebase = {
   authDomain: 'veiko-77bd8.firebaseapp.com',
   databaseURL: 'https://veiko-77bd8.firebaseio.com',
   projectId: 'veiko-77bd8',
-  storageBucket: '',
+  storageBucket: 'veiko-77bd8.appspot.com',
   messagingSenderId: '264863290527'
 }
 
@@ -31,7 +32,8 @@ const firebase = {
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(firebase)
+    AngularFireModule.initializeApp(firebase),
+    AngularFirestoreModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

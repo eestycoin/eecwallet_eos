@@ -18,7 +18,7 @@ export class HomePage {
 
     console.log('eth.ready.subscribe');
 
-    // this.bitgo.onInit();
+    this.bitgo.onInit();
   }
 
   itemSelected(item: string) {

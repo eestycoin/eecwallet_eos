@@ -18,14 +18,15 @@ import { HomePage } from '../home/home';
 })
 export class ReceiptPage {
 
-  tx: any;
+  data: any;
 
   constructor(public appCtrl: App, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReceiptPage');
-    this.tx = this.navParams.get('tx');
+    this.data = this.navParams.get('tx');
+    console.log(this.data);
   }
 
   onSubmit() {
