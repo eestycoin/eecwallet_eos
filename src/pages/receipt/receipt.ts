@@ -29,7 +29,8 @@ export class ReceiptPage {
   }
 
   onSubmit() {
-    this.appCtrl.getRootNavs()[0].setRoot(HomePage);
+    // this.appCtrl.getRootNav().setRoot(HomePage);
+    this.navCtrl.setRoot(HomePage);
   }
 
 }

@@ -13,25 +13,26 @@ export class HomePage {
   balance: number = 0;
   account: string = '0x';
 
-  constructor(public navCtrl: NavController, private eth: EthProvider, private bitgo: BitgoProvider) {
-    this.eth.ready.subscribe(account => {
-      console.log(account);
-      this.balance = account.balance;
-      this.account = account.address;
+  constructor(public navCtrl: NavController, public eth: EthProvider, private bitgo: BitgoProvider) {
+    
 
-      this.getBalance();
-    });
+    console.log('eth.ready.subscribe');
 
-    this.bitgo.onInit();
+    // this.bitgo.onInit();
   }
 
   itemSelected(item: string) {
     this.navCtrl.push(item);
   }
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad HomePage');
+    
+  }
+
   async ionViewDidEnter() {
     // await this.eth.onInit();
-    
+    console.log(this.account);
   }
 
   async getBalance() {

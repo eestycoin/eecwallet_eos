@@ -38,11 +38,11 @@ export class BitgoProvider {
         console.log(r);
         console.log(r.wallets[1]);
         const walletId = r.wallets[1].id;
-        this.createAddress(walletId, 'test').then(r2 => {
-          console.log(r2);
-        }).catch(e => {
-          console.log(e);
-        });
+        // this.createAddress(walletId, 'test').then(r2 => {
+        //   console.log(r2);
+        // }).catch(e => {
+        //   console.log(e);
+        // });
       });
   }
 

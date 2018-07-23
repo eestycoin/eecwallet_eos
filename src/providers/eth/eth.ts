@@ -269,9 +269,15 @@ export class EthProvider {
     this.connectContract();
     
     this.account.address = this.getAccount();
+    this.getBalance();
 
     this.ready.next(this.account);
     return true;
+  }
+
+  updateAccount() {
+    this.account.address = this.getAccount();
+    this.getBalance();
   }
 
   // --------------------------------------------
@@ -302,7 +308,10 @@ export class EthProvider {
 
   async getBalance() {
     return this.toPromise(this.erc20.balanceOf, this.getAccount())
-      .then(r => parseFloat(web3.fromWei(r.toString())));
+      .then(r => {
+        this.account.balance = parseFloat(web3.fromWei(r.toString()));
+        return this.account.balance;
+      });
   }
 
   async tranfer(addressTo: string, tokens: number) {

@@ -8,12 +8,12 @@
 
 <ion-content>
   <header>
-    <h3>Balance: {{balance | number:'1.4-4'}}
+    <h3>Balance: {{eth.account.balance | number:'1.4-4'}}
       <small>EEC</small>
     </h3>
     <p>Account
       <br>
-      <small>{{account}}</small>
+      <small>{{eth.account.address}}</small>
     </p>
   </header>
   <section padding>
