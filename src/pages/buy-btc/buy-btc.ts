@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
- * Generated class for the BuyPage page.
+ * Generated class for the BuyBtcPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -10,26 +10,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-buy',
-  templateUrl: 'buy.html',
+  selector: 'page-buy-btc',
+  templateUrl: 'buy-btc.html',
 })
-export class BuyPage {
-
-  currency = 'eth';
+export class BuyBtcPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad BuyPage');
-  }
-
-  onSelectEth() {
-    this.navCtrl.push('BuyEthPage');
-  }
-
-  onSelectBtc() {
-    this.navCtrl.push('BuyBtcPage');
+    console.log('ionViewDidLoad BuyBtcPage');
   }
 
 }
