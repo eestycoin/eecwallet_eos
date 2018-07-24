@@ -19,6 +19,10 @@ export class HomePage {
     console.log('eth.ready.subscribe');
 
     this.bitgo.onInit();
+    this.eth.onInit().then(r => {
+      if (!r) 
+        this.navCtrl.push('Noweb3Page');
+    });
   }
 
   itemSelected(item: string) {

@@ -257,7 +257,6 @@ export class EthProvider {
 
   async onInit() {
     if (!this.isWeb3()) {
-      alert('No Web3');
       return;
     }
 

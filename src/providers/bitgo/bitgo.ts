@@ -1,10 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-const ACCESS_TOKEN = 'v2xef66e4645499a3ff36a7b72816b3c38771a215aeef651d380fdcabcf2492ae00';
+const ACCESS_TOKEN = 'v2x8473d567ae7b4bff3895cdf4dca67a85c53f0aabad726d6061794505d32b16a3';
 //
 // v2x341d7b1e23b6369a1b3d0503dfc10febf3c3151028ebd2de272caa58d0b845de
 // v2xef66e4645499a3ff36a7b72816b3c38771a215aeef651d380fdcabcf2492ae00
+// v2x8473d567ae7b4bff3895cdf4dca67a85c53f0aabad726d6061794505d32b16a3
 //
 /*
   Generated class for the BitgoProvider provider.
@@ -29,11 +30,11 @@ export class BitgoProvider {
   }
 
   getWallets() {
-    this.http.get('/v2/user/session', { headers: this.headers })
+    this.http.get('https://34.234.65.122/api/v2/user/session', { headers: this.headers })
       .subscribe(r => {
         console.log(r);
       });
-    this.http.get('http://34.234.65.122/api/v2/tbtc/wallet', { headers: this.headers })
+    this.http.get('https://34.234.65.122/api/v2/tbtc/wallet', { headers: this.headers })
       .subscribe((r:any) => {
         console.log(r);
         console.log(r.wallets[1]);
