@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Observable } from 'rxjs';
-
 import { AngularFirestore } from 'angularfire2/firestore';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 
 /**
  * Generated class for the HistoryPage page.
@@ -21,17 +22,25 @@ export class HistoryPage {
   items: Observable<any[]>;
 
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
+    public navCtrl: NavController,
+    public navParams: NavParams,
     private db: AngularFirestore
   ) {
     // this.items = this.db.collection('items').valueChanges();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HistoryPage');
-    this.items = this.db.collection('items').valueChanges();
-    console.log(this.items);
+    this.items = this.db
+      .collection('items')
+      .valueChanges()
+      .pipe(map(results => results.sort(this.sort).reverse()));
   }
 
+  // private next() {
+  //   return map(results => results.sort(this.sort).reverse())
+  // }
+
+  private sort(x, y) {
+    return x.date < y.date ? -1 : 1;
+  }
 }
