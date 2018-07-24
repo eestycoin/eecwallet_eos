@@ -1,40 +1,40 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      EESTY COIN WALLET
-    </ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>
+            <img alt="logo" height="40" src="assets/imgs/logo.png">
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <header>
-    <h3>Balance: {{eth.account.balance | number:'1.4-4'}}
-      <small>EEC</small>
-    </h3>
-    <p>Account
-      <br>
-      <small>{{eth.account.address}}</small>
-    </p>
-  </header>
-  <section padding>
-    <ion-list>
-      <button ion-item (click)="itemSelected('BuyPage')">
+    <header>
+        <h3>Balance: {{eth.account.balance | number:'1.4-4'}}
+            <small>EEC</small>
+        </h3>
+        <p>Account
+            <br>
+            <small>{{eth.account.address}}</small>
+        </p>
+    </header>
+    <section padding>
+        <ion-list>
+            <button ion-item (click)="itemSelected('BuyPage')">
         <ion-icon name="add" item-start></ion-icon>
         Buy
       </button>
-      <button ion-item (click)="itemSelected('SendPage')">
+            <button ion-item (click)="itemSelected('SendPage')">
         <ion-icon name="flash" item-start></ion-icon>
         Send
       </button>
-      <button ion-item (click)="itemSelected('HistoryPage')">
+            <button ion-item (click)="itemSelected('HistoryPage')">
         <ion-icon name="list" item-start></ion-icon>
         Transactions
       </button>
-      <button ion-item>
+            <button ion-item>
         <ion-icon name="information-circle-outline" item-start></ion-icon>
         Info
       </button>
-    </ion-list>
-  </section>
+        </ion-list>
+    </section>
 
 </ion-content>
