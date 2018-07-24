@@ -39,6 +39,10 @@ export class SendPage {
 
   ionViewDidEnter() {
     console.log('ionViewDidEnter SendPage');
+
+    setInterval(() => {
+      
+    }, 1000);
   }
 
   // ----
