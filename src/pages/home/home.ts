@@ -31,17 +31,14 @@ export class HomePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
-    
   }
 
   async ionViewDidEnter() {
-    // await this.eth.onInit();
-    console.log(this.account);
+    console.log('This account', this.account);
   }
 
   async getBalance() {
     this.balance = await this.eth.getBalance();
-    // this.account = this.eth.getAccount();
   }
 
 }

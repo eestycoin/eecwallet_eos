@@ -21,6 +21,7 @@ import { EthProvider } from '../../providers/eth/eth';
 export class HistoryPage {
 
   items: Observable<any[]>;
+  account: string;
 
   constructor(
     public navCtrl: NavController,
@@ -39,14 +40,15 @@ export class HistoryPage {
   }
 
   private mapItems(items: any[]) {
+    this.account = this.eth.account.address.toUpperCase();
     return items
       .sort(this.sortByDate)
       .reverse()
       .filter(item => {
-        return ((item.from === this.eth.account.address) || (item.to === this.eth.account.address));
+        return ((item.from.toUpperCase() === this.account) || (item.to.toUpperCase() === this.account));
       })
       .map(item => {
-        item.income = item.to === this.eth.account.address;
+        item.income = item.to.toUpperCase() === this.account;
         return item;
       });
   }
