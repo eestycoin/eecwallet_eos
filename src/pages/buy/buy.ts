@@ -24,11 +24,11 @@ export class BuyPage {
     console.log('ionViewDidLoad BuyPage');
   }
 
-  onSelectEth() {
+  onSelectEth(type: string) {
     this.navCtrl.push('BuyEthPage');
   }
 
-  onSelectBtc() {
+  onSelectBtc(type: string) {
     this.navCtrl.push('BuyBtcPage');
   }
 

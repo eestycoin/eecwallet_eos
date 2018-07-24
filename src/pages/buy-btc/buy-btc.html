@@ -14,5 +14,28 @@
 
 
 <ion-content padding>
+  <p>
+    Send BTC to the address bellow using mobile wallet and get Member Package 100!
+  </p>
+  <p>
+    The price for the package is
+    <strong>0.0299</strong> BTC.
+  </p>
 
+  <p>
+    <strong>BTC address:</strong>
+  </p>
+
+  <ion-list>
+    <ion-item>
+      <ion-input type="text" id="BTCaddress" value="2N8p9ZSrQ53AswQWw1oyXUhg5X3mnK4oFtt" [(ngModel)]="amount"></ion-input>
+      <button ion-button clear color="dark" type="button" item-right (click)="copy()">
+        <ion-icon name="copy"> </ion-icon>
+      </button>
+    </ion-item>
+  </ion-list>
+
+  <p>
+    <small>Please mind bitcoin transactions and confirmations speed.</small>
+  </p>
 </ion-content>

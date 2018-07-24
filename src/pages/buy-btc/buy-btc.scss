@@ -1,3 +1,15 @@
 page-buy-btc {
-
+    .input-cover {
+        display: none;
+    }
+    .item-inner,
+    .item {
+        padding: 0;
+    }
+    button {
+        margin-right: 0 !important;
+    }
+    input {
+        text-overflow: ellipsis;
+    }
 }
