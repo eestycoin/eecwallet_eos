@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { EthProvider } from '../../providers/eth/eth';
+
 /**
  * Generated class for the BuyEthPage page.
  *
@@ -15,11 +17,23 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class BuyEthPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private eth: EthProvider
+  ) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuyEthPage');
+  }
+
+  onSubmit() {
+    try {
+      const tx = this.eth.buy(1);
+      this.navCtrl.push('ReceiptPage', { tx });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
 }
