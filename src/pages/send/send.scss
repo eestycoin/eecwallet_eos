@@ -7,5 +7,9 @@ page-send {
         -ms-user-select: auto !important;
         -o-user-select: auto !important;
         user-select: auto !important;
+        .text-input-md {
+            margin: 0;
+           padding: 13px 8px;
+        }
     }
 }
