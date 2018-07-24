@@ -13,11 +13,11 @@ export class HomePage {
   balance: number = 0;
   account: string = '0x';
 
-  constructor(public navCtrl: NavController, public eth: EthProvider, private bitgo: BitgoProvider) {
-    
-
-    console.log('eth.ready.subscribe');
-
+  constructor(
+    public navCtrl: NavController, 
+    public eth: EthProvider, 
+    private bitgo: BitgoProvider
+  ) {
     this.bitgo.onInit();
     this.eth.onInit().then(r => {
       if (!r) 

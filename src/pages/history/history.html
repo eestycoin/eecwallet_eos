@@ -13,13 +13,19 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content >
   <ion-list>
       <button ion-item *ngFor="let item of items | async">
+          <ion-icon name="arrow-round-down" item-start *ngIf="item.income"></ion-icon>
+          <ion-icon name="arrow-round-up" item-start *ngIf="!item.income"></ion-icon>
           <h2>{{item.date | date:'medium'}}</h2>
-          <p>To: {{item.to}}</p>
+          <p>
+            <small *ngIf="item.income">From: {{item.from}}</small>
+            <small *ngIf="!item.income">To: {{item.to}}</small>
+          </p>
           <h2 item-end>
-              {{item.amount}}
+            <span *ngIf="!item.income">-</span>
+            {{item.amount}}
           </h2>
       </button>
   </ion-list>

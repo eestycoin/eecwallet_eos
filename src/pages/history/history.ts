@@ -4,6 +4,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { EthProvider } from '../../providers/eth/eth';
 
 /**
  * Generated class for the HistoryPage page.
@@ -24,7 +25,8 @@ export class HistoryPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private eth: EthProvider
   ) {
     // this.items = this.db.collection('items').valueChanges();
   }
@@ -33,14 +35,23 @@ export class HistoryPage {
     this.items = this.db
       .collection('items')
       .valueChanges()
-      .pipe(map(results => results.sort(this.sort).reverse()));
+      .pipe(map(results => this.mapItems(results)));
   }
 
-  // private next() {
-  //   return map(results => results.sort(this.sort).reverse())
-  // }
+  private mapItems(items: any[]) {
+    return items
+      .sort(this.sortByDate)
+      .reverse()
+      .filter(item => {
+        return ((item.from === this.eth.account.address) || (item.to === this.eth.account.address));
+      })
+      .map(item => {
+        item.income = item.to === this.eth.account.address;
+        return item;
+      });
+  }
 
-  private sort(x, y) {
+  private sortByDate(x, y) {
     return x.date < y.date ? -1 : 1;
   }
 }
