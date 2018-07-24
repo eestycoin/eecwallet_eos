@@ -7,10 +7,11 @@ page-send {
         -ms-user-select: auto !important;
         -o-user-select: auto !important;
         user-select: auto !important;
-        .text-input-ios,
-        .text-input-md {
-           margin: 0;
-           padding: 13px 8px;
-        }
+
+    }
+    .text-input-ios,
+    .text-input-md {
+       margin: 0;
+       padding: 13px 8px;
     }
 }
