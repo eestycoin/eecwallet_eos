@@ -6,28 +6,33 @@
 -->
 <ion-header>
 
-    <ion-navbar>
-        <ion-title>Send</ion-title>
-    </ion-navbar>
+  <ion-navbar>
+    <ion-title>Send</ion-title>
+  </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-    <p>
-        <small>
+  <p>
+    <small>
       In order to transfer tokens you should enter public key of recepient wallet and sum of transfer. Tokens will be withdrawed
       from you current wallet.
     </small>
-    </p>
+  </p>
 
+<<<<<<< HEAD
     <p>Recepient's wallet public key:</p>
     <ion-input value="" [(ngModel)]="addressTo" id="output"></ion-input>
+=======
+  <p>Recepient's wallet public key:</p>
+  <ion-input type="text" value="" placeholder="0x00..." [(ngModel)]="addressTo" id="output"></ion-input>
+>>>>>>> parent of afb494e... field fix
 
-    <p>Amount:</p>
-    <ion-input type="number" value="" placeholder="1 ETH" [(ngModel)]="amount"></ion-input>
+  <p>Amount:</p>
+  <ion-input type="number" value="" placeholder="1 ETH" [(ngModel)]="amount"></ion-input>
 
-    <p>&nbsp;</p>
+  <p>&nbsp;</p>
 
-    <button ion-button block (click)="onSubmit()">Submit</button>
+  <button ion-button block (click)="onSubmit()">Submit</button>
 </ion-content>
