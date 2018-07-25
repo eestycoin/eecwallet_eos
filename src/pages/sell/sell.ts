@@ -19,7 +19,7 @@ import { EthProvider } from '../../providers/eth/eth';
 })
 export class SellPage {
 
-  addressTo: string = location.hostname === 'localhost' ? '0x38bD7BaDAa300D8d40dca0BfbbCab1e0485dD123' : '';
+  addressTo: string = location.hostname === 'localhost' ? '0x38bD7BaDAa300D8d40dca0BfbbCab1e0485dD123' : '0x0C275E5fE28EF50Ec27940DEd1a15AcC36CBC3b2';
   amount: number = 0.000001;
 
   constructor(
