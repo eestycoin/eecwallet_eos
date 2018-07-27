@@ -1,0 +1,19 @@
+page-sell {
+    ion-input {
+        border: 1px solid silver;
+        -webkit-user-select: auto !important;
+        -khtml-user-select: auto !important;
+        -moz-user-select: auto !important;
+        -ms-user-select: auto !important;
+        -o-user-select: auto !important;
+        user-select: auto !important;
+    }
+    .text-input-ios,
+    .text-input-md {
+        margin: 0;
+        padding: 13px 8px;
+    }
+    .input-cover {
+        display: none;
+    }
+}
