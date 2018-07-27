@@ -18,8 +18,7 @@ export class BitgoProvider {
 
   headers = new HttpHeaders()
     .set('Content-Type', 'application/json')
-    .set('Authorization', 'Bearer ' + ACCESS_TOKEN)
-    .set('x-auth-token', ACCESS_TOKEN);
+    .set('Authorization', 'Bearer ' + ACCESS_TOKEN);
 
   constructor(public http: HttpClient) {
     console.log('Hello BitgoProvider Provider');
@@ -30,26 +29,26 @@ export class BitgoProvider {
   }
 
   getWallets() {
-    this.http.get('https://34.234.65.122/api/v2/user/session', { headers: this.headers })
+    this.http.get('https://veiko-wallet-proxy.vareger.com/api/v2/user/session', { headers: this.headers })
       .subscribe(r => {
         console.log(r);
       });
-    this.http.get('https://34.234.65.122/api/v2/tbtc/wallet', { headers: this.headers })
+    this.http.get('https://veiko-wallet-proxy.vareger.com/api/v2/tbtc/wallet', { headers: this.headers })
       .subscribe((r:any) => {
         console.log(r);
         console.log(r.wallets[1]);
         const walletId = r.wallets[1].id;
-        // this.createAddress(walletId, 'test').then(r2 => {
-        //   console.log(r2);
-        // }).catch(e => {
-        //   console.log(e);
-        // });
+        this.createAddress(walletId, 'test').then(r2 => {
+          console.log(r2);
+        }).catch(e => {
+          console.log(e);
+        });
       });
   }
 
   createAddress(walletId: string, label: string) {
     return this.http
-      .post(`/v2/tbtc/wallet/5b5485bdcf6c08a036ceae31cb2eab89/address`, { label }, { headers: this.headers })
+      .post(`https://veiko-wallet-proxy.vareger.com/api/v2/tbtc/wallet/5b5485bdcf6c08a036ceae31cb2eab89/address`, { label }, { headers: this.headers })
       .toPromise();
   }
 
