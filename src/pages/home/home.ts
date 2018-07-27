@@ -38,7 +38,7 @@ export class HomePage {
   }
 
   async ionViewDidEnter() {
-    console.log('This account', this.account);
+    // console.log('This account', this.account);
   }
 
   async getBalance() {

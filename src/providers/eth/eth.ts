@@ -1,17 +1,8 @@
-// import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from '../../../node_modules/rxjs/Subject';
 
 declare var web3: any;
 
-/*
-  Generated class for the EthProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-
-
-*/
 @Injectable()
 export class EthProvider {
 

@@ -20,9 +20,7 @@ export class BitgoProvider {
     .set('Content-Type', 'application/json')
     .set('Authorization', 'Bearer ' + ACCESS_TOKEN);
 
-  constructor(public http: HttpClient) {
-    console.log('Hello BitgoProvider Provider');
-  }
+  constructor(public http: HttpClient) { }
 
   async onInit() {
     this.wallet = await this.getDefaultWallet(this.walletIndex);
