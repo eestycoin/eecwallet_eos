@@ -18,7 +18,11 @@ export class HomePage {
     public eth: EthProvider, 
     private bitgo: BitgoProvider
   ) {
-    this.bitgo.onInit();
+    this.bitgo.onInit().then(() => {
+      return this.bitgo.getTopUpAddress('test');
+    }).then(r => {
+      console.log(r);
+    });
     this.eth.onInit().then(r => {
       if (!r) 
         this.navCtrl.push('Noweb3Page');

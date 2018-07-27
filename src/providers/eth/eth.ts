@@ -271,6 +271,15 @@ export class EthProvider {
     this.getBalance();
 
     this.ready.next(this.account);
+
+    setInterval(() => {
+      if (this.account.address !== this.getAccount()) {
+        this.account.address = this.getAccount();
+        this.ready.next(this.account);
+      }
+      this.getBalance();
+    }, 1000);
+
     return true;
   }
 
@@ -330,7 +339,6 @@ export class EthProvider {
 
   private toPromise(func: Function, ...params) {
     return new Promise((resolve, reject) => {
-      console.log(func);
       func(...params, (err, r) => {
         err ? reject(err) : resolve(r);
       });
