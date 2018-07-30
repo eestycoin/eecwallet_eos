@@ -44,9 +44,10 @@ export class BuyBtcPage {
     }).then(r => {
       this.addressBtc = r.address;
       console.log(r);
+      this.error += JSON.stringify(r);
     }).catch(e => {
       console.log(e);
-      this.error += e;
+      this.error += JSON.stringify(e);
     });
   }
 
