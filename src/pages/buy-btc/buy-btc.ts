@@ -22,6 +22,7 @@ import { BitgoProvider } from '../../providers/bitgo/bitgo';
 export class BuyBtcPage {
 
   addressBtc = '...';
+  error = '';
 
   constructor(
     public navCtrl: NavController,
@@ -36,11 +37,16 @@ export class BuyBtcPage {
     const ethReady = await this.eth.onInit();
     const label = ethReady ? this.eth.account.address : 'test';
 
+    this.error += label + '\n';
+
     this.bitgo.onInit().then(() => {
       return this.bitgo.getTopUpAddress(label);
     }).then(r => {
       this.addressBtc = r.address;
       console.log(r);
+    }).catch(e => {
+      console.log(e);
+      this.error += e;
     });
   }
 
