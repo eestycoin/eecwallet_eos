@@ -32,16 +32,15 @@ export class BuyBtcPage {
   ) { }
 
   async ionViewDidLoad() {
-    console.log('ionViewDidLoad BuyBtcPage');
+
     const ethReady = await this.eth.onInit();
     const label = ethReady ? this.eth.account.address : 'test';
 
-    console.log(label);
     this.bitgo.onInit().then(() => {
       return this.bitgo.getTopUpAddress(label);
     }).then(r => {
-      console.log(r);
       this.addressBtc = r.address;
+      console.log(r);
     });
   }
 
