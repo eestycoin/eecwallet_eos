@@ -19,23 +19,24 @@ enum Networks {'MainNet', 'Morden', 'Ropsten', 'Rinkeby', 'Kovan'}
 })
 export class Noweb3Page {
 
+  
   isWeb3: boolean;
   isNetwork: boolean;
+  isLoggedIn: boolean;
   networkName: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private eth: EthProvider) {
   }
 
   async ionViewDidLoad() {
-    console.log('ionViewDidLoad Noweb3Page');
     this.isWeb3 = this.eth.isWeb3();
     this.networkName = Networks[this.eth.network];
+    this.isLoggedIn = !!this.eth.getAccount();
     try {
       this.isNetwork = await this.eth.checkNetwork();
     } catch (error) {
       this.isNetwork = false;
     }
-    
   }
 
 }

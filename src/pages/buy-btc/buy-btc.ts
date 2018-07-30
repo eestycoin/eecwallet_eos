@@ -3,6 +3,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { ToastController } from 'ionic-angular';
 
+import { EthProvider } from '../../providers/eth/eth';
+import { BitgoProvider } from '../../providers/bitgo/bitgo';
+
+
 /**
  * Generated class for the BuyBtcPage page.
  *
@@ -17,16 +21,28 @@ import { ToastController } from 'ionic-angular';
 })
 export class BuyBtcPage {
 
-  addressBtc = '2N8p9ZSrQ53AswQWw1oyXUhg5X3mnK4oFtt';
+  addressBtc = '...';
 
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
-    private toastCtrl: ToastController
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private toastCtrl: ToastController,
+    private bitgo: BitgoProvider,
+    private eth: EthProvider
   ) { }
 
-  ionViewDidLoad() {
+  async ionViewDidLoad() {
     console.log('ionViewDidLoad BuyBtcPage');
+    const ethReady = await this.eth.onInit();
+    const label = ethReady ? this.eth.account.address : 'test';
+
+    console.log(label);
+    this.bitgo.onInit().then(() => {
+      return this.bitgo.getTopUpAddress(label);
+    }).then(r => {
+      console.log(r);
+      this.addressBtc = r.address;
+    });
   }
 
   copy() {
@@ -41,48 +57,48 @@ export class BuyBtcPage {
 
 
 
-window['Clipboard'] = (function(window, document, navigator) {
+window['Clipboard'] = (function (window, document, navigator) {
   var textArea,
-      copy;
+    copy;
 
   function isOS() {
-      return navigator.userAgent.match(/ipad|iphone/i);
+    return navigator.userAgent.match(/ipad|iphone/i);
   }
 
   function createTextArea(text) {
-      textArea = document.createElement('textArea');
-      textArea.value = text;
-      document.body.appendChild(textArea);
+    textArea = document.createElement('textArea');
+    textArea.value = text;
+    document.body.appendChild(textArea);
   }
 
   function selectText() {
-      var range,
-          selection;
+    var range,
+      selection;
 
-      if (isOS()) {
-          range = document.createRange();
-          range.selectNodeContents(textArea);
-          selection = window.getSelection();
-          selection.removeAllRanges();
-          selection.addRange(range);
-          textArea.setSelectionRange(0, 999999);
-      } else {
-          textArea.select();
-      }
+    if (isOS()) {
+      range = document.createRange();
+      range.selectNodeContents(textArea);
+      selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+      textArea.setSelectionRange(0, 999999);
+    } else {
+      textArea.select();
+    }
   }
 
-  function copyToClipboard() {        
-      document.execCommand('copy');
-      document.body.removeChild(textArea);
+  function copyToClipboard() {
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
   }
 
-  copy = function(text) {
-      createTextArea(text);
-      selectText();
-      copyToClipboard();
+  copy = function (text) {
+    createTextArea(text);
+    selectText();
+    copyToClipboard();
   };
 
   return {
-      copy: copy
+    copy: copy
   };
 })(window, document, navigator);

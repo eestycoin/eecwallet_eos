@@ -256,9 +256,13 @@ export class EthProvider {
       return;
     }
 
+    if (!this.getAccount())
+      return;
+
     this.connectContract();
 
     this.account.address = this.getAccount();
+    
     this.getBalance();
 
     this.ready.next(this.account);
