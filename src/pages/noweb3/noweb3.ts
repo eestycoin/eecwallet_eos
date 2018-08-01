@@ -33,7 +33,7 @@ export class Noweb3Page {
     this.networkName = Networks[this.eth.network];
     this.isLoggedIn = !!this.eth.getAccount();
     try {
-      this.isNetwork = await this.eth.checkNetwork();
+      // this.isNetwork = await this.eth.checkNetwork();
     } catch (error) {
       this.isNetwork = false;
     }

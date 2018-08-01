@@ -58,7 +58,10 @@ export class SendPage {
           amount: this.amount 
         };
         this.saveData(data);
+        console.log(tx, data);
         return data;
+      }).catch(e => {
+        console.log(e);
       });
   }
 
