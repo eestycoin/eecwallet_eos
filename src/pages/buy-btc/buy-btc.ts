@@ -21,6 +21,9 @@ import { BitgoProvider } from '../../providers/bitgo/bitgo';
 })
 export class BuyBtcPage {
 
+  amount: number;
+  pack: number;
+  loading: boolean;
   addressBtc = '...';
   error = '';
 
@@ -34,21 +37,20 @@ export class BuyBtcPage {
 
   async ionViewDidLoad() {
 
+    this.loading = true;
+
+    this.amount = this.navParams.get('amount') || 1;
+    this.pack = this.navParams.get('pack') || 100;
+
     const ethReady = await this.eth.onInit();
     const label = ethReady ? this.eth.account.address : 'test';
-
-    this.error += label + '\n';
 
     this.bitgo.onInit().then(() => {
       return this.bitgo.getTopUpAddress(label);
     }).then(r => {
       this.addressBtc = r.address;
-      console.log(r);
-      this.error += JSON.stringify(r);
-    }).catch(e => {
-      console.log(e);
-      this.error += JSON.stringify(e);
-    });
+      this.loading = false;
+    }).catch(console.log);
   }
 
   copy() {

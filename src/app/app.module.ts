@@ -11,6 +11,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { EthProvider } from '../providers/eth/eth';
 import { BitgoProvider } from '../providers/bitgo/bitgo';
+import { RatesProvider } from '../providers/rates/rates';
 
 
 
@@ -45,7 +46,8 @@ const firebase = {
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     EthProvider,
-    BitgoProvider
+    BitgoProvider,
+    RatesProvider
   ]
 })
 export class AppModule {}

@@ -3,12 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { EthProvider } from '../../providers/eth/eth';
 
-/**
- * Generated class for the BuyEthPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -17,6 +11,9 @@ import { EthProvider } from '../../providers/eth/eth';
 })
 export class BuyEthPage {
 
+  amount: number;
+  pack: number;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -24,7 +21,8 @@ export class BuyEthPage {
   ) { }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad BuyEthPage');
+    this.amount = this.navParams.get('amount') || 1;
+    this.pack = this.navParams.get('pack') || 100;
   }
 
   onSubmit() {

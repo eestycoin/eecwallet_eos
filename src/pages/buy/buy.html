@@ -14,47 +14,15 @@
 
 
 <ion-content padding>
-  <div>
-    <ion-segment [(ngModel)]="currency">
-      <ion-segment-button value="eth">
-        ETH
-      </ion-segment-button>
-      <ion-segment-button value="btc">
-        BTC
-      </ion-segment-button>
-    </ion-segment>
-  </div>
-
-  <div [ngSwitch]="currency">
-    <div *ngSwitchCase="'eth'">
-      <p>
-        Available packs:
+  <ion-list>
+    <button ion-item (click)="onSelect(pack)" *ngFor="let pack of membership.packs">
+      <ion-thumbnail item-start>
+        <img src="assets/imgs/membership.png">
+      </ion-thumbnail>
+      <h2>Member {{pack}}</h2>
+      <p>{{pack * membership.coefficient | currency:' ':0}}
+        <small>{{coin}}</small>
       </p>
-      <ion-list>
-        <button ion-item (click)="onSelectEth(100)">Member 100</button>
-        <button ion-item disabled>Member 200</button>
-        <button ion-item disabled>Member 300</button>
-        <button ion-item disabled>Member 400</button>
-      </ion-list>
-      <p>
-        <small>Please mind the comissions: 0.01 ETH will be deducted from the payment and at least 0.005 ETH should be remained
-          on the wallet to run the transaction.</small>
-      </p>
-    </div>
-
-    <div *ngSwitchCase="'btc'">
-      <p>
-        Available packs:
-      </p>
-      <ion-list>
-        <button ion-item (click)="onSelectBtc(100)">Member 100</button>
-        <button ion-item disabled>Member 200</button>
-        <button ion-item disabled>Member 300</button>
-        <button ion-item disabled>Member 400</button>
-      </ion-list>
-      <p>
-        <small>Please mind the comissions.</small>
-      </p>
-    </div>
-  </div>
+    </button>
+  </ion-list>
 </ion-content>

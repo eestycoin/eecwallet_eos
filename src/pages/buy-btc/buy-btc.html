@@ -22,21 +22,28 @@
     <strong>0.0299</strong> BTC.
   </p>
 
-  <p>
-    <strong>BTC address:</strong>
-  </p>
+  <section *ngIf="loading">
+    <ion-spinner name="bubbles"></ion-spinner>
+  </section>
 
-  <ion-list>
-    <ion-item>
-      <ion-input type="text" id="BTCaddress" [(ngModel)]="addressBtc"></ion-input>
-      <button ion-button clear color="dark" type="button" item-right (click)="copy()">
-        <ion-icon name="copy"> </ion-icon>
-      </button>
-    </ion-item>
-  </ion-list>
+  <section *ngIf="!loading">
+    <p>
+      <strong>BTC address:</strong>
+    </p>
+    <ion-list>
+      <ion-item>
+        <ion-input type="text" id="BTCaddress" [(ngModel)]="addressBtc"></ion-input>
+        <button ion-button clear color="dark" type="button" item-right (click)="copy()">
+          <ion-icon name="copy"> </ion-icon>
+        </button>
+      </ion-item>
+    </ion-list>
 
-  <p>
-    <small>Please mind bitcoin transactions and confirmations speed.</small>
-  </p>
-  <pre>{{error}}</pre>
+    <qrcode class="qrcode" [qrdata]="'Your QR code data string'" [size]="256" [level]="'M'"></qrcode>
+
+    <p class="text-center">
+      <small>Please mind bitcoin transactions and confirmations speed.</small>
+    </p>
+  </section>
+
 </ion-content>

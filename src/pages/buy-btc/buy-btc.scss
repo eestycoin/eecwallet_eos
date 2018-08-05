@@ -1,15 +1,24 @@
 page-buy-btc {
-    .input-cover {
-        display: none;
-    }
-    .item-inner,
-    .item {
-        padding: 0;
-    }
-    button {
-        margin-right: 0 !important;
-    }
-    input {
-        text-overflow: ellipsis;
-    }
+  .input-cover {
+    display: none;
+  }
+  .item-inner,
+  .item {
+    padding: 0;
+  }
+  button {
+    margin-right: 0 !important;
+  }
+  input {
+    text-overflow: ellipsis;
+  }
+  ion-spinner {
+    display: block;
+    margin: auto;
+  }
+  .qrcode {
+    margin: 0 auto;
+    width: 250px;
+    display: block;
+  }
 }

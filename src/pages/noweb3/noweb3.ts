@@ -3,14 +3,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { EthProvider } from '../../providers/eth/eth';
 
-/**
- * Generated class for the Noweb3Page page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { environment } from '../../app/environment';
 
-enum Networks {'MainNet', 'Morden', 'Ropsten', 'Rinkeby', 'Kovan'}
+enum Networks {'None', 'MainNet', 'Morden', 'Ropsten', 'Rinkeby', 'Kovan'}
 
 @IonicPage()
 @Component({
@@ -30,10 +25,10 @@ export class Noweb3Page {
 
   async ionViewDidLoad() {
     this.isWeb3 = this.eth.isWeb3();
-    this.networkName = Networks[this.eth.network];
+    this.networkName = Networks[environment.eth.networkId];
     this.isLoggedIn = !!this.eth.getAccount();
     try {
-      // this.isNetwork = await this.eth.checkNetwork();
+      this.isNetwork = await this.eth.checkNetwork();
     } catch (error) {
       this.isNetwork = false;
     }

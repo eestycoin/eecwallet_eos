@@ -1,247 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Subject } from '../../../node_modules/rxjs/Subject';
 
-import { default as Web3 } from "web3";
+import { default as Web3 } from 'web3';
+import { default as Tx } from 'ethereumjs-tx';
+
+import { environment, erc20abi } from '../../app/environment';
 
 
 @Injectable()
 export class EthProvider {
 
-  web3: Web3;
-
-  contractAddr = '0x5D21c109a3A44466d0C79a8B7b8779d289B5Db8C';
-  network = '3';
-
   account = {
     address: '',
-    balance: 0
+    balance: 0,
+    privateKey: environment.eth.testPrivateKey
   }
 
   ready: Subject<any> = new Subject();
 
-  erc20: any;
-  abi = [
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "name",
-      "outputs": [
-        {
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_spender",
-          "type": "address"
-        },
-        {
-          "name": "_value",
-          "type": "uint256"
-        }
-      ],
-      "name": "approve",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "totalSupply",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_from",
-          "type": "address"
-        },
-        {
-          "name": "_to",
-          "type": "address"
-        },
-        {
-          "name": "_value",
-          "type": "uint256"
-        }
-      ],
-      "name": "transferFrom",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "decimals",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint8"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_owner",
-          "type": "address"
-        }
-      ],
-      "name": "balanceOf",
-      "outputs": [
-        {
-          "name": "balance",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "symbol",
-      "outputs": [
-        {
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_to",
-          "type": "address"
-        },
-        {
-          "name": "_value",
-          "type": "uint256"
-        }
-      ],
-      "name": "transfer",
-      "outputs": [
-        {
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_owner",
-          "type": "address"
-        },
-        {
-          "name": "_spender",
-          "type": "address"
-        }
-      ],
-      "name": "allowance",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "payable": true,
-      "stateMutability": "payable",
-      "type": "fallback"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "owner",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "name": "spender",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "value",
-          "type": "uint256"
-        }
-      ],
-      "name": "Approval",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "from",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "name": "to",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "value",
-          "type": "uint256"
-        }
-      ],
-      "name": "Transfer",
-      "type": "event"
-    }
-  ];
+  private erc20: any;
+  private web3: Web3;
 
   constructor() {
     this.onInit();
@@ -253,55 +31,19 @@ export class EthProvider {
 
     this.initWeb3();
 
-    const x = await this.getAccount();
+    this.updateAccount();
 
     this.connectContract();
 
-    const b = await this.getBalance();
-
-    console.log(x, b, 1);
-
-    // if (!this.isWeb3()) {
-    //   // this.initWeb3();
-    //   // return;
-    // } else {
-    //   this.web3 = window['web3'];
-    //   console.log(this.web3);
-    // }
-
-    // return;
-
-    // if (!(await this.checkNetwork())) {
-    //   console.log('checkNetwork failed');
-    //   return;
-    // }
-
-    //   if (!this.getAccount())
-    //     return;
-
-    //   this.connectContract();
-
-    //   this.account.address = this.getAccount();
-
-    //   this.getBalance();
-
-    //   this.ready.next(this.account);
-
-    //   setInterval(() => {
-    //     if (this.account.address !== this.getAccount()) {
-    //       this.account.address = this.getAccount();
-    //       this.ready.next(this.account);
-    //     }
-    //     this.getBalance();
-    //   }, 1000);
-
-    return true;
+    setInterval(() => {
+      this.updateAccount();
+    }, environment.eth.interval);
   }
 
-  // updateAccount() {
-  //   this.account.address = this.getAccount();
-  //   this.getBalance();
-  // }
+  async updateAccount() {
+    this.account.address = await this.getAccount();
+    this.account.balance = await this.getBalance();
+  }
 
   // --------------------------------------------
 
@@ -309,79 +51,49 @@ export class EthProvider {
     return true;
   }
 
+  initWeb3() {
+    const provider = (typeof window['web3'] !== 'undefined') 
+      ? window['web3'].currentProvider 
+      : new Web3.providers.HttpProvider(environment.eth.apiUrl);
+    this.web3 = new Web3(provider)
+  }
+
   connectContract() {
-    this.erc20 = new this.web3.eth.Contract(this.abi, this.contractAddr);
+    this.erc20 = new this.web3.eth.Contract(erc20abi, environment.eth.contractAddr);
   }
 
   // --------------------------------------------
   // Async
 
-  initWeb3() {
-
-    if (typeof window['web3'] !== 'undefined') {
-      this.web3 = new Web3(window['web3'].currentProvider);
-    } else {
-      this.web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/fac5373658944a8a860c901f79dfe34d"));
-    }
-
-    // const privateKey = 'bd013827c4657f3d27522e266f783d87b545cc5bc4cbb12788f3cee88134c5a9';
-    // const account = this.web3.eth.accounts.privateKeyToAccount('0x' + privateKey);
-    // this.web3.eth.accounts.wallet.add(account);
-    // this.web3.eth.defaultAccount = account.address;
-  }
-
-  async getAccount() {
+  async getAccount(): Promise<string> {
     const accounts = await this.web3.eth.getAccounts();
-
     if (!accounts[0]) {
-      console.log('çustom account');
-      const privateKey = 'bd013827c4657f3d27522e266f783d87b545cc5bc4cbb12788f3cee88134c5a9';
-      const account = this.web3.eth.accounts.privateKeyToAccount('0x' + privateKey);
+      const account = this.web3.eth.accounts.privateKeyToAccount('0x' + this.account.privateKey);
       this.web3.eth.accounts.wallet.add(account);
       this.web3.eth.defaultAccount = account.address;
     } else {
       this.web3.eth.defaultAccount = accounts[0];
     }
-
-    const x = await this.web3.eth.getAccounts();
-    console.log(this.web3.eth.defaultAccount, this.web3.eth);
-
     this.account.address = this.web3.eth.defaultAccount;
-
     return this.web3.eth.defaultAccount;
   }
 
-  async getNetwork() {
-    // return this.toPromise(this.web3.version.getNetwork);
+  async getBalance(): Promise<number> {
+    return this.erc20.methods
+      .balanceOf(this.web3.eth.defaultAccount)
+      .call()
+      .then(r => parseFloat(this.web3.utils.fromWei(r, 'ether')))
   }
 
-  async checkNetwork() {
-    const currentNetwork = await this.getNetwork();
-    // return currentNetwork === this.network;
-  }
-
-  async getBalance() {
-    return this.erc20.methods.balanceOf(this.web3.eth.defaultAccount).call()
-      .then(r => {
-        this.account.balance = parseFloat(this.web3.utils.fromWei(r, 'ether'));
-        return this.account.balance;
-      });
+  async checkNetwork(): Promise<boolean> {
+    const currentNetwork = await this.web3.eth.net.getId();
+    return currentNetwork === environment.eth.networkId;
   }
 
   async tranfer(addressTo: string, tokens: number) {
-    console.log(this.erc20);
-    const opts = {
-      from: this.account.address,
-      gas: 100000
-    }
-    return this.erc20.methods.transfer(addressTo, this.web3.utils.toWei(tokens.toString(), 'ether')).send(opts)
-      .then(r => {
-        console.log(r);
-        return r.blockHash;
-      }).catch(e => {
-        console.log(e);
-      })
-    // return this.toPromise(this.erc20.transfer, addressTo, this.web3.toWei(tokens));
+    const value = this.web3.utils.toWei(tokens.toString(), 'ether');
+    return this.send(addressTo, value)
+    // return this.erc20.methods.transfer(addressTo, this.web3.utils.toWei(tokens.toString(), 'ether')).send(opts)
   }
 
   async buy(amount: number) {
@@ -389,18 +101,33 @@ export class EthProvider {
       to: '0x38bD7BaDAa300D8d40dca0BfbbCab1e0485dD123',
       // value: this.web3.toWei(amount)
     }
-    return this.toPromise(this.web3.eth.sendTransaction, transactionObject);
+    // return this.toPromise(this.web3.eth.sendTransaction, transactionObject);
   }
 
-  // --------------------------------------------
-  // Private utils
+  async send(receiver: string, value: number) {
+    const query = this.erc20.methods.transfer(receiver, value);
+    const encodedABI = query.encodeABI();
+    const rawTx = {
+      nonce: await this.web3.eth.getTransactionCount(this.account.address),
+      data: encodedABI,
+      from: this.account.address,
+      to: this.erc20.options.address,
+      value: 0
+    };
+    const privateKey = Buffer.from(this.account.privateKey, 'hex')
+    const tx = new Tx(rawTx);
 
-  private toPromise(func: Function, ...params) {
-    return new Promise((resolve, reject) => {
-      func(...params, (err, r) => {
-        err ? reject(err) : resolve(r);
-      });
-    });
+    tx.gasPrice = 100;
+    tx.gasLimit = 60000;
+    tx.sign(privateKey);
+
+    const serializedTx = tx.serialize();
+
+    return this.web3.eth
+      .sendSignedTransaction('0x' + serializedTx.toString('hex'))
+      .once('transactionHash', console.log)
+      .on('receipt', console.log);
   }
+
 
 }

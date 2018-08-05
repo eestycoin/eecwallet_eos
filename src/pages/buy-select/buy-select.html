@@ -1,0 +1,28 @@
+<!--
+  Generated template for the BuySelectPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Select</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <button ion-item (click)="onSelect(currency)" *ngFor="let currency of currencies">
+      <ion-thumbnail item-start>
+        <img src="assets/imgs/cryptocurrency/{{currency.toLowerCase()}}.svg">
+      </ion-thumbnail>
+      <h2>Price: {{pack / rates.list[currency] | number: '1.6-6'}} {{currency}}</h2>
+      <p>Rate: {{rates.list[currency] | number: '1.4-4'}}
+        <small>{{quote}}</small>
+      </p>
+    </button>
+  </ion-list>
+</ion-content>
