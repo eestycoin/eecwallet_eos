@@ -16,7 +16,7 @@
 <ion-content padding>
   <section *ngIf="data">
     <h4>Tx Hash:</h4>
-    <p><small>{{data.tx}}</small></p>
+    <p><small>{{data.tx || data.transactionHash}}</small></p>
     <h4>Date, Time:</h4>
     <p><small>{{data.date | date:'medium'}}</small></p>
     <h4>From:</h4>

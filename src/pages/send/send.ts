@@ -5,13 +5,6 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { EthProvider } from '../../providers/eth/eth';
 
 
-/**
- * Generated class for the SendPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-send',
