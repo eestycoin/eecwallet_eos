@@ -2,7 +2,7 @@ export const environment = {
   mode: 'dev',
   coin: 'EEC',
   membership: {
-    packs: [100, 250, 500, 1000, 2500, 5000, 12500, 50000],
+    packs: [100, 250, 500, 1000, 2500, 5000, 12500, 25000],
     coefficient: 2,
     currencies: ['BTC', 'ETH']
   },
