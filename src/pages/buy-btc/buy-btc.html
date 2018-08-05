@@ -15,11 +15,11 @@
 
 <ion-content padding>
   <p>
-    Send BTC to the address bellow using mobile wallet and get Member Package 100!
+    Send BTC to the address bellow using mobile wallet and get Member Package {{pack}}!
   </p>
   <p>
     The price for the package is
-    <strong>0.0299</strong> BTC.
+    <strong>{{amount}}</strong> BTC.
   </p>
 
   <section *ngIf="loading">
