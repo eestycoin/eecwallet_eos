@@ -15,11 +15,14 @@ export class EthProvider {
     balance: 0,
     privateKey: environment.eth.testPrivateKey
   }
-
+  
   ready: Subject<any> = new Subject();
+
+  lastTx: string;
 
   private erc20: any;
   private web3: Web3;
+  private embedded: boolean;
 
   constructor() {
     this.onInit();
@@ -41,8 +44,12 @@ export class EthProvider {
   }
 
   async updateAccount() {
-    this.account.address = await this.getAccount();
-    this.account.balance = await this.getBalance();
+    try {
+      this.account.address = await this.getAccount();
+      this.account.balance = await this.getBalance();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   // --------------------------------------------
@@ -52,7 +59,8 @@ export class EthProvider {
   }
 
   initWeb3() {
-    const provider = (typeof window['web3'] !== 'undefined') 
+    this.embedded = typeof window['web3'] !== 'undefined';
+    const provider = this.embedded 
       ? window['web3'].currentProvider 
       : new Web3.providers.HttpProvider(environment.eth.apiUrl);
     this.web3 = new Web3(provider)
@@ -92,19 +100,40 @@ export class EthProvider {
 
   async tranfer(addressTo: string, tokens: number) {
     const value = this.web3.utils.toWei(tokens.toString(), 'ether');
-    return this.send(addressTo, value)
-    // return this.erc20.methods.transfer(addressTo, this.web3.utils.toWei(tokens.toString(), 'ether')).send(opts)
+    const options = {
+      from: this.account.address,
+      to: addressTo
+    }
+    return this.embedded
+      ? this.erc20.methods.transfer(addressTo, this.web3.utils.toWei(tokens.toString(), 'ether')).send(options)
+      : this.transferCoin(addressTo, value)
   }
 
   async buy(amount: number) {
-    const transactionObject = {
-      to: '0x38bD7BaDAa300D8d40dca0BfbbCab1e0485dD123',
-      // value: this.web3.toWei(amount)
+    const options = {
+      to: environment.eth.wallet,
+      value: this.web3.utils.toWei(amount.toString(), 'ether')
     }
-    // return this.toPromise(this.web3.eth.sendTransaction, transactionObject);
+    return this.embedded
+      ? this.web3.eth.sendTransaction(options)
+      : this.send(options.to, options.value)
   }
 
-  async send(receiver: string, value: number) {
+  // ---------------------------------------------------------------------------------------------
+  // private functions
+
+  // send eth
+  private async send(to: string, value: number = 0, data: string = '') {
+    const rawTx = {
+      nonce: await this.web3.eth.getTransactionCount(this.account.address),
+      from: this.account.address,
+      to, data, value
+    };
+    return this.sendTx(rawTx);
+  }
+
+  // trasfer erc20 coin
+  private async transferCoin(receiver: string, value: number) {
     const query = this.erc20.methods.transfer(receiver, value);
     const encodedABI = query.encodeABI();
     const rawTx = {
@@ -114,7 +143,13 @@ export class EthProvider {
       to: this.erc20.options.address,
       value: 0
     };
-    const privateKey = Buffer.from(this.account.privateKey, 'hex')
+    return this.sendTx(rawTx);
+  }
+
+  // sign & send tx
+  private sendTx(rawTx: Tx) {
+    delete this.lastTx;
+    const privateKey = Buffer.from(this.account.privateKey, 'hex');
     const tx = new Tx(rawTx);
 
     tx.gasPrice = 100;
@@ -125,9 +160,8 @@ export class EthProvider {
 
     return this.web3.eth
       .sendSignedTransaction('0x' + serializedTx.toString('hex'))
-      .once('transactionHash', console.log)
+      .once('transactionHash', r => { this.lastTx = r; })
       .on('receipt', console.log);
   }
-
 
 }

@@ -18,6 +18,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class ConfirmPage {
 
   func: Function;
+  loading: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -28,9 +29,12 @@ export class ConfirmPage {
 
   async onSubmit() {
     try {
+      this.loading = true;
       const tx = await this.func();
       this.navCtrl.push('ReceiptPage', { tx });
     } catch (error) {
+      console.log(error);
+      this.loading = false;
       this.onCancel();
     }
   }
