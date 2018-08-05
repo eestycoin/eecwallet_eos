@@ -1,15 +1,8 @@
 import { Component } from '@angular/core';
-import { App, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { HomePage } from '../home/home';
 
-
-/**
- * Generated class for the ReceiptPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -20,17 +13,17 @@ export class ReceiptPage {
 
   data: any;
 
-  constructor(public appCtrl: App, public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams
+  ) { }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ReceiptPage');
     this.data = this.navParams.get('tx');
-    console.log(this.data);
+    this.data.date = Date.now();
   }
 
   onSubmit() {
-    // this.appCtrl.getRootNav().setRoot(HomePage);
     this.navCtrl.setRoot(HomePage);
   }
 

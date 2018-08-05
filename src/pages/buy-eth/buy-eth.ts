@@ -13,6 +13,7 @@ export class BuyEthPage {
 
   amount: number;
   pack: number;
+  loading: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -25,12 +26,14 @@ export class BuyEthPage {
     this.pack = this.navParams.get('pack') || 100;
   }
 
-  onSubmit() {
+  async onSubmit() {
+    this.loading = true;
     try {
-      const tx = this.eth.buy(1);
+      const tx = await this.eth.buy(this.amount);
       this.navCtrl.push('ReceiptPage', { tx });
     } catch (error) {
       console.log(error);
+      this.loading = false;
     }
   }
 
