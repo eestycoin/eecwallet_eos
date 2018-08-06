@@ -13,7 +13,7 @@ export class EthProvider {
   account = {
     address: '',
     balance: 0,
-    privateKey: environment.eth.testPrivateKey
+    privateKey: this.getPrivateKey() //environment.eth.testPrivateKey
   }
   
   ready: Subject<any> = new Subject();
@@ -57,11 +57,11 @@ export class EthProvider {
   // --------------------------------------------
 
   isWeb3() {
-    return true;
+    return typeof window['web3'] !== 'undefined';
   }
 
   isLogged() {
-    return !this.embedded && this.getPrivateKey();
+    return this.embedded || this.getPrivateKey();
   }
 
   initWeb3() {
@@ -90,6 +90,10 @@ export class EthProvider {
 
   async getAccount(): Promise<string> {
     const accounts = await this.web3.eth.getAccounts();
+    if (this.embedded && !accounts[0] && !this.account.privateKey) {
+      alert('Please login in metamask');
+      return;
+    }
     if (!accounts[0]) {
       const account = this.web3.eth.accounts.privateKeyToAccount('0x' + this.account.privateKey);
       this.web3.eth.accounts.wallet.add(account);
@@ -98,6 +102,7 @@ export class EthProvider {
       this.web3.eth.defaultAccount = accounts[0];
     }
     this.account.address = this.web3.eth.defaultAccount;
+    
     return this.web3.eth.defaultAccount;
   }
 
