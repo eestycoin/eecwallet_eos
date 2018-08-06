@@ -28,7 +28,8 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
+    if (!this.eth.isLogged())
+      this.navCtrl.push('LoginPage');
   }
 
   async ionViewDidEnter() {

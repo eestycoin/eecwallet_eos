@@ -44,9 +44,11 @@ export class EthProvider {
   }
 
   async updateAccount() {
+    if (this.isLogged())
     try {
       this.account.address = await this.getAccount();
       this.account.balance = await this.getBalance();
+      this.account.privateKey = this.getPrivateKey();
     } catch (error) {
       console.log(error);
     }
@@ -58,16 +60,29 @@ export class EthProvider {
     return true;
   }
 
+  isLogged() {
+    return !this.embedded && this.getPrivateKey();
+  }
+
   initWeb3() {
     this.embedded = typeof window['web3'] !== 'undefined';
     const provider = this.embedded 
       ? window['web3'].currentProvider 
       : new Web3.providers.HttpProvider(environment.eth.apiUrl);
-    this.web3 = new Web3(provider)
+    this.web3 = new Web3(provider);
   }
 
   connectContract() {
     this.erc20 = new this.web3.eth.Contract(erc20abi, environment.eth.contractAddr);
+  }
+
+  savePrivateKey(privateKey: string) {
+    localStorage.setItem('key', privateKey);
+    this.account.privateKey = privateKey;
+  }
+
+  getPrivateKey() {
+    return localStorage.getItem('key');
   }
 
   // --------------------------------------------
