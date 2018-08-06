@@ -17,7 +17,7 @@
   <ion-list>
     <button ion-item (click)="onSelect(pack)" *ngFor="let pack of membership.packs">
       <ion-thumbnail item-start>
-        <img src="assets/imgs/membership.png">
+        <img src="assets/imgs/packs/{{pack}}.png">
       </ion-thumbnail>
       <h2>Member {{pack}}</h2>
       <p>{{pack * membership.coefficient | currency:' ':0}}
