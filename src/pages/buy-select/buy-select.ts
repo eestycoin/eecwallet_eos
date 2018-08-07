@@ -24,7 +24,7 @@ export class BuySelectPage {
   ) { }
 
   ionViewDidLoad() {
-    this.pack = this.navParams.get('func') || 100;
+    this.pack = this.navParams.get('pack') || 100;
   }
 
   onSelect(currency: string, pack = this.pack) {
