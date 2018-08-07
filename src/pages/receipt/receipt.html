@@ -24,7 +24,10 @@
     <h4>To:</h4>
     <p><small>{{data.to}}</small></p>
     <h4>Amount:</h4>
-    <p><small>{{data.amount}} {{data.currency || 'EEC'}}</small></p>
+    <p *ngIf="data.tx">
+      <small>{{data.amount}} {{data.currency || 'EEC'}}</small></p>
+    <p *ngIf="data.transactionHash">
+      <small>{{data.value}} ETH</small></p>
     <p>&nbsp;</p>
   </section>
   <button ion-button block (click)="onSubmit()">Ok</button>
