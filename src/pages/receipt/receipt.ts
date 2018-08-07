@@ -19,7 +19,7 @@ export class ReceiptPage {
   ) { }
 
   ionViewDidLoad() {
-    this.data = this.navParams.get('tx');
+    this.data = this.navParams.get('tx') || {};
     this.data.date = Date.now();
   }
 

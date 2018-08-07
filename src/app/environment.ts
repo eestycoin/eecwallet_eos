@@ -21,7 +21,7 @@ export const environment = {
   },
   rates: {
     apiUrl: 'https://api.coinmarketcap.com/v2/ticker/',
-    interval: 10000,
+    interval: 25000,
     defaultQuote: 'USD',
     currencies: {
       BTC: 1,

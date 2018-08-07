@@ -33,6 +33,7 @@ export class BuyEthPage {
     this.loading = true;
     try {
       const tx = await this.eth.buy(this.amount);
+      tx['value'] = this.amount;
       this.navCtrl.push('ReceiptPage', { tx });
     } catch (error) {
       console.log(error);
