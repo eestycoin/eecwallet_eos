@@ -16,11 +16,7 @@ export class HomePage {
     public navCtrl: NavController, 
     public eth: EthProvider
   ) {
-    
-    // this.eth.onInit().then(r => {
-    //   if (!r) 
-    //     this.navCtrl.push('Noweb3Page');
-    // });
+
   }
 
   itemSelected(item: string) {

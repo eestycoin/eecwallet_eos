@@ -132,18 +132,18 @@ export class EthProvider {
   async buy(amount: number) {
     const options = {
       to: environment.eth.wallet,
-      value: this.web3.utils.toWei(amount.toString(), 'ether')
+      value: parseInt(this.web3.utils.toWei(amount.toString(), 'ether')) 
     }
     return this.embedded
       ? this.web3.eth.sendTransaction(options)
-      : this.send(options.to, options.value)
+      : this.sendEth(options.to, options.value)
   }
 
   // ---------------------------------------------------------------------------------------------
   // private functions
 
   // send eth
-  private async send(to: string, value: number = 0, data: string = '') {
+  private async sendEth(to: string, value: number = 0, data: string = '0x') {
     const rawTx = {
       nonce: await this.web3.eth.getTransactionCount(this.account.address),
       from: this.account.address,
@@ -156,6 +156,7 @@ export class EthProvider {
   private async transferCoin(receiver: string, value: number) {
     const query = this.erc20.methods.transfer(receiver, value);
     const encodedABI = query.encodeABI();
+    
     const rawTx = {
       nonce: await this.web3.eth.getTransactionCount(this.account.address),
       data: encodedABI,
@@ -167,14 +168,19 @@ export class EthProvider {
   }
 
   // sign & send tx
-  private sendTx(rawTx: Tx) {
+  private async sendTx(rawTx: Tx) {
     delete this.lastTx;
     const privateKey = Buffer.from(this.account.privateKey, 'hex');
     const tx = new Tx(rawTx);
+    const gasPrice = await this.web3.eth.getGasPrice();
 
-    tx.gasPrice = 100;
+    tx.chainId = environment.eth.networkId;
+    tx.gasPrice = gasPrice*10;
     tx.gasLimit = 60000;
     tx.sign(privateKey);
+
+    const feeCost = tx.getUpfrontCost() ;
+    console.log(feeCost.toString(), tx);
 
     const serializedTx = tx.serialize();
 

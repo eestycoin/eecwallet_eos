@@ -12,5 +12,10 @@
       wallet to run the transaction.
     </small>
   </p>
-  <button ion-button block (click)="onSubmit()">Confirm</button>
+  <section *ngIf="!loading">
+    <button ion-button block (click)="onSubmit()">Confirm</button>
+  </section>
+  <section *ngIf="loading">
+    <ion-spinner name="bubbles"></ion-spinner>
+  </section>
 </ion-content>

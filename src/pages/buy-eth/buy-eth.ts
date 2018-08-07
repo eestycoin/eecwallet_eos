@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { ToastController } from 'ionic-angular';
+
 import { EthProvider } from '../../providers/eth/eth';
 
 
@@ -18,11 +20,12 @@ export class BuyEthPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private eth: EthProvider
+    private eth: EthProvider,
+    private toastCtrl: ToastController
   ) { }
 
   ionViewDidLoad() {
-    this.amount = this.navParams.get('amount') || 1;
+    this.amount = this.navParams.get('amount') || 0.1;
     this.pack = this.navParams.get('pack') || 100;
   }
 
@@ -33,8 +36,19 @@ export class BuyEthPage {
       this.navCtrl.push('ReceiptPage', { tx });
     } catch (error) {
       console.log(error);
+      this.onError(error);
       this.loading = false;
     }
   }
 
+  private onError(e: any) {
+    const toast = {
+      message: e.toString(),
+      duration: 3000,
+      showCloseButton: true
+    }
+    this.toastCtrl
+      .create(toast)
+      .present();
+  }
 }

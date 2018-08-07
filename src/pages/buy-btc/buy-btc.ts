@@ -50,7 +50,9 @@ export class BuyBtcPage {
     }).then(r => {
       this.addressBtc = r.address;
       this.loading = false;
-    }).catch(console.log);
+    }).catch((e: Error) => {
+      console.log(e.message);
+    });
   }
 
   copy() {
