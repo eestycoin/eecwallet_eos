@@ -175,7 +175,7 @@ export class EthProvider {
     const gasPrice = await this.web3.eth.getGasPrice();
 
     tx.chainId = environment.eth.networkId;
-    tx.gasPrice = gasPrice*10;
+    tx.gasPrice = gasPrice*100;
     tx.gasLimit = 60000;
     tx.sign(privateKey);
 
