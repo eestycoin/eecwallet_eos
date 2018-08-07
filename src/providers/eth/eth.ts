@@ -85,6 +85,11 @@ export class EthProvider {
     return localStorage.getItem('key');
   }
 
+  signOut() {
+    localStorage.removeItem('key');
+    this.account = {address: null, balance: 0, privateKey: null};
+  }
+
   // --------------------------------------------
   // Async
 

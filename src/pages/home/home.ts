@@ -28,12 +28,19 @@ export class HomePage {
       this.navCtrl.push('LoginPage');
   }
 
+  signOut() {
+    this.eth.signOut();
+  }
+
   async ionViewDidEnter() {
     // console.log('This account', this.account);
   }
 
   async getBalance() {
     this.balance = await this.eth.getBalance();
+    this.navCtrl.push('LoginPage');
   }
+
+  
 
 }

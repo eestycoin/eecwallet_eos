@@ -8,7 +8,9 @@
 
 <ion-content>
   <header>
-    <p><img alt="logo" height="40" src="assets/imgs/logo.png"></p>
+    <p>
+      <img alt="logo" height="40" src="assets/imgs/logo.png">
+    </p>
     <h3>Balance: {{eth.account.balance | number:'1.4-4'}}
       <small>EEC</small>
     </h3>
@@ -38,6 +40,10 @@
       <button ion-item (click)="itemSelected('InfoPage')">
         <ion-icon name="information-circle" item-start></ion-icon>
         Info
+      </button>
+      <button ion-item (click)="signOut()" *ngIf="eth.account.address">
+        <ion-icon name="log-out" item-start></ion-icon>
+        Sign out
       </button>
     </ion-list>
   </section>
