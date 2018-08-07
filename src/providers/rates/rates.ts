@@ -31,7 +31,7 @@ export class RatesProvider {
         const id = environment.rates.currencies[currency];
         this.list[currency] = r.data[id].quotes[environment.rates.defaultQuote].price;
       });
-      console.log(this.list);
+      // console.log(this.list);
   }
 
   private getPrices() {

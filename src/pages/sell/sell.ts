@@ -47,19 +47,28 @@ export class SellPage {
     this.navCtrl.push('ConfirmPage', { func: this.onTransfer.bind(this) })
   }
 
-  onTransfer() {
-    return this.eth.tranfer(this.addressTo, this.amount)
-      .then(tx => {
-        const data = { 
-          tx, 
-          date: Date.now(), 
-          from: this.eth.getAccount(), 
-          to: this.addressTo, 
-          amount: this.amount 
-        };
-        this.saveData(data);
-        return data;
-      });
+  async onTransfer() {
+    let tx = Date.now().toString();
+    let error = '';
+    try {
+      const r = await this.eth.tranfer(this.addressTo, this.amount);
+      tx = r.transactionHash || r;
+    } catch (e) {
+      error = 'Error';
+      if (this.eth.lastTx)
+        tx = this.eth.lastTx;
+    }
+    const data = {
+      tx,
+      date: Date.now(),
+      from: this.eth.account.address,
+      to: this.addressTo,
+      amount: this.amount,
+      error
+    }
+    if (tx)
+      this.saveData(data);
+    return data;
   }
 
   saveData(data) {

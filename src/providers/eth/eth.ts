@@ -180,7 +180,7 @@ export class EthProvider {
     tx.sign(privateKey);
 
     const feeCost = tx.getUpfrontCost() ;
-    console.log(feeCost.toString(), tx);
+    // console.log(feeCost.toString(), tx);
 
     const serializedTx = tx.serialize();
 
