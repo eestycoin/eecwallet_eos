@@ -41,6 +41,8 @@ export class SendPage {
   }
 
   async onTransfer() {
+    if (!this.eth.account.address)
+      return;
     let tx = Date.now().toString();
     let error = '';
     try {
