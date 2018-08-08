@@ -30,6 +30,7 @@ export class HomePage {
 
   signOut() {
     this.eth.signOut();
+    this.navCtrl.push('LoginPage');
   }
 
   async ionViewDidEnter() {
@@ -38,7 +39,6 @@ export class HomePage {
 
   async getBalance() {
     this.balance = await this.eth.getBalance();
-    this.navCtrl.push('LoginPage');
   }
 
   
