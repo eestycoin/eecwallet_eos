@@ -45,7 +45,10 @@ export class HistoryPage {
       .sort(this.sortByDate)
       .reverse()
       .filter(item => {
-        return ((item.from.toUpperCase() === this.account) || (item.to.toUpperCase() === this.account));
+        console.log(item);
+        item.from = item.from || '';
+        item.to = item.to || '';
+        return (!!item.from && !!item.to && (item.from.toUpperCase() === this.account) || (item.to.toUpperCase() === this.account));
       })
       .map(item => {
         item.income = item.to.toUpperCase() === this.account;
