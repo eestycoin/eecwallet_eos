@@ -17,7 +17,7 @@ export const environment = {
     networkId: 3,
     interval: 1000,
     testPrivateKey: 'bd013827c4657f3d27522e266f783d87b545cc5bc4cbb12788f3cee88134c5a9',
-    wallet: '0x38bD7BaDAa300D8d40dca0BfbbCab1e0485dD123'
+    wallet: '0x38bD7BaDAa300D8d40dca0BfbbCab1e0485dD123',
   },
   rates: {
     apiUrl: 'https://api.coinmarketcap.com/v2/ticker/',

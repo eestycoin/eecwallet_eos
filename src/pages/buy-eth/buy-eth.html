@@ -1,20 +1,23 @@
 <ion-header>
-    <ion-navbar>
-        <ion-title>Buy by ETH</ion-title>
-    </ion-navbar>
+  <ion-navbar>
+    <ion-title>Buy by ETH</ion-title>
+  </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-    <p>Please confirm transfer of <strong>{{amount}}</strong> <small>ETH</small><br> to buy <strong>Member Package {{pack}}</strong>. </p>
-    <p>
-        <small> Please mind the comissions for transactions with ETH.
-    </small>
-    </p>
-    <section *ngIf="!loading">
-        <button ion-button block (click)="onSubmit()">Confirm</button>
-    </section>
-    <section *ngIf="loading">
-        <ion-spinner name="bubbles"></ion-spinner>
-    </section>
+  <p>Please confirm transfer of
+    <strong>{{amount}}</strong>
+    <small>ETH</small>
+    <br> to buy
+    <strong>Member Package {{pack}}</strong>. </p>
+  <p>
+    <small>Please mind the comissions for transactions with ETH.</small>
+  </p>
+  <section *ngIf="!loading">
+    <button ion-button block (click)="onSubmit()">Confirm</button>
+  </section>
+  <section *ngIf="loading">
+    <ion-spinner name="bubbles"></ion-spinner>
+  </section>
 </ion-content>

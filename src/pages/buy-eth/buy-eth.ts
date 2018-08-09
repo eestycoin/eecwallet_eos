@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 
 import { EthProvider } from '../../providers/eth/eth';
+import { ToasterProvider } from '../../providers/toaster/toaster';
 
 
 @IonicPage()
@@ -21,7 +22,7 @@ export class BuyEthPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private eth: EthProvider,
-    private toastCtrl: ToastController
+    private toast: ToasterProvider
   ) { }
 
   ionViewDidLoad() {
@@ -37,18 +38,11 @@ export class BuyEthPage {
       this.navCtrl.push('ReceiptPage', { tx });
     } catch (error) {
       this.onError(error);
-      this.loading = false;
     }
   }
 
   private onError(e: any) {
-    const toast = {
-      message: e.toString(),
-      duration: 3000,
-      showCloseButton: true
-    }
-    this.toastCtrl
-      .create(toast)
-      .present();
+    this.loading = false;
+    this.toast.showError(e);
   }
 }

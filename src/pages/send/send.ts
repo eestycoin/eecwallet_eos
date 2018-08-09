@@ -4,6 +4,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { EthProvider } from '../../providers/eth/eth';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 
+import { environment } from '../../app/environment';
+
+
 @IonicPage()
 @Component({
   selector: 'page-send',
@@ -11,7 +14,7 @@ import { FirebaseProvider } from '../../providers/firebase/firebase';
 })
 export class SendPage {
 
-  addressTo: string = location.hostname === 'localhost' ? '0x38bD7BaDAa300D8d40dca0BfbbCab1e0485dD123' : '';
+  addressTo: string = environment.eth.wallet;
   amount: number = 0.000001;
 
   constructor(
