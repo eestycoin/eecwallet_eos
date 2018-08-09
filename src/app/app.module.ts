@@ -12,6 +12,8 @@ import { HomePage } from '../pages/home/home';
 import { EthProvider } from '../providers/eth/eth';
 import { BitgoProvider } from '../providers/bitgo/bitgo';
 import { RatesProvider } from '../providers/rates/rates';
+import { FirebaseProvider } from '../providers/firebase/firebase';
+import { ToasterProvider } from '../providers/toaster/toaster';
 
 
 
@@ -32,7 +34,7 @@ const firebase = {
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, { preloadModules: true }),
     AngularFireModule.initializeApp(firebase),
     AngularFirestoreModule
   ],
@@ -44,10 +46,12 @@ const firebase = {
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     EthProvider,
     BitgoProvider,
-    RatesProvider
+    RatesProvider,
+    FirebaseProvider,
+    ToasterProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }

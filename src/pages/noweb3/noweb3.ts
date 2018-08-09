@@ -5,6 +5,9 @@ import { EthProvider } from '../../providers/eth/eth';
 
 import { environment } from '../../app/environment';
 
+import { HomePage } from '../home/home';
+
+
 enum Networks {'None', 'MainNet', 'Morden', 'Ropsten', 'Rinkeby', 'Kovan'}
 
 @IonicPage()
@@ -14,6 +17,7 @@ enum Networks {'None', 'MainNet', 'Morden', 'Ropsten', 'Rinkeby', 'Kovan'}
 })
 export class Noweb3Page {
 
+  loop: any;
   
   isWeb3: boolean;
   isNetwork: boolean;
@@ -24,14 +28,29 @@ export class Noweb3Page {
   }
 
   async ionViewDidLoad() {
-    this.isWeb3 = this.eth.isWeb3();
+    this.isWeb3 = true;
     this.networkName = Networks[environment.eth.networkId];
-    this.isLoggedIn = !!this.eth.getAccount();
+    
+    this.checkWeb3();
+    this.loop = setInterval(() => {
+      this.checkWeb3();
+    }, 500);
+  }
+
+  async checkWeb3() {
     try {
+      this.isLoggedIn = !!(await this.eth.getAccount());
       this.isNetwork = await this.eth.checkNetwork();
     } catch (error) {
-      this.isNetwork = false;
+      console.log(error);
     }
+    if (this.isLoggedIn && this.isNetwork) {
+      this.navCtrl.setRoot(HomePage);
+    }
+  }
+
+  ionViewWillLeave() {
+    clearInterval(this.loop);
   }
 
 }

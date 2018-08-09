@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { ToasterProvider } from '../../providers/toaster/toaster';
+
 
 @IonicPage()
 @Component({
@@ -12,27 +14,33 @@ export class ConfirmPage {
   func: Function;
   loading: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    private toast: ToasterProvider
+  ) { }
 
   ionViewDidLoad() {
+    this.loading = false;
     this.func = this.navParams.get('func');
   }
 
   async onSubmit() {
     try {
       this.loading = true;
-      const tx = await this.func();
-      this.navCtrl.push('ReceiptPage', { tx });
+      this.navCtrl.push('ReceiptPage', { tx: await this.func() });
     } catch (error) {
-      console.log(error);
-      this.loading = false;
+      this.onError(error);
       this.onCancel();
     }
   }
 
   onCancel() {
     this.navCtrl.pop();
+  }
+
+  private onError(e: any) {
+    this.toast.showError(e);
   }
 
 }

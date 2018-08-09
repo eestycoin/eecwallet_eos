@@ -30,6 +30,7 @@ export class LoginPage {
   onSubmit() {
     console.log('onSubmit');
     this.eth.savePrivateKey(this.privateKey);
+    this.eth.onInit();
     this.navCtrl.setRoot(HomePage);
   }
 

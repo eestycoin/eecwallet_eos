@@ -36,7 +36,6 @@ export class BuyEthPage {
       tx['value'] = this.amount;
       this.navCtrl.push('ReceiptPage', { tx });
     } catch (error) {
-      console.log(error);
       this.onError(error);
       this.loading = false;
     }

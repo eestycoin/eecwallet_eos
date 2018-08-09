@@ -5,7 +5,7 @@ import { ToastController } from 'ionic-angular';
 
 import { EthProvider } from '../../providers/eth/eth';
 import { BitgoProvider } from '../../providers/bitgo/bitgo';
-
+import { ToasterProvider } from '../../providers/toaster/toaster';
 
 /**
  * Generated class for the BuyBtcPage page.
@@ -30,7 +30,7 @@ export class BuyBtcPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private toastCtrl: ToastController,
+    private toast: ToasterProvider,
     private bitgo: BitgoProvider,
     private eth: EthProvider
   ) { }
@@ -57,11 +57,7 @@ export class BuyBtcPage {
 
   copy() {
     window['Clipboard'].copy(this.addressBtc);
-    const toast = this.toastCtrl.create({
-      message: 'Address copied successfully',
-      duration: 250
-    });
-    toast.present();
+    this.toast.showInfo('Address copied successfully');
   }
 }
 

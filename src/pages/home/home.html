@@ -41,7 +41,7 @@
         <ion-icon name="information-circle" item-start></ion-icon>
         Info
       </button>
-      <button ion-item (click)="signOut()" *ngIf="eth.account.address">
+      <button ion-item (click)="signOut()" *ngIf="!eth.embedded && eth.account.address">
         <ion-icon name="log-out" item-start></ion-icon>
         Sign out
       </button>

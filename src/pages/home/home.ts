@@ -23,11 +23,6 @@ export class HomePage {
     this.navCtrl.push(item);
   }
 
-  ionViewDidLoad() {
-    if (!this.eth.isLogged())
-      this.navCtrl.push('LoginPage');
-  }
-
   signOut() {
     this.eth.signOut();
     this.navCtrl.push('LoginPage');

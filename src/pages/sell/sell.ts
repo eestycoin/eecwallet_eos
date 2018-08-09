@@ -27,28 +27,14 @@ export class SellPage {
     public navParams: NavParams,
     private eth: EthProvider,
     private db: AngularFirestore
-  ) {
-    this.eth.ready.subscribe(account => {
-      console.log(account);
-    });
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SendPage');
-  }
-
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter SendPage');
-  }
-
-  // ----
+  ) { }
 
   onSubmit() {
     this.navCtrl.push('ConfirmPage', { func: this.onTransfer.bind(this) })
   }
 
   async onTransfer() {
-    if (!this.eth.account.address)
+    if (!this.eth.account.address || !this.amount)
       return;
     let tx = Date.now().toString();
     let error = '';

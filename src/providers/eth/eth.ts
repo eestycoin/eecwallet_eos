@@ -11,58 +11,36 @@ import { environment, erc20abi } from '../../app/environment';
 export class EthProvider {
 
   account = {
-    address: '',
+    address: undefined,
     balance: 0,
-    privateKey: this.getPrivateKey() //environment.eth.testPrivateKey
+    privateKey: this.getPrivateKey()
   }
   
-  ready: Subject<any> = new Subject();
+  accountChanged: Subject<any> = new Subject();
 
   lastTx: string;
 
   private erc20: any;
   private web3: Web3;
-  private embedded: boolean;
+  
+  embedded: boolean;
 
   constructor() {
-    this.onInit();
+    this.initWeb3();
+    this.connectContract();
   }
 
   // --------------------------------------------
 
   async onInit() {
-
-    this.initWeb3();
-
     this.updateAccount();
-
-    this.connectContract();
-
     setInterval(() => {
-      this.updateAccount();
+      if (this.isLogged())
+        this.updateAccount();
     }, environment.eth.interval);
   }
 
-  async updateAccount() {
-    if (this.isLogged())
-    try {
-      this.account.address = await this.getAccount();
-      this.account.balance = await this.getBalance();
-      this.account.privateKey = this.getPrivateKey();
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   // --------------------------------------------
-
-  isWeb3() {
-    return typeof window['web3'] !== 'undefined';
-  }
-
-  isLogged() {
-    return this.embedded || this.getPrivateKey();
-  }
 
   initWeb3() {
     this.embedded = typeof window['web3'] !== 'undefined';
@@ -85,9 +63,13 @@ export class EthProvider {
     return localStorage.getItem('key');
   }
 
+  isLogged() {
+    return this.embedded || this.getPrivateKey();
+  }
+
   signOut() {
     localStorage.removeItem('key');
-    this.account = {address: null, balance: 0, privateKey: null};
+    this.account = { address: null, balance: 0, privateKey: null };
   }
 
   // --------------------------------------------
@@ -95,11 +77,10 @@ export class EthProvider {
 
   async getAccount(): Promise<string> {
     const accounts = await this.web3.eth.getAccounts();
-    if (this.embedded && !accounts[0] && !this.account.privateKey) {
-      alert('Please login in metamask');
-      return;
-    }
-    if (!accounts[0]) {
+
+    if (!accounts[0] && !this.embedded) {
+      // console.log(accounts[0], this.getPrivateKey());
+      if (!this.getPrivateKey()) return null;
       const account = this.web3.eth.accounts.privateKeyToAccount('0x' + this.account.privateKey);
       this.web3.eth.accounts.wallet.add(account);
       this.web3.eth.defaultAccount = account.address;
@@ -109,6 +90,21 @@ export class EthProvider {
     this.account.address = this.web3.eth.defaultAccount;
     
     return this.web3.eth.defaultAccount;
+  }
+
+  async updateAccount() {
+    const oldAccountAddress = this.account.address;
+    // if (this.isLogged())
+    try {
+      this.account.address = await this.getAccount();
+      this.account.balance = await this.getBalance();
+      this.account.privateKey = this.getPrivateKey();
+      // console.log(this.account.address, oldAccountAddress);
+      if (this.account.address !== oldAccountAddress)
+        this.accountChanged.next(this.account);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async getBalance(): Promise<number> {
@@ -130,8 +126,8 @@ export class EthProvider {
       to: addressTo
     }
     return this.embedded
-      ? this.erc20.methods.transfer(addressTo, this.web3.utils.toWei(tokens.toString(), 'ether')).send(options)
-      : this.transferCoin(addressTo, value)
+      ? this.erc20.methods.transfer(addressTo, value).send(options)
+      : this.transferCoin(addressTo, value);
   }
 
   async buy(amount: number) {
@@ -141,7 +137,7 @@ export class EthProvider {
     }
     return this.embedded
       ? this.web3.eth.sendTransaction(options)
-      : this.sendEth(options.to, options.value)
+      : this.sendEth(options.to, options.value);
   }
 
   // ---------------------------------------------------------------------------------------------
@@ -161,7 +157,6 @@ export class EthProvider {
   private async transferCoin(receiver: string, value: number) {
     const query = this.erc20.methods.transfer(receiver, value);
     const encodedABI = query.encodeABI();
-    
     const rawTx = {
       nonce: await this.web3.eth.getTransactionCount(this.account.address),
       data: encodedABI,
@@ -184,7 +179,7 @@ export class EthProvider {
     tx.gasLimit = 60000;
     tx.sign(privateKey);
 
-    const feeCost = tx.getUpfrontCost() ;
+    // const feeCost = tx.getUpfrontCost() ;
     // console.log(feeCost.toString(), tx);
 
     const serializedTx = tx.serialize();
