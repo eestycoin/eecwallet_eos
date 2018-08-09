@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 
 import { EthProvider } from '../../providers/eth/eth';
+import { ToasterProvider } from '../../providers/toaster/toaster';
 
 import { environment } from '../../app/environment';
 
@@ -20,7 +21,8 @@ export class LoginPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private eth: EthProvider
+    private eth: EthProvider,
+    private toast: ToasterProvider
   ) { }
 
   ionViewDidLoad() {
@@ -29,9 +31,15 @@ export class LoginPage {
 
   onSubmit() {
     console.log('onSubmit');
-    this.eth.savePrivateKey(this.privateKey);
-    this.eth.onInit();
-    this.navCtrl.setRoot(HomePage);
+    try {
+      const t = this.eth.privateKeyToAccount(this.privateKey);
+      this.eth.savePrivateKey(this.privateKey);
+      this.eth.onInit();
+      this.navCtrl.setRoot(HomePage);
+    } catch (error) {
+      console.log(error);
+      this.toast.showError(error);
+    }
   }
 
 }

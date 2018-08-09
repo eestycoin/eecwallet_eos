@@ -72,6 +72,10 @@ export class EthProvider {
     this.account = { address: null, balance: 0, privateKey: null };
   }
 
+  privateKeyToAccount(privateKey: string) {
+    return this.web3.eth.accounts.privateKeyToAccount('0x' + privateKey);
+  }
+
   // --------------------------------------------
   // Async
 

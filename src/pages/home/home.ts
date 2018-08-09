@@ -9,15 +9,10 @@ import { EthProvider } from '../../providers/eth/eth';
 })
 export class HomePage {
 
-  balance: number = 0;
-  account: string = '0x';
-
   constructor(
     public navCtrl: NavController, 
     public eth: EthProvider
-  ) {
-
-  }
+  ) { }
 
   itemSelected(item: string) {
     this.navCtrl.push(item);
@@ -27,15 +22,5 @@ export class HomePage {
     this.eth.signOut();
     this.navCtrl.push('LoginPage');
   }
-
-  async ionViewDidEnter() {
-    // console.log('This account', this.account);
-  }
-
-  async getBalance() {
-    this.balance = await this.eth.getBalance();
-  }
-
-  
 
 }
