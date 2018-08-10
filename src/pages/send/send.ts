@@ -16,7 +16,7 @@ export class SendPage {
 
   addressTo: string = environment.eth.wallet;
   amount: number = 1;
-  max = 100000;
+  max = 1;
 
   constructor(
     public navCtrl: NavController,
