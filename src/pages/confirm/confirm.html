@@ -1,22 +1,22 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>confirm</ion-title>
-  </ion-navbar>
+    <ion-navbar hideBackButton>
+        <ion-title>Confirm</ion-title>
+    </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>This transaction cannot be canceled later.
-    <br>Please confirm your transaction.</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <section *ngIf="loading">
-    <ion-spinner name="bubbles"></ion-spinner>
-  </section>
-  <section *ngIf="!loading">
-    <button ion-button block (click)="onSubmit()">Confirm</button>
-    <button ion-button block (click)="onCancel()" color="danger">Cancel</button>
-  </section>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>This transaction cannot be canceled later.
+        <br>Please confirm your transaction.</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <section *ngIf="loading">
+        <ion-spinner name="bubbles"></ion-spinner>
+    </section>
+    <section *ngIf="!loading">
+        <button ion-button block (click)="onSubmit()">Confirm</button>
+        <button ion-button block (click)="onCancel()" color="danger">Cancel</button>
+    </section>
 </ion-content>

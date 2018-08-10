@@ -1,20 +1,20 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Login</ion-title>
-  </ion-navbar>
+    <ion-navbar hideBackButton>
+        <ion-title>Login</ion-title>
+    </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-  <p>
-    <small>
+    <p>
+        <small>
       Please input your private key. Key will be stored on device.
     </small>
-  </p>
-  <p>Private key:</p>
-  <ion-input type="text" clearInput [(ngModel)]="privateKey" id="privateKey"></ion-input>
+    </p>
+    <p>Private key:</p>
+    <ion-input type="text" clearInput [(ngModel)]="privateKey" id="privateKey"></ion-input>
 
-  <p>&nbsp;</p>
+    <p>&nbsp;</p>
 
-  <button ion-button block (click)="onSubmit()" [disabled]="!privateKey">Submit</button>
+    <button ion-button block (click)="onSubmit()" [disabled]="!privateKey">Submit</button>
 </ion-content>
