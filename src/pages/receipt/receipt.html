@@ -1,26 +1,26 @@
 <ion-header>
-  <ion-navbar hideBackButton>
-    <ion-title>tTansaction Receipt</ion-title>
-  </ion-navbar>
+    <ion-navbar hideBackButton>
+        <ion-title>Transaction Receipt</ion-title>
+    </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-  <section *ngIf="data">
-    <h4>Transaction Hash:</h4>
-    <p><small>{{data.tx || data.transactionHash}}</small></p>
-    <h4>Date, Time:</h4>
-    <p><small>{{data.date | date:'medium'}}</small></p>
-    <h4>From:</h4>
-    <p><small>{{data.from}}</small></p>
-    <h4>To:</h4>
-    <p><small>{{data.to}}</small></p>
-    <h4>Amount:</h4>
-    <p *ngIf="!data.value">
-      <small>{{data.amount}} {{data.currency || 'EEC'}}</small></p>
-    <p *ngIf="data.value">
-      <small>{{data.value}} ETH</small></p>
-    <p>&nbsp;</p>
-  </section>
-  <button ion-button block (click)="onSubmit()">Ok</button>
+    <section *ngIf="data">
+        <h4>Transaction Hash:</h4>
+        <p><small>{{data.tx || data.transactionHash}}</small></p>
+        <h4>Date, Time:</h4>
+        <p><small>{{data.date | date:'medium'}}</small></p>
+        <h4>From:</h4>
+        <p><small>{{data.from}}</small></p>
+        <h4>To:</h4>
+        <p><small>{{data.to}}</small></p>
+        <h4>Amount:</h4>
+        <p *ngIf="!data.value">
+            <small>{{data.amount}} {{data.currency || 'EEC'}}</small></p>
+        <p *ngIf="data.value">
+            <small>{{data.value}} ETH</small></p>
+        <p>&nbsp;</p>
+    </section>
+    <button ion-button block (click)="onSubmit()">Ok</button>
 </ion-content>
