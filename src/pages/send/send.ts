@@ -40,7 +40,7 @@ export class SendPage {
 
   onChange(e: number) {
     setTimeout(() => {
-      this.amount = (this.amount >= this.max) ? this.max : this.amount;
+      this.amount = (this.amount >= this.max) ? Math.ceil(this.max) : this.amount;
     });
   }
 

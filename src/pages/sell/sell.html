@@ -20,5 +20,5 @@
   
   <p>&nbsp;</p>
 
-  <button ion-button block (click)="onSubmit()" [disabled]="!amount">Submit</button>
+  <button ion-button block (click)="onSubmit()" [disabled]="!amount || amount >= max">Submit</button>
 </ion-content>
