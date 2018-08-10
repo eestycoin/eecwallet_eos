@@ -23,7 +23,9 @@ export class SendPage {
     public navParams: NavParams,
     private eth: EthProvider,
     private db: FirebaseProvider
-  ) { }
+  ) { 
+    this.max = this.eth.account.balance;
+  }
 
   @HostListener('input', ['$event'])
     onInput(event: Event) {
@@ -37,11 +39,11 @@ export class SendPage {
 
     this.navCtrl.push('ConfirmPage', { func: this.onTransfer.bind(this) })
   }
-
+а
   onChange(e: number) {
-    setTimeout(() => {
-      this.amount = (this.amount >= this.max) ? Math.ceil(this.max) : this.amount;
-    });
+    // setTimeout(() => {
+    //   this.amount = (this.amount >= this.max) ? Math.ceil(this.max) : this.amount;
+    // });
   }
 
   async onTransfer() {
