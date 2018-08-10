@@ -38,7 +38,7 @@ export class LoginPage {
       this.navCtrl.setRoot(HomePage);
     } catch (error) {
       console.log(error);
-      this.toast.showError(error);
+      this.toast.showError('Private key is incorrect or wallet doesn’t exist');
     }
   }
 
