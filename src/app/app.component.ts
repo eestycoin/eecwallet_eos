@@ -40,7 +40,8 @@ export class MyApp {
 
   async setRootPage() {
     const account = await this.eth.getAccount();
-    if (account) {
+    const checkNetwork = await this.eth.checkNetwork();
+    if (account && checkNetwork) {
       this.eth.onInit();
       this.rootPage = HomePage;
     } else {
