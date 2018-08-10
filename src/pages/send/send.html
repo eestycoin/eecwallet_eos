@@ -16,8 +16,9 @@
   <p>Recepient's wallet public key:</p>
   <ion-input type="text" clearInput [(ngModel)]="addressTo" id="output"></ion-input>
 
-  <p>Amount:</p>
-  <ion-input type="number" min="0" placeholder="1 ETH" [(ngModel)]="amount"></ion-input>
+  <p>Amount, EEC:</p>
+  <ion-input type="number" min="1" step="1" placeholder="1" pattern="[0-9]*" 
+    [(ngModel)]="amount" (ngModelChange)="onChange($event)"></ion-input>
 
   <p>&nbsp;</p>
 
