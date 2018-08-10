@@ -28,11 +28,14 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+
+    window.location.hash = '';
     
     this.rates.onInit();
 
     this.eth.accountChanged.subscribe(() => this.setRootPage());
     this.eth.updateAccount();
+    
   }
 
   async setRootPage() {
