@@ -1,5 +1,8 @@
 export const environment = {
   mode: 'dev',
+  ionic: {
+    preloadModules: true
+  },
   coin: 'EEC',
   membership: {
     packs: [100, 250, 500, 1000, 2500, 5000, 12500, 25000],
@@ -28,6 +31,14 @@ export const environment = {
       LTC: 2,
       ETH: 1027
     }
+  },
+  firebase: {
+    apiKey: 'AIzaSyBMguwZpwMNKw_Q8-WrUJ5rbNi7hbZKcxo',
+    authDomain: 'veiko-77bd8.firebaseapp.com',
+    databaseURL: 'https://veiko-77bd8.firebaseio.com',
+    projectId: 'veiko-77bd8',
+    storageBucket: 'veiko-77bd8.appspot.com',
+    messagingSenderId: '264863290527'
   }
 }
 

@@ -15,16 +15,8 @@ import { RatesProvider } from '../providers/rates/rates';
 import { FirebaseProvider } from '../providers/firebase/firebase';
 import { ToasterProvider } from '../providers/toaster/toaster';
 
+import { environment } from './environment';
 
-
-const firebase = {
-  apiKey: 'AIzaSyBMguwZpwMNKw_Q8-WrUJ5rbNi7hbZKcxo',
-  authDomain: 'veiko-77bd8.firebaseapp.com',
-  databaseURL: 'https://veiko-77bd8.firebaseio.com',
-  projectId: 'veiko-77bd8',
-  storageBucket: 'veiko-77bd8.appspot.com',
-  messagingSenderId: '264863290527'
-}
 
 @NgModule({
   declarations: [
@@ -34,8 +26,8 @@ const firebase = {
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp, { preloadModules: true }),
-    AngularFireModule.initializeApp(firebase),
+    IonicModule.forRoot(MyApp, environment.ionic),
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule
   ],
   bootstrap: [IonicApp],
