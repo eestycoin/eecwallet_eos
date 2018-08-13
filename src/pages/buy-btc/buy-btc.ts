@@ -1,18 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { ToastController } from 'ionic-angular';
-
 import { EthProvider } from '../../providers/eth/eth';
 import { BitgoProvider } from '../../providers/bitgo/bitgo';
 import { ToasterProvider } from '../../providers/toaster/toaster';
 
-/**
- * Generated class for the BuyBtcPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -23,6 +15,7 @@ export class BuyBtcPage {
 
   amount: number;
   pack: number;
+  currency: string;
   loading: boolean;
   addressBtc = '...';
   error = '';
@@ -41,18 +34,18 @@ export class BuyBtcPage {
 
     this.amount = this.navParams.get('amount') || 1;
     this.pack = this.navParams.get('pack') || 100;
+    this.currency = this.navParams.get('currency') || 'BTC';
 
-    const ethReady = await this.eth.onInit();
-    const label = ethReady ? this.eth.account.address : 'test';
+    const label = this.eth.account.address;
+    const currency = 't' + this.currency.toLowerCase();
 
-    this.bitgo.onInit().then(() => {
-      return this.bitgo.getTopUpAddress(label);
-    }).then(r => {
-      this.addressBtc = r.address;
+    try {
+      const wallet = await this.bitgo.getWalletAddress(currency, label);
+      this.addressBtc = wallet.address;
       this.loading = false;
-    }).catch((e: Error) => {
-      console.log(e.message);
-    });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   copy() {

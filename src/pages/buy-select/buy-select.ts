@@ -29,9 +29,10 @@ export class BuySelectPage {
 
   onSelect(currency: string, pack = this.pack) {
     const amount = this.pack / this.rates.list[currency];
-    const page = `Buy${this.capitalize(currency)}Page`;
+    const selected = (currency === 'ETH') ? 'ETH' : 'BTC';
+    const page = `Buy${this.capitalize(selected)}Page`;
 
-    this.navCtrl.push(page, { amount, pack });
+    this.navCtrl.push(page, { amount, pack, currency });
   }
 
   capitalize(string) {

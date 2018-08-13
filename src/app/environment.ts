@@ -7,12 +7,13 @@ export const environment = {
   membership: {
     packs: [100, 250, 500, 1000, 2500, 5000, 12500, 25000],
     coefficient: 2,
-    currencies: ['BTC', 'ETH']
+    currencies: ['BTC', 'ETH', 'BCH', 'LTC', 'ZEC']
   },
   bitgo: {
     accessToken: 'v2x8473d567ae7b4bff3895cdf4dca67a85c53f0aabad726d6061794505d32b16a3',
     apiUrl: 'https://veiko-wallet-proxy.vareger.com/api/v2',
-    walletIndex: 0
+    walletIndex: 0,
+    currencyPrefix: 't'
   },
   eth: {
     apiUrl: 'https://veiko-proxy-ropsten.vareger.com/v3/fac5373658944a8a860c901f79dfe34d',
@@ -29,7 +30,9 @@ export const environment = {
     currencies: {
       BTC: 1,
       LTC: 2,
-      ETH: 1027
+      BCH: 1831,
+      ETH: 1027,
+      ZEC: 1437
     }
   },
   firebase: {

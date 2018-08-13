@@ -10,14 +10,18 @@ export class BitgoProvider {
   public wallet: any;
   public address: any;
 
+  private currency: string;
+
   private headers = new HttpHeaders()
     .set('Content-Type', 'application/json')
     .set('Authorization', 'Bearer ' + environment.bitgo.accessToken);
 
   constructor(public http: HttpClient) { }
 
-  async onInit() {
+  async getWalletAddress(currency: string, label: string) {
+    this.currency = currency;
     this.wallet = await this.getDefaultWallet(environment.bitgo.walletIndex);
+    return await this.getTopUpAddress(label);
   }
 
   async getTopUpAddress(label: string) {
@@ -37,21 +41,21 @@ export class BitgoProvider {
 
   private getWallets() {
     return this.http
-      .get(`${environment.bitgo.apiUrl}/tbtc/wallet`, { headers: this.headers })
+      .get(`${environment.bitgo.apiUrl}/${this.currency}/wallet`, { headers: this.headers })
       .toPromise()
       .then((r: any) => r.wallets);
   }
 
   private getAddresses(walletId: string) {
     return this.http
-      .get(`${environment.bitgo.apiUrl}/tbtc/wallet/${walletId}/addresses`, { headers: this.headers })
+      .get(`${environment.bitgo.apiUrl}/${this.currency}/wallet/${walletId}/addresses`, { headers: this.headers })
       .toPromise()
       .then((r: any) => r.addresses);
   }
 
   private createAddress(walletId: string, label: string) {
     return this.http
-      .post(`${environment.bitgo.apiUrl}/tbtc/wallet/${walletId}/address`, { label }, { headers: this.headers })
+      .post(`${environment.bitgo.apiUrl}/${this.currency}/wallet/${walletId}/address`, { label }, { headers: this.headers })
       .toPromise();
   }
 

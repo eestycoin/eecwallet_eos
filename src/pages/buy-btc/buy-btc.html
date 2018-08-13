@@ -15,11 +15,11 @@
 
 <ion-content padding>
   <p>
-    Send BTC to the address bellow using mobile wallet and get Member Package {{pack}}!
+    Send {{currency}} to the address bellow using mobile wallet and get Member Package {{pack}}!
   </p>
   <p>
     The price for the package is
-    <strong>{{amount}}</strong> BTC.
+    <strong>{{amount}}</strong> {{currency}}.
   </p>
 
   <section *ngIf="loading">
@@ -28,7 +28,7 @@
 
   <section *ngIf="!loading">
     <p>
-      <strong>BTC address:</strong>
+      <strong>{{currency}} address:</strong>
     </p>
     <ion-list>
       <ion-item>
@@ -42,7 +42,7 @@
     <qrcode class="qrcode" [qrdata]="'Your QR code data string'" [size]="256" [level]="'M'"></qrcode>
 
     <p class="text-center">
-      <small>Please mind bitcoin transactions and confirmations speed.</small>
+      <small>Please mind blockchain transactions and confirmations speed.</small>
     </p>
   </section>
 
