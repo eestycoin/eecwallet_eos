@@ -15,14 +15,14 @@ export class EthProvider {
     balance: 0,
     privateKey: this.getPrivateKey()
   }
-  
+
   accountChanged: Subject<any> = new Subject();
 
   lastTx: string;
 
   private erc20: any;
   private web3: Web3;
-  
+
   embedded: boolean;
 
   constructor() {
@@ -44,14 +44,15 @@ export class EthProvider {
 
   initWeb3() {
     this.embedded = typeof window['web3'] !== 'undefined';
-    const provider = this.embedded 
-      ? window['web3'].currentProvider 
+    const provider = this.embedded
+      ? window['web3'].currentProvider
       : new Web3.providers.HttpProvider(environment.eth.apiUrl);
     this.web3 = new Web3(provider);
   }
 
   connectContract() {
     this.erc20 = new this.web3.eth.Contract(erc20abi, environment.eth.contractAddr);
+    console.log(this.erc20);
   }
 
   savePrivateKey(privateKey: string) {
@@ -92,18 +93,28 @@ export class EthProvider {
       this.web3.eth.defaultAccount = accounts[0];
     }
     this.account.address = this.web3.eth.defaultAccount;
-    
+
     return this.web3.eth.defaultAccount;
+  }
+
+  async detectAccount() {
+    const oldAccountAddress = this.account.address;
+    try {
+      this.account.address = await this.getAccount();
+      if (this.account.address !== oldAccountAddress)
+        this.accountChanged.next(this.account);
+    } catch (error) {
+      console.log(error);
+    }
+
   }
 
   async updateAccount() {
     const oldAccountAddress = this.account.address;
-    // if (this.isLogged())
     try {
       this.account.address = await this.getAccount();
       this.account.balance = await this.getBalance();
       this.account.privateKey = this.getPrivateKey();
-      // console.log(this.account.address, oldAccountAddress);
       if (this.account.address !== oldAccountAddress)
         this.accountChanged.next(this.account);
     } catch (error) {
@@ -137,7 +148,7 @@ export class EthProvider {
   async buy(amount: number) {
     const options = {
       to: environment.eth.wallet,
-      value: parseInt(this.web3.utils.toWei(amount.toString(), 'ether')) 
+      value: parseInt(this.web3.utils.toWei(amount.toString(), 'ether'))
     }
     return this.embedded
       ? this.web3.eth.sendTransaction(options)
@@ -179,7 +190,7 @@ export class EthProvider {
     const gasPrice = await this.web3.eth.getGasPrice();
 
     tx.chainId = environment.eth.networkId;
-    tx.gasPrice = gasPrice*100;
+    tx.gasPrice = gasPrice * 100;
     tx.gasLimit = 60000;
     tx.sign(privateKey);
 

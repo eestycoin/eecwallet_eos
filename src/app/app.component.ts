@@ -34,7 +34,7 @@ export class MyApp {
     this.rates.onInit();
 
     this.eth.accountChanged.subscribe(() => this.setRootPage());
-    this.eth.updateAccount();
+    this.eth.detectAccount();
     
   }
 
