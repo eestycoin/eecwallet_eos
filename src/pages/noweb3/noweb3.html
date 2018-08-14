@@ -1,18 +1,18 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Web3 Status</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>Web3 Status</ion-title>
+    </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-  <p>Web3: {{isWeb3 | json}}</p>
-  <p>Network {{networkName}}: {{isNetwork | json}}</p>
-  <p>Logged In: {{isLoggedIn | json}}</p>
-  <p *ngIf="!isLoggedIn">
-    <small>Please use Metamask or TrustWallet Browser.</small>
-  </p>
-  <p *ngIf="!isNetwork">
-    <small>Please select {{networkName}} network.</small>
-  </p>
+    <p>Metamask or use TrustWallet available: {{isWeb3 | json}}</p>
+    <p>Network {{networkName}} selected: {{isNetwork | json}}</p>
+    <p>Logged In to Metamask: {{isLoggedIn | json}}</p>
+    <p *ngIf="!isLoggedIn">
+        <small>Please login to Metamask or use TrustWallet Browser for iOS or Android.</small>
+    </p>
+    <p *ngIf="!isNetwork">
+        <small>Please select {{networkName}} network.</small>
+    </p>
 </ion-content>
