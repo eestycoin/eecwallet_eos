@@ -6,6 +6,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -38,6 +39,7 @@ import { environment } from './environment';
   providers: [
     StatusBar,
     SplashScreen,
+    FingerprintAIO,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     EthProvider,
     BitgoProvider,

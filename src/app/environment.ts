@@ -42,6 +42,13 @@ export const environment = {
     projectId: 'eesty-coin',
     storageBucket: 'eesty-coin.appspot.com',
     messagingSenderId: '871257659837'
+  },
+  faio: {
+    clientId: 'EEC Wallet Fingerprint',
+    clientSecret: 'password', //Only necessary for Android
+    disableBackup: true,  //Only for Android(optional)
+    localizedFallbackTitle: 'Use Pin', //Only for iOS
+    localizedReason: 'Please authenticate' //Only for iOS
   }
 }
 

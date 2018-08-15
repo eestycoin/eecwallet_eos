@@ -1,0 +1,25 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Enter PIN</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <p>
+    <small *ngIf="!setPin">
+      Please set application PIN code. Key will be stored on device.
+    </small>
+    <small *ngIf="setPin">
+      Please enter application PIN code.
+    </small>
+  </p>
+  <p>PIN:</p>
+  <ion-input type="text" pattern="[0-9]*"  clearInput [(ngModel)]="pin" id="pin"></ion-input>
+
+  <p>&nbsp;</p>
+  <button ion-button block (click)="onSetPin()" *ngIf="!setPin && !loading">Set PIN</button>
+  <button ion-button block (click)="onSubmit()" *ngIf="setPin && !loading">Submit</button>
+</ion-content>
