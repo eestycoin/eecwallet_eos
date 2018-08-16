@@ -35,16 +35,17 @@ export class MyApp {
         // Here you can do any higher level native things you might need.
         statusBar.styleDefault();
         splashScreen.hide();
-        this.faio
-          .isAvailable()
-          .then(() => { 
-            this.isFaio = true; 
-            this.onInit();
-          })
-          .catch((error) => {
-            console.log(error);
-            this.eth.detectAccount();
-          });
+        this.onInit();
+        // this.faio
+        //   .isAvailable()
+        //   .then(() => { 
+        //     this.isFaio = true; 
+        //     this.onInit();
+        //   })
+        //   .catch((error) => {
+        //     console.log(error);
+        //     this.eth.detectAccount();
+        //   });
       });
 
     platform.resume
@@ -58,19 +59,19 @@ export class MyApp {
 
     window.location.hash = '/';
 
-
-
     this.rates.onInit();
 
     this.eth.accountChanged.subscribe(() => this.setRootPage());
   }
 
-  onInit() {
-    if (!localStorage.getItem('pin')) {
-      this.rootPage = 'SigninPage';
-    } else {
-      this.eth.detectAccount();
+  async onInit() {
+    try {
+      this.isFaio = await this.faio.isAvailable();
+      this.showScan();
+    } catch (error) {
+      console.log(error);
     }
+    this.rootPage = 'SigninPage';
   }
 
   async setRootPage() {

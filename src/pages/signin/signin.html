@@ -17,9 +17,15 @@
     </small>
   </p>
   <p>PIN:</p>
-  <ion-input type="text" pattern="[0-9]*"  clearInput [(ngModel)]="pin" id="pin"></ion-input>
+  <ion-input type="text" pattern="[0-9]*" clearInput [(ngModel)]="pin" id="pin"></ion-input>
 
   <p>&nbsp;</p>
-  <button ion-button block (click)="onSetPin()" *ngIf="!setPin && !loading">Set PIN</button>
-  <button ion-button block (click)="onSubmit()" *ngIf="setPin && !loading">Submit</button>
+
+  <section *ngIf="loading">
+    <ion-spinner name="bubbles"></ion-spinner>
+  </section>
+  <section *ngIf="!loading">
+    <button ion-button block (click)="onSetPin()" *ngIf="!setPin">Set PIN</button>
+    <button ion-button block (click)="onSubmit()" *ngIf="setPin">Submit</button>
+  </section>
 </ion-content>
