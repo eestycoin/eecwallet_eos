@@ -12,7 +12,7 @@ import { EthProvider } from '../../providers/eth/eth';
 export class SigninPage {
 
   pin: string;
-  setPin: boolean;
+  isPinSetted: boolean;
   loading: boolean;
 
   constructor(
@@ -23,7 +23,7 @@ export class SigninPage {
 
   ionViewDidLoad() {
     this.loading = false;
-    this.setPin = this.navParams.get('setPin') || false;
+    this.isPinSetted = !!localStorage.getItem('pin') || false;
   }
 
   onSubmit() {

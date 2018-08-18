@@ -9,10 +9,10 @@
 
 <ion-content padding>
   <p>
-    <small *ngIf="!setPin">
+    <small *ngIf="!isPinSetted">
       Please set application PIN code. Key will be stored on device.
     </small>
-    <small *ngIf="setPin">
+    <small *ngIf="isPinSetted">
       Please enter application PIN code.
     </small>
   </p>
@@ -25,7 +25,7 @@
     <ion-spinner name="bubbles"></ion-spinner>
   </section>
   <section *ngIf="!loading">
-    <button ion-button block (click)="onSetPin()" *ngIf="!setPin">Set PIN</button>
-    <button ion-button block (click)="onSubmit()" *ngIf="setPin">Submit</button>
+    <button ion-button block (click)="onSetPin()" *ngIf="!isPinSetted">Set PIN</button>
+    <button ion-button block (click)="onSubmit()" *ngIf="isPinSetted">Submit</button>
   </section>
 </ion-content>
