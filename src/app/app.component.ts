@@ -71,7 +71,7 @@ export class MyApp {
     } catch (error) {
       console.log(error);
     }
-    this.rootPage = 'SigninPage';
+    this.rootPage = 'LoginPage';
   }
 
   async setRootPage() {
