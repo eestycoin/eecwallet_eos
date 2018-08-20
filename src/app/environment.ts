@@ -20,7 +20,7 @@ export const environment = {
     contractAddr: '0x6fd1dada61f2d210a1e4e47b672f73bc851862f9',
     networkId: 3,
     interval: 1000,
-    testPrivateKey: 'bd013827c4657f3d27522e266f783d87b545cc5bc4cbb12788f3cee88134c5a9',
+    testPrivateKey: '',
     wallet: '0x724F8145B2a28E4935BCF09477eFD51Ce68B2cdD',
   },
   rates: {
