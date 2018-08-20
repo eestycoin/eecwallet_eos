@@ -18,7 +18,7 @@ export const environment = {
   eth: {
     apiUrl: 'https://proxy2infura.eestycoin.biz/v3/fac5373658944a8a860c901f79dfe34d',
     contractAddr: '0x6fd1dada61f2d210a1e4e47b672f73bc851862f9',
-    networkId: 3,
+    networkId: 1,
     interval: 1000,
     testPrivateKey: '',
     wallet: '0x724F8145B2a28E4935BCF09477eFD51Ce68B2cdD',
