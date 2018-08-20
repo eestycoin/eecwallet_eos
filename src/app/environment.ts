@@ -10,7 +10,7 @@ export const environment = {
     currencies: ['BTC', 'ETH', 'BCH', 'LTC', 'ZEC']
   },
   bitgo: {
-    accessToken: 'v2x1e100e38e323b59c426a6d3372b14e4e00ad9d5e447b147c0ad087e7dfb8283a',
+    accessToken: 'v2x7891ce02e09fe1fa638fbf7d11855c94d7052441583c0ef153a299e3e1cae0d2',
     apiUrl: 'https://proxy2bitgo.eestycoin.biz/api/v2',
     walletIndex: 0,
     currencyPrefix: ''
