@@ -36,7 +36,7 @@ export class BuySelectPage {
   }
 
   onSelectFiat(pack = this.pack) {
-    const amount = this.pack / this.rates.list[environment.coin];
+    const amount = this.pack; // this.rates.list[environment.coin];
     
     this.navCtrl.push('BuyPaypalPage', { amount, pack });
   }
