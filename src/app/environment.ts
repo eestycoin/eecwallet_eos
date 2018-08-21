@@ -50,6 +50,16 @@ export const environment = {
     disableBackup: true,  //Only for Android(optional)
     localizedFallbackTitle: 'Use Pin', //Only for iOS
     localizedReason: 'Please authenticate' //Only for iOS
+  },
+  paypal: {
+    env: 'sandbox', // sandbox | production
+    commit: true,   // Show the buyer a 'Pay Now' button in the checkout flow
+    client: {
+      sandbox: 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
+      production: '<insert production client id>'
+    },
+    payment: (data, actions) => {},
+    onAuthorize: (data, actions) => {}
   }
 }
 
