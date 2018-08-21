@@ -19,6 +19,7 @@
       [(ngModel)]="amount" (ngModelChange)="onChange($event)"></ion-input>
   
   <p>&nbsp;</p>
-
+  <p>Expected amount: {{amount * rate}} USD</p>
+  <p>&nbsp;</p>
   <button ion-button block (click)="onSubmit()" [disabled]="!amount || amount >= max">Submit</button>
 </ion-content>

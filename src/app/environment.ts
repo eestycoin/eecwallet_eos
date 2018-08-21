@@ -33,7 +33,8 @@ export const environment = {
       BCH: 1831,
       ETH: 1027,
       ZEC: 1437
-    }
+    },
+    coinRateApi: 'https://www.southxchange.com/api/price/EEC/USD'
   },
   firebase: {
     apiKey: 'AIzaSyBIbwROqWi6iwhjavQolloL6wZam1bkFt0',

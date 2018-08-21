@@ -22,6 +22,12 @@ export class RatesProvider {
     timer(0, environment.rates.interval)
       .pipe(switchMap(() => this.getPrices()))
       .subscribe(this.setData.bind(this));
+    timer(0, environment.rates.interval)
+      .pipe(switchMap(() => this.getCoinPrice()))
+      .subscribe(r => {
+        this.list[environment.coin] = r['Last'];
+        console.log(this.list);
+      });
   }
 
   private setData(r) {
@@ -31,12 +37,16 @@ export class RatesProvider {
         const id = environment.rates.currencies[currency];
         this.list[currency] = r.data[id].quotes[environment.rates.defaultQuote].price;
       });
-      // console.log(this.list);
   }
 
   private getPrices() {
     return this.http
       .get(environment.rates.apiUrl);
+  }
+
+  private getCoinPrice() {
+    return this.http
+      .get(environment.rates.coinRateApi);
   }
 
 }
