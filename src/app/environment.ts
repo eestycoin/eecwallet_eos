@@ -52,11 +52,11 @@ export const environment = {
     localizedReason: 'Please authenticate' //Only for iOS
   },
   paypal: {
-    size:  'medium',
-    env: 'sandbox', // sandbox | production
+    size:  'large',
+    env: 'sandbos', // sandbox | production
     commit: true,   // Show the buyer a 'Pay Now' button in the checkout flow
     client: {
-      sandbox: 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
+      sandbox: 'access_token$sandbox$m8p9hwsqw8zwd5gf$3b009e9fc6c2a1b1753a30fe3c889f66',
       production: '<insert production client id>'
     },
     payment: (data, actions) => {},
