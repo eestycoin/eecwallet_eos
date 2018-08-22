@@ -29,6 +29,10 @@ export class MyApp {
     private rates: RatesProvider,
     private eth: EthProvider
   ) {
+    history.pushState("", document.title, window.location.pathname + window.location.search);
+
+    this.rates.onInit();
+
     this.platform
       .ready()
       .then(() => {
@@ -41,16 +45,10 @@ export class MyApp {
 
     this.platform.resume
       .subscribe((r: Event) => {
-        console.log(r, this.isFaio, this.toMinutes(r.timeStamp));
-        if (this.isFaio) {
-          this.rootPage = 'SigninPage';
-          this.showScan();
-        }
+        if (!this.isFaio) return;
+        this.rootPage = 'SigninPage';
+        this.showScan();
       });
-
-    window.location.hash = '/';
-
-    this.rates.onInit();
 
     this.eth.accountChanged.subscribe(() => this.setRootPage());
   }
