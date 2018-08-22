@@ -52,7 +52,6 @@ export class EthProvider {
 
   connectContract() {
     this.erc20 = new this.web3.eth.Contract(erc20abi, environment.eth.contractAddr);
-    console.log(this.erc20);
   }
 
   savePrivateKey(privateKey: string) {

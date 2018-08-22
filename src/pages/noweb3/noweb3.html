@@ -10,7 +10,7 @@
     <p>Network {{networkName}} selected: {{isNetwork | json}}</p>
     <p>Logged In to Metamask: {{isLoggedIn | json}}</p>
     <p *ngIf="!isLoggedIn">
-        <small>Please login to Metamask or use TrustWallet Browser for iOS or Android.</small>
+        <small>Please login to Metamask extension or use TrustWallet Browser for iOS or Android.</small>
     </p>
     <p *ngIf="!isNetwork">
         <small>Please select {{networkName}} network.</small>

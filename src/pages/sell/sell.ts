@@ -2,6 +2,7 @@ import { Component, HostListener } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { EthProvider } from '../../providers/eth/eth';
+import { RatesProvider } from '../../providers/rates/rates';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { environment } from '../../app/environment';
 
@@ -16,14 +17,17 @@ export class SellPage {
   addressTo: string = environment.eth.wallet;
   amount: number = 1;
   max = 1;
+  rate: number;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private eth: EthProvider,
+    private rates: RatesProvider,
     private db: FirebaseProvider
   ) {
     this.max = this.eth.account.balance;
+    this.rate = this.rates.list[environment.coin];
   }
 
   @HostListener('input', ['$event'])
@@ -41,7 +45,7 @@ export class SellPage {
 
   onChange(e: number) {
     setTimeout(() => {
-      this.amount = (this.amount >= this.max) ? Math.ceil(this.max) : this.amount;
+      // this.amount = (this.amount >= this.max) ? Math.ceil(this.max) : this.amount;
     });
   }
 

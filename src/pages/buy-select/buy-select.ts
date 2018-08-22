@@ -35,6 +35,12 @@ export class BuySelectPage {
     this.navCtrl.push(page, { amount, pack, currency });
   }
 
+  onSelectFiat(pack = this.pack) {
+    const amount = this.pack; // this.rates.list[environment.coin];
+    
+    this.navCtrl.push('BuyPaypalPage', { amount, pack });
+  }
+
   capitalize(string) {
     return string.charAt(0).toUpperCase() + string.toLowerCase().slice(1);
   }

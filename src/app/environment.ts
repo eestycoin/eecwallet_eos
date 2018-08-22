@@ -10,18 +10,18 @@ export const environment = {
     currencies: ['BTC', 'ETH', 'BCH', 'LTC', 'ZEC']
   },
   bitgo: {
-    accessToken: 'v2x8473d567ae7b4bff3895cdf4dca67a85c53f0aabad726d6061794505d32b16a3',
+    accessToken: 'v2x7891ce02e09fe1fa638fbf7d11855c94d7052441583c0ef153a299e3e1cae0d2',
     apiUrl: 'https://proxy2bitgo.eestycoin.biz/api/v2',
     walletIndex: 0,
-    currencyPrefix: 't'
+    currencyPrefix: ''
   },
   eth: {
     apiUrl: 'https://proxy2infura.eestycoin.biz/v3/fac5373658944a8a860c901f79dfe34d',
-    contractAddr: '0x5D21c109a3A44466d0C79a8B7b8779d289B5Db8C',
-    networkId: 3,
+    contractAddr: '0x6fd1dada61f2d210a1e4e47b672f73bc851862f9',
+    networkId: 1,
     interval: 1000,
-    testPrivateKey: 'bd013827c4657f3d27522e266f783d87b545cc5bc4cbb12788f3cee88134c5a9',
-    wallet: '0x38bD7BaDAa300D8d40dca0BfbbCab1e0485dD123',
+    testPrivateKey: '',
+    wallet: '0x724F8145B2a28E4935BCF09477eFD51Ce68B2cdD',
   },
   rates: {
     apiUrl: 'https://api.coinmarketcap.com/v2/ticker/',
@@ -33,7 +33,8 @@ export const environment = {
       BCH: 1831,
       ETH: 1027,
       ZEC: 1437
-    }
+    },
+    coinRateApi: 'https://www.southxchange.com/api/price/EEC/USD'
   },
   firebase: {
     apiKey: 'AIzaSyBIbwROqWi6iwhjavQolloL6wZam1bkFt0',
@@ -49,6 +50,17 @@ export const environment = {
     disableBackup: true,  //Only for Android(optional)
     localizedFallbackTitle: 'Use Pin', //Only for iOS
     localizedReason: 'Please authenticate' //Only for iOS
+  },
+  paypal: {
+    size:  'medium',
+    env: 'sandbox', // sandbox | production
+    commit: true,   // Show the buyer a 'Pay Now' button in the checkout flow
+    client: {
+      sandbox: 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
+      production: '<insert production client id>'
+    },
+    payment: (data, actions) => {},
+    onAuthorize: (data, actions) => {}
   }
 }
 

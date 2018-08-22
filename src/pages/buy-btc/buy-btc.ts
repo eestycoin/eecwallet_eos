@@ -5,6 +5,8 @@ import { EthProvider } from '../../providers/eth/eth';
 import { BitgoProvider } from '../../providers/bitgo/bitgo';
 import { ToasterProvider } from '../../providers/toaster/toaster';
 
+import { environment } from '../../app/environment';
+
 
 @IonicPage()
 @Component({
@@ -37,7 +39,7 @@ export class BuyBtcPage {
     this.currency = this.navParams.get('currency') || 'BTC';
 
     const label = this.eth.account.address;
-    const currency = 't' + this.currency.toLowerCase();
+    const currency = environment.bitgo.currencyPrefix + this.currency.toLowerCase();
 
     try {
       const wallet = await this.bitgo.getWalletAddress(currency, label);
