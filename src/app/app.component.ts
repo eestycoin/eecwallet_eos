@@ -11,6 +11,7 @@ import { EthProvider } from '../providers/eth/eth';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
 
 import { environment } from './environment';
+import { platform } from 'os';
 
 
 @Component({
@@ -21,14 +22,14 @@ export class MyApp {
   isFaio = false;
 
   constructor(
-    platform: Platform,
+    private platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
     private faio: FingerprintAIO,
     private rates: RatesProvider,
     private eth: EthProvider
   ) {
-    platform
+    this.platform
       .ready()
       .then(() => {
         // Okay, so the platform is ready and our plugins are available.
@@ -36,19 +37,9 @@ export class MyApp {
         statusBar.styleDefault();
         splashScreen.hide();
         this.onInit();
-        // this.faio
-        //   .isAvailable()
-        //   .then(() => { 
-        //     this.isFaio = true; 
-        //     this.onInit();
-        //   })
-        //   .catch((error) => {
-        //     console.log(error);
-        //     this.eth.detectAccount();
-        //   });
       });
 
-    platform.resume
+    this.platform.resume
       .subscribe((r: Event) => {
         console.log(r, this.isFaio, this.toMinutes(r.timeStamp));
         if (this.isFaio) {
@@ -71,7 +62,10 @@ export class MyApp {
     } catch (error) {
       console.log(error);
     }
-    this.rootPage = 'SigninPage';
+    if (this.platform.is('core'))
+      this.eth.detectAccount();
+    else
+      this.rootPage = 'SigninPage';
   }
 
   async setRootPage() {
