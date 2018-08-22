@@ -53,7 +53,7 @@ export const environment = {
   },
   paypal: {
     size:  'large',
-    env: 'sandbos', // sandbox | production
+    env: 'sandbox', // sandbox | production
     commit: true,   // Show the buyer a 'Pay Now' button in the checkout flow
     client: {
       sandbox: 'access_token$sandbox$m8p9hwsqw8zwd5gf$3b009e9fc6c2a1b1753a30fe3c889f66',
