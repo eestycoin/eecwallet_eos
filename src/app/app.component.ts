@@ -29,7 +29,8 @@ export class MyApp {
     private rates: RatesProvider,
     private eth: EthProvider
   ) {
-    history.pushState("", document.title, window.location.pathname + window.location.search);
+
+    history.pushState('', document.title, window.location.pathname + window.location.search);
 
     this.rates.onInit();
 
