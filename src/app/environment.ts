@@ -10,7 +10,7 @@ export const environment = {
     currencies: ['BTC', 'ETH', 'BCH', 'LTC', 'ZEC']
   },
   bitgo: {
-    accessToken: 'v2x1e100e38e323b59c426a6d3372b14e4e00ad9d5e447b147c0ad087e7dfb8283a',
+    accessToken: 'v2x8473d567ae7b4bff3895cdf4dca67a85c53f0aabad726d6061794505d32b16a3',
     apiUrl: 'https://veiko-wallet-proxy.vareger.com/api/v2',
     walletIndex: 0,
     currencyPrefix: 't'
