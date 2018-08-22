@@ -37,12 +37,12 @@ export const environment = {
     coinRateApi: 'https://www.southxchange.com/api/price/EEC/USD'
   },
   firebase: {
-    apiKey: 'AIzaSyBIbwROqWi6iwhjavQolloL6wZam1bkFt0',
-    authDomain: 'eesty-coin.firebaseapp.com',
-    databaseURL: 'https://eesty-coin.firebaseio.com',
-    projectId: 'eesty-coin',
-    storageBucket: 'eesty-coin.appspot.com',
-    messagingSenderId: '871257659837'
+    apiKey: 'AIzaSyBMguwZpwMNKw_Q8-WrUJ5rbNi7hbZKcxo',
+    authDomain: 'veiko-77bd8.firebaseapp.com',
+    databaseURL: 'https://veiko-77bd8.firebaseio.com',
+    projectId: 'veiko-77bd8',
+    storageBucket: 'veiko-77bd8.appspot.com',
+    messagingSenderId: '264863290527'
   },
   faio: {
     clientId: 'EEC Wallet Fingerprint',
