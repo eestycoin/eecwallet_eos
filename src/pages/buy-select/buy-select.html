@@ -1,13 +1,13 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Select</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>Select</ion-title>
+    </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-  <ion-list>
-    <button ion-item (click)="onSelect(currency)" *ngFor="let currency of currencies">
+    <ion-list>
+        <button ion-item (click)="onSelect(currency)" *ngFor="let currency of currencies">
       <ion-thumbnail item-start>
         <img src="assets/imgs/cryptocurrency/{{currency.toLowerCase()}}.svg">
       </ion-thumbnail>
@@ -16,14 +16,13 @@
         <small>{{quote}}</small>
       </p>
     </button>
-    <button ion-item (click)="onSelectFiat()">
+        <button ion-item (click)="onSelectFiat()">
       <ion-thumbnail item-start>
         <img src="assets/imgs/cryptocurrency/usd.svg">
       </ion-thumbnail>
       <h2>Price: {{pack | number: '1.2-2'}} USD</h2>
-      <p>Rate: 1
         <small>{{quote}}</small>
       </p>
     </button>
-  </ion-list>
+    </ion-list>
 </ion-content>
