@@ -56,8 +56,8 @@ export const environment = {
     env: 'sandbox', // sandbox | production
     commit: true,   // Show the buyer a 'Pay Now' button in the checkout flow
     client: {
-      sandbox: 'm8p9hwsqw8zwd5gf$3b009e9fc6c2a1b1753a30fe3c889f66',
-      production: '<insert production client id>'
+      sandbox: 'AZOZskX0LoTOsUI0FcTcXPqaPUYRYkIO2051MdFCcKSfZck0pVAmFH7D4yl2tAYCAZgOgUUlZTNVjEaL',
+      production: 'AQ8B5ZguwLfvSnDWzTHkUC6Wr7-gJjRowDCsCMxJeFfLS2FG4AUQtX918qNjGKgrR10QCzBtkZKqPjNe'
     },
     payment: (data, actions) => {},
     onAuthorize: (data, actions) => {}
