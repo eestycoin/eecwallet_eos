@@ -1,52 +1,52 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      EEC Wallet
-    </ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>
+            EEC Wallet
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <header>
-    <p>
-      <img alt="logo" height="40" src="assets/imgs/logo.png">
-    </p>
-    <h3 [class.hidden]="eth.account.balance < 1">
-      Balance: {{eth.account.balance | number:'1.0-0'}}
-      <small>EEC</small>
-    </h3>
-    <p>Account
-      <br>
-      <small>{{eth.account.address || 'loading...'}}</small>
-    </p>
-  </header>
-  <section padding>
-    <ion-list>
-      <button ion-item (click)="itemSelected('BuyPage')">
+    <header>
+        <p>
+            <img alt="logo" height="40" src="assets/imgs/logo.png">
+        </p>
+        <h3 [class.hidden]="eth.account.balance < 1">
+            Balance: {{eth.account.balance | number:'1.0-0'}}
+            <small>EEC</small>
+        </h3>
+        <p>Account
+            <br>
+            <small>{{eth.account.address || 'loading...'}}</small>
+        </p>
+    </header>
+    <section padding>
+        <ion-list>
+            <button ion-item (click)="itemSelected('BuyPage')">
         <ion-icon name="add" item-start></ion-icon>
         Buy
       </button>
-      <button ion-item (click)="itemSelected('SellPage')">
+            <!-- <button ion-item (click)="itemSelected('SellPage')">
         <ion-icon name="card" item-start></ion-icon>
         Sell
-      </button>
-      <button ion-item (click)="itemSelected('SendPage')">
+      </button> -->
+            <button ion-item (click)="itemSelected('SendPage')">
         <ion-icon name="flash" item-start></ion-icon>
         Send
       </button>
-      <button ion-item (click)="itemSelected('HistoryPage')">
+            <button ion-item (click)="itemSelected('HistoryPage')">
         <ion-icon name="list" item-start></ion-icon>
         Transactions
       </button>
-      <button ion-item (click)="itemSelected('InfoPage')">
+            <button ion-item (click)="itemSelected('InfoPage')">
         <ion-icon name="information-circle" item-start></ion-icon>
         Info
       </button>
-      <button ion-item (click)="signOut()" *ngIf="!eth.embedded && eth.account.address">
+            <button ion-item (click)="signOut()" *ngIf="!eth.embedded && eth.account.address">
         <ion-icon name="log-out" item-start></ion-icon>
         Sign out
       </button>
-    </ion-list>
-  </section>
+        </ion-list>
+    </section>
 
 </ion-content>
