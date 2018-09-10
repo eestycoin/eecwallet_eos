@@ -6,18 +6,21 @@
 
 
 <ion-content padding>
+
+  <a class="ion-home color-primary item" href="#" (click)="onClick()">TEST</a>
+
   <p>
     <small>
-      In order to sell tokens you should enter the amount and confirm transfer transaction by pressing . Tokens will be withdrawed
+      In order to sell tokens you should enter the amount and confirm transfer transaction by pressing . Tokens will be
+      withdrawed
       from you current wallet and soon you'll recieve your ETH.
     </small>
   </p>
 
   <p>Amount, EEC:</p>
-  
-    <ion-input type="number" min="1" step="1" placeholder="1" pattern="[0-9]*" 
-      [(ngModel)]="amount" (ngModelChange)="onChange($event)"></ion-input>
-  
+
+  <ion-input type="number" min="1" step="1" placeholder="1" pattern="[0-9]*" [(ngModel)]="amount" (ngModelChange)="onChange($event)"></ion-input>
+
   <p>&nbsp;</p>
   <p>Expected amount: {{amount * rate}} USD</p>
   <p>&nbsp;</p>
