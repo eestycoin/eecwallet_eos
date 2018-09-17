@@ -11,9 +11,13 @@
     <p>
       <img alt="logo" height="40" src="assets/imgs/logo.png">
     </p>
-    <h3 [class.hidden]="eth.account.balance < 1">
+    <!-- <h3 [class.hidden]="eth.account.balance < 1">
       Balance: {{eth.account.balance | number:'1.0-0'}}
       <small>EEC</small>
+    </h3> -->
+    <h3>
+      Balance: {{eth.account.balanceEth | number:'1.4-4'}}
+      <small>ETH</small>
     </h3>
     <p>Account
       <br>
