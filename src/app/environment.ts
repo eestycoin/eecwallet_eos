@@ -52,7 +52,7 @@ export const environment = {
     localizedReason: 'Please authenticate' //Only for iOS
   },
   paypal: {
-    size:  'large',
+    size:  'medium',
     env: 'sandbox', // sandbox | production
     commit: true,   // Show the buyer a 'Pay Now' button in the checkout flow
     client: {
