@@ -4,6 +4,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { EthProvider } from '../../providers/eth/eth';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 
+import { User } from '../../models/models';
+
 import { environment } from '../../app/environment';
 
 
@@ -13,6 +15,8 @@ import { environment } from '../../app/environment';
   templateUrl: 'send.html',
 })
 export class SendPage {
+
+  merchant: User;
 
   addressTo: string = environment.eth.wallet;
   amount: number = 1;
@@ -25,6 +29,11 @@ export class SendPage {
     private db: FirebaseProvider
   ) { 
     this.max = this.eth.account.balance;
+  }
+
+  ionViewDidLoad() {
+    this.merchant = this.navParams.get('user');
+    this.addressTo = this.merchant.addr;
   }
 
   @HostListener('input', ['$event'])

@@ -8,7 +8,7 @@
 <ion-content padding>
   <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
   <ion-list>
-    <button ion-item *ngFor="let merchant of merchants">
+    <button ion-item *ngFor="let merchant of merchants" (click)="itemSelected(merchant)">
       <ion-icon name="person" item-start></ion-icon>
       <h2>{{merchant.name}}</h2>
       <p>

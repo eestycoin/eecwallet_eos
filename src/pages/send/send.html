@@ -13,8 +13,12 @@
     </small>
   </p>
 
-  <p>Recepient's wallet public key:</p>
-  <ion-input type="text" clearInput [(ngModel)]="addressTo" id="output"></ion-input>
+  <p>
+    <b *ngIf="merchant && merchant.name">{{merchant.name}}'s </b>
+    <span *ngIf="!merchant || !merchant.name">Recepient's</span>
+    <span>wallet public key:</span>
+  </p>
+  <ion-input type="text" clearInput [(ngModel)]="addressTo" id="output" [disabled]="merchant && merchant.addr"></ion-input>
 
   <p>Amount, EEC:</p>
   <ion-input type="number" min="1" step="1" placeholder="1" pattern="[0-9]*" 

@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { Subscription } from 'rxjs';
 
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 
 import { User } from '../../models/models';
-
 
 
 @IonicPage()
@@ -19,10 +18,13 @@ export class MerchantsPage {
 
   merchants: User[];
   rawMerchants: User[];
-  
+
   filter: string = '';
 
-  constructor(private db: FirebaseProvider) { }
+  constructor(
+    private navCtrl: NavController,
+    private db: FirebaseProvider
+  ) { }
 
   ionViewDidLoad() {
     this.$merchants = this.db.getMerchants().subscribe(r => {
@@ -46,5 +48,9 @@ export class MerchantsPage {
       return this.rawMerchants;
     return this.rawMerchants
       .filter(merchant => (merchant.name.includes(this.filter)) || (merchant.addr.includes(this.filter)));
+  }
+
+  itemSelected(user) {
+    this.navCtrl.push('SendPage', { user });
   }
 }
