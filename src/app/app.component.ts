@@ -13,6 +13,7 @@ import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
 import { environment } from './environment';
 import { platform } from 'os';
 
+// import QRReader from 'QRReader';
 
 @Component({
   templateUrl: 'app.html'
@@ -34,6 +35,19 @@ export class MyApp {
 
     this.rates.onInit();
 
+    // console.log(QRReader);
+
+    // const qr = new QRReader();
+    // const el = document.getElementById('videoCapture');
+
+    // setTimeout(() => {
+    //   qr.startCapture(el)
+    //     .then(console.log)
+    //     .catch(console.log);
+    // }, 500);
+
+
+
     this.platform
       .ready()
       .then(() => {
@@ -54,6 +68,7 @@ export class MyApp {
     this.eth.accountChanged.subscribe(() => this.setRootPage());
   }
 
+
   async onInit() {
     try {
       this.isFaio = await this.faio.isAvailable();
@@ -61,10 +76,17 @@ export class MyApp {
     } catch (error) {
       console.log(error);
     }
-    if (this.platform.is('core'))
-      this.eth.detectAccount();
-    else
-      this.rootPage = 'SigninPage';
+
+    try {
+      if (this.platform.is('core'))
+        this.eth.detectAccount();
+      else
+        this.rootPage = 'SigninPage';
+    } catch (error) {
+      console.log(error);
+    }
+    // 
+    // this.rootPage = 'SigninPage';
   }
 
   async setRootPage() {

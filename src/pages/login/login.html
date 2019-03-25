@@ -1,22 +1,41 @@
 <ion-header>
-    <ion-navbar hideBackButton>
-        <ion-title>
-            <img alt="logo" height="40" src="assets/imgs/logo.png">
-        </ion-title>
-    </ion-navbar>
+  <ion-navbar hideBackButton>
+    <ion-title>
+      <img alt="logo" height="40" src="assets/imgs/logo.png">
+    </ion-title>
+  </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-    <p>
-        <small>
+  <p>
+    <small>
       Please input your wallet private key to proceed. Key will be stored on device.
     </small>
-    </p>
-    <p>Private key:</p>
+  </p>
+  <p>Private key:</p>
+  <p>
     <ion-input type="text" clearInput [(ngModel)]="privateKey" id="privateKey"></ion-input>
+  </p>
 
-    <p>&nbsp;</p>
+  <p>
+    <small>
+      Registration:
+    </small>
+  </p>
 
-    <button ion-button block (click)="onSubmit()" [disabled]="!privateKey">Submit</button>
+  <p>
+    <ion-input type="text" placeholder="Email" clearInput [(ngModel)]="email" id="email"></ion-input>
+  </p>
+  <p>
+    <ion-input type="text" placeholder="Username" clearInput [(ngModel)]="userName" id="userName"></ion-input>
+  </p>
+  <p>
+    <ion-input type="text" placeholder="Country" clearInput [(ngModel)]="country" id="country"></ion-input>
+  </p>
+
+  <p>Merchant account:</p>
+
+
+  <button ion-button block (click)="onSubmit()" [disabled]="!privateKey">Submit</button>
 </ion-content>

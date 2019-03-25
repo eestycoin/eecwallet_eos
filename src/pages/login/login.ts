@@ -17,6 +17,9 @@ import { environment } from '../../app/environment';
 export class LoginPage {
 
   privateKey: string = environment.eth.testPrivateKey;
+  userName: string;
+  email: string;
+  merchantAccount: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -30,7 +33,6 @@ export class LoginPage {
   }
 
   onSubmit() {
-    console.log('onSubmit');
     try {
       const t = this.eth.privateKeyToAccount(this.privateKey);
       this.eth.savePrivateKey(this.privateKey);

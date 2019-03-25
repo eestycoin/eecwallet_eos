@@ -105,7 +105,6 @@ export class EthProvider {
     } catch (error) {
       console.log(error);
     }
-
   }
 
   async updateAccount() {
@@ -141,7 +140,7 @@ export class EthProvider {
     }
     return this.embedded
       ? this.erc20.methods.transfer(addressTo, value).send(options)
-      : this.transferCoin(addressTo, value);
+      : this.transferCoin(addressTo, parseFloat(value));
   }
 
   async buy(amount: number) {
@@ -189,7 +188,7 @@ export class EthProvider {
     const gasPrice = await this.web3.eth.getGasPrice();
 
     tx.chainId = environment.eth.networkId;
-    tx.gasPrice = gasPrice * 100;
+    tx.gasPrice = parseInt(gasPrice) * 100;
     tx.gasLimit = 60000;
     tx.sign(privateKey);
 

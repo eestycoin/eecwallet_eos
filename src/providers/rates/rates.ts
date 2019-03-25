@@ -26,7 +26,6 @@ export class RatesProvider {
       .pipe(switchMap(() => this.getCoinPrice()))
       .subscribe(r => {
         this.list[environment.coin] = r['Last'];
-        console.log(this.list);
       });
   }
 

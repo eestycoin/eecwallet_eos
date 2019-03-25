@@ -1,3 +1,5 @@
+import { AbiItem } from "web3-utils/types";
+
 export const environment = {
   mode: 'dev',
   ionic: {
@@ -16,7 +18,7 @@ export const environment = {
     currencyPrefix: 't'
   },
   eth: {
-    apiUrl: 'https://veiko-proxy-ropsten.vareger.com/v3/fac5373658944a8a860c901f79dfe34d',
+    apiUrl: 'https://ropsten.infura.io/v3/fac5373658944a8a860c901f79dfe34d',
     contractAddr: '0x5D21c109a3A44466d0C79a8B7b8779d289B5Db8C',
     networkId: 3,
     interval: 1000,
@@ -64,7 +66,7 @@ export const environment = {
   }
 }
 
-export const erc20abi = [
+export const erc20abi: AbiItem[] = [
   {
     "constant": true,
     "inputs": [],
