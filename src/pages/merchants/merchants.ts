@@ -16,8 +16,10 @@ import { User } from '../../models/models';
 export class MerchantsPage {
 
   $merchants: Subscription;
+
   merchants: User[];
   rawMerchants: User[];
+  
   filter: string = '';
 
   constructor(private db: FirebaseProvider) { }
@@ -27,6 +29,11 @@ export class MerchantsPage {
       this.rawMerchants = r;
       this.merchants = this.mapMerchants();
     });
+  }
+
+  ionViewDidLeave() {
+    if (this.$merchants)
+      this.$merchants.unsubscribe();
   }
 
   getItems(event) {
