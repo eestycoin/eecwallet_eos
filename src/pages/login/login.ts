@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 
 import { HomePage } from '../home/home';
 
 import { EthProvider } from '../../providers/eth/eth';
 import { ToasterProvider } from '../../providers/toaster/toaster';
+import { FirebaseProvider } from '../../providers/firebase/firebase';
+
+import { User } from '../../models/models';
 
 import { environment } from '../../app/environment';
 
@@ -17,31 +20,34 @@ import { environment } from '../../app/environment';
 export class LoginPage {
 
   privateKey: string = environment.eth.testPrivateKey;
-  userName: string;
-  email: string;
-  merchantAccount: boolean;
+
+  user: User = {
+    name: '',
+    email: '',
+    country: '',
+    addr: '',
+    merchant: false
+  };
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,
     private eth: EthProvider,
-    private toast: ToasterProvider
+    private toast: ToasterProvider,
+    private db: FirebaseProvider
   ) { }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
+  ionViewDidLoad() { }
 
   onSubmit() {
     try {
-      const t = this.eth.privateKeyToAccount(this.privateKey);
+      this.user.addr = this.eth.privateKeyToAccount(this.privateKey).address;
       this.eth.savePrivateKey(this.privateKey);
       this.eth.onInit();
+      this.db.saveUser(this.user);
       this.navCtrl.setRoot(HomePage);
     } catch (error) {
       console.log(error);
       this.toast.showError('Private key is incorrect or wallet doesn’t exist');
     }
   }
-
 }

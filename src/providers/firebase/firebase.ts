@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 
+import { User, Tx } from '../../models/models';
+
 
 @Injectable()
 export class FirebaseProvider {
@@ -20,11 +22,10 @@ export class FirebaseProvider {
     return data;
   }
 
-  async saveUser(user) {
-    const id = this.db.createId();
+  async saveUser(user: User) {
     try {
-      await this.db.collection('merchants').doc(id).set(user);
-      console.log("DocumUserent written with id: ", id);
+      await this.db.collection('merchants').doc(user.addr).set(user);
+      console.log("DocumUserent written with id: ", user);
     } catch (e) {
       console.log("Error adding user: ", e);
     }
@@ -38,11 +39,11 @@ export class FirebaseProvider {
       .pipe(map(results => this.mapItems(results, account.toUpperCase())));
   }
 
-  getMerchants(filter?: string) {
+  getMerchants() {
     return this.db
       .collection('merchants')
       .valueChanges()
-      .pipe(map(results => this.mapMerchants(results, filter)));
+      .pipe(map((results: User[]) => this.mapMerchants(results)));
   }
 
   private mapItems(items: any[], account: string) {
@@ -58,11 +59,9 @@ export class FirebaseProvider {
       .filter(item => (item.from === account) || (item.to === account));
   }
 
-  private mapMerchants(merchants: any[], filter?: string) {
-    if (!filter)
-      return merchants;
-    return merchants
-      .filter(merchant => (merchant.name.includes(filter)) || (merchant.addr.includes(filter)));
+  private mapMerchants(users: User[]) {
+    return users
+      .filter(users => users.merchant);
   }
 
 }

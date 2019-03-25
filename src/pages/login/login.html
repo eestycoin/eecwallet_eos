@@ -13,7 +13,7 @@
       Please input your wallet private key to proceed. Key will be stored on device.
     </small>
   </p>
-  <p>Private key:</p>
+  <p>Private key: <span class="dimmed pull-right">required</span></p>
   <p>
     <ion-input type="text" clearInput [(ngModel)]="privateKey" id="privateKey"></ion-input>
   </p>
@@ -25,19 +25,19 @@
   </p>
 
   <p>
-    <ion-input type="text" placeholder="Email" clearInput [(ngModel)]="email" id="email"></ion-input>
+    <ion-input type="text" placeholder="Email" clearInput [(ngModel)]="user.email" id="email"></ion-input>
   </p>
   <p>
-    <ion-input type="text" placeholder="Username" clearInput [(ngModel)]="userName" id="userName"></ion-input>
+    <ion-input type="text" placeholder="Username" clearInput [(ngModel)]="user.name" id="userName"></ion-input>
   </p>
   <p>
-    <ion-input type="text" placeholder="Country" clearInput [(ngModel)]="country" id="country"></ion-input>
+    <ion-input type="text" placeholder="Country" clearInput [(ngModel)]="user.country" id="country"></ion-input>
   </p>
 
   <ion-list>
     <ion-item>
       <ion-label>Merchant account</ion-label>
-      <ion-checkbox [(ngModel)]="merchantAccount"></ion-checkbox>
+      <ion-checkbox [(ngModel)]="user.merchant"></ion-checkbox>
     </ion-item>
   </ion-list>
 

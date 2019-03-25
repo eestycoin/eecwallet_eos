@@ -4,6 +4,9 @@ import { Subscription } from 'rxjs';
 
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 
+import { User } from '../../models/models';
+
+
 
 @IonicPage()
 @Component({
@@ -13,8 +16,8 @@ import { FirebaseProvider } from '../../providers/firebase/firebase';
 export class MerchantsPage {
 
   $merchants: Subscription;
-  merchants: any[];
-  rawMerchants: any[];
+  merchants: User[];
+  rawMerchants: User[];
   filter: string = '';
 
   constructor(private db: FirebaseProvider) { }
