@@ -34,8 +34,12 @@
     <ion-input type="text" placeholder="Country" clearInput [(ngModel)]="country" id="country"></ion-input>
   </p>
 
-  <p>Merchant account:</p>
-
+  <ion-list>
+    <ion-item>
+      <ion-label>Merchant account</ion-label>
+      <ion-checkbox [(ngModel)]="merchantAccount"></ion-checkbox>
+    </ion-item>
+  </ion-list>
 
   <button ion-button block (click)="onSubmit()" [disabled]="!privateKey">Submit</button>
 </ion-content>
