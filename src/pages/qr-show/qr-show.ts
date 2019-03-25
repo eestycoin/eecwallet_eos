@@ -19,6 +19,8 @@ export class QrShowPage {
 
   ionViewDidLoad() { 
     this.qrdata = this.eth.account.address;
+    this.size = window.innerWidth;
+    console.log(this.qrdata);
   }
 
 }
