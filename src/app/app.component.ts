@@ -11,9 +11,6 @@ import { EthProvider } from '../providers/eth/eth';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
 
 import { environment } from './environment';
-import { platform } from 'os';
-
-// import QRReader from 'QRReader';
 
 @Component({
   templateUrl: 'app.html'
@@ -34,19 +31,6 @@ export class MyApp {
     history.pushState('', document.title, window.location.pathname + window.location.search);
 
     this.rates.onInit();
-
-    // console.log(QRReader);
-
-    // const qr = new QRReader();
-    // const el = document.getElementById('videoCapture');
-
-    // setTimeout(() => {
-    //   qr.startCapture(el)
-    //     .then(console.log)
-    //     .catch(console.log);
-    // }, 500);
-
-
 
     this.platform
       .ready()
@@ -77,16 +61,10 @@ export class MyApp {
       console.log(error);
     }
 
-    try {
-      if (this.platform.is('core'))
-        this.eth.detectAccount();
-      else
-        this.rootPage = 'SigninPage';
-    } catch (error) {
-      console.log(error);
-    }
-    // 
-    // this.rootPage = 'SigninPage';
+    if (this.platform.is('core'))
+      this.eth.detectAccount();
+    else
+      this.rootPage = 'SigninPage';
   }
 
   async setRootPage() {
