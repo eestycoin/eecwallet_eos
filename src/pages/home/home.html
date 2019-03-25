@@ -34,9 +34,17 @@
         <ion-icon name="flash" item-start></ion-icon>
         Send
       </button>
+      <button ion-item (click)="itemSelected('QrScanerPage')">
+        <ion-icon name="qr-scanner" item-start></ion-icon>
+        Scan QR code
+      </button>
       <button ion-item (click)="itemSelected('HistoryPage')">
-        <ion-icon name="list" item-start></ion-icon>
+        <ion-icon name="paper" item-start></ion-icon>
         Transactions
+      </button>
+      <button ion-item (click)="itemSelected('MerchantsPage')">
+        <ion-icon name="contacts" item-start></ion-icon>
+        Merchants list
       </button>
       <button ion-item (click)="itemSelected('InfoPage')">
         <ion-icon name="information-circle" item-start></ion-icon>

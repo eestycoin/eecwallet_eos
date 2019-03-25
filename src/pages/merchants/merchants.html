@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Merchants List</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-list>
+    <button ion-item *ngFor="let merchant of merchants">
+      <ion-icon name="person" item-start></ion-icon>
+      <h2>{{merchant.name}}</h2>
+      <p>
+        <small>{{merchant.addr}}</small>
+      </p>
+    </button>
+  </ion-list>
+</ion-content>

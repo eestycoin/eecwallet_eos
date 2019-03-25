@@ -20,11 +20,29 @@ export class FirebaseProvider {
     return data;
   }
 
+  async saveUser(user) {
+    const id = this.db.createId();
+    try {
+      await this.db.collection('merchants').doc(id).set(user);
+      console.log("DocumUserent written with id: ", id);
+    } catch (e) {
+      console.log("Error adding user: ", e);
+    }
+    return user;
+  }
+
   getItems(account: string) {
     return this.db
       .collection('items')
       .valueChanges()
       .pipe(map(results => this.mapItems(results, account.toUpperCase())));
+  }
+
+  getMerchants(filter?: string) {
+    return this.db
+      .collection('merchants')
+      .valueChanges()
+      .pipe(map(results => this.mapMerchants(results, filter)));
   }
 
   private mapItems(items: any[], account: string) {
@@ -38,6 +56,13 @@ export class FirebaseProvider {
         return item;
       })
       .filter(item => (item.from === account) || (item.to === account));
+  }
+
+  private mapMerchants(merchants: any[], filter?: string) {
+    if (!filter)
+      return merchants;
+    return merchants
+      .filter(merchant => (merchant.name.includes(filter)) || (merchant.addr.includes(filter)));
   }
 
 }
