@@ -33,7 +33,8 @@ export class SendPage {
 
   ionViewDidLoad() {
     this.merchant = this.navParams.get('user');
-    this.addressTo = this.merchant.addr;
+    if (this.merchant)
+      this.addressTo = this.merchant.addr;
   }
 
   @HostListener('input', ['$event'])

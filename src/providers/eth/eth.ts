@@ -76,6 +76,10 @@ export class EthProvider {
     return this.web3.eth.accounts.privateKeyToAccount('0x' + privateKey);
   }
 
+  isAddress(address: string) {
+    return this.web3.utils.isAddress(address);
+  }
+
   // --------------------------------------------
   // Async
 
