@@ -24,9 +24,12 @@ export class QrScanerPage {
     const videoEl = document.getElementsByClassName('qrviewport')[0] as HTMLElement;
     this.qrScaner.startCapture(videoEl)
       .then(r => {
-        console.log(r, this.eth.isAddress(r));
-        const user = { addr: r }
-        this.navCtrl.push('SendPage', { user });
+        if (this.eth.isAddress(r)) {
+          const user = { addr: r }
+          this.navCtrl.push('SendPage', { user });
+        } else {
+          alert('invalid qr code');
+        }
       });
   }
 
