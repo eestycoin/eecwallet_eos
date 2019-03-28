@@ -49,7 +49,12 @@ export class SendPage {
 
     this.navCtrl.push('ConfirmPage', { func: this.onTransfer.bind(this) })
   }
-а
+
+  qrScanerPage() {
+    this.navCtrl.push('QrScanerPage');
+  }
+
+
   onChange(e: number) {
     // setTimeout(() => {
     //   this.amount = (this.amount >= this.max) ? Math.ceil(this.max) : this.amount;

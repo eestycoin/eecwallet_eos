@@ -8,11 +8,22 @@ page-send {
     -o-user-select: auto !important;
     user-select: auto !important;
   }
+  
+  .grid {
+    margin: -10px;
+  }
+  .text-right {
+    text-align: right;
+    a {
+      font-size: 36px;
+      color: silver;
+    }
+  }
 
   .text-input-ios,
   .text-input-md {
     margin: 0;
-    padding: 13px 8px;
+    padding: 13px 8px !important;
   }
 
   .input-cover {

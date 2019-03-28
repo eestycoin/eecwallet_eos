@@ -1,4 +1,9 @@
 page-qr-scaner {
+
+  .scroll-content {
+    background-color: black;
+  }
+
   video {
     height: 100%;
     width: 100%;
@@ -11,6 +16,7 @@ page-qr-scaner {
     top: 0;
     z-index: 5000;
     justify-content: center;
+    
   
     ion-icon {
       display: flex;

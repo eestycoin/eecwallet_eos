@@ -8,7 +8,7 @@
 <ion-content padding>
   <p>
     <small>
-      In order to transfer tokens you should enter public key of recepient wallet and sum of transfer. 
+      In order to transfer tokens you should enter public key of recepient wallet and sum of transfer.
       Tokens will be withdrawed from you current wallet.
     </small>
   </p>
@@ -18,13 +18,27 @@
     <span *ngIf="!merchant || !merchant.name">Recepient's</span>
     <span>wallet public key:</span>
   </p>
-  <ion-input type="text" clearInput [(ngModel)]="addressTo" id="output" [disabled]="merchant && merchant.addr"></ion-input>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-11>
+        <ion-input type="text" clearInput [(ngModel)]="addressTo" id="output" [disabled]="merchant && merchant.addr">
+        </ion-input>
+      </ion-col>
+      <ion-col col-1 class="text-right">
+        <a (click)="qrScanerPage()">
+          <ion-icon name="qr-scanner"></ion-icon>
+        </a>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <p>Amount, EEC:</p>
-  <ion-input type="number" min="1" step="1" placeholder="1" pattern="[0-9]*" 
-    [(ngModel)]="amount" (ngModelChange)="onChange($event)"></ion-input>
+  <ion-input type="number" min="1" step="1" placeholder="1" pattern="[0-9]*" [(ngModel)]="amount"
+    (ngModelChange)="onChange($event)"></ion-input>
 
   <p>&nbsp;</p>
+
+
 
   <button ion-button block (click)="onSubmit()" [disabled]="!amount || amount >= max">Submit</button>
 </ion-content>
