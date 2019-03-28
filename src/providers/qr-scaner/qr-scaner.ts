@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import QRReader from 'qrreader';
 
+// import QRReader from './temp';
 
 @Injectable()
 export class QRScaner {
@@ -17,6 +18,10 @@ export class QRScaner {
 
   public stopCapture(): void {
     this.qrReader.stopCapture();
+  }
+
+  public stopAndSwitchCamera() {
+    this.qrReader.stopAndSwitchCamera();
   }
 
 }

@@ -37,4 +37,11 @@ export class QrScanerPage {
     this.qrScaner.stopCapture();
   }
 
+  switch() {
+    this.qrScaner.stopAndSwitchCamera();
+    this.ionViewDidLoad();
+  }
+
 }
+
+
