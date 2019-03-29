@@ -18,6 +18,7 @@ class QRReader {
   private videoInputDevices: MediaDeviceInfo[] = [];
   private facingMode: 'environment' | 'user' | 'left' | 'right' = 'user';
 
+  public devices: MediaDeviceInfo[] = [];
   public isMediaStreamAPISupported = navigator && navigator.mediaDevices && 'enumerateDevices' in navigator.mediaDevices;
 
   constructor() {
@@ -51,8 +52,6 @@ class QRReader {
   }
 
   private setVideoPlayback(video: HTMLVideoElement, stream: MediaStream): void {
-    console.log(stream);
-
     video.setAttribute('playsinline', 'true');
     video.srcObject = stream;
     video.play();
@@ -62,12 +61,11 @@ class QRReader {
     return navigator.mediaDevices
       .enumerateDevices()
       .then((devices: MediaDeviceInfo[]) => {
-        console.log(devices);
-
         this.videoInputDevices = devices
           .filter((device: MediaDeviceInfo) => {
             return device.kind === 'videoinput';
           });
+        this.devices = this.videoInputDevices;
         return this.videoInputDevices[0];
       });
   }
@@ -109,21 +107,17 @@ class QRReader {
   // PUBLIC
 
   public async startCapture(video: HTMLElement, timout?: number) {
-    console.log(video instanceof HTMLVideoElement);
     if (!video || !(video instanceof HTMLVideoElement))
       return Promise.reject(ErrorMessage.InvalidVideo);
 
     this.timout = timout || this.timout;
 
     try {
-      console.log(this.constraints);
       this.mediaStream = await navigator.mediaDevices.getUserMedia(this.constraints);
-      console.log(this.mediaStream);
-      // this.setVideoPlayback(video, this.mediaStream);
+      this.setVideoPlayback(video, this.mediaStream);
     } catch (error) {
       this.catchError(error);
       this.stopCapture();
-      console.log(error);
     }
 
     return this.asyncScan(video);
