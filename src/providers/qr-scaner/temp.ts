@@ -62,11 +62,13 @@ class QRReader {
     return navigator.mediaDevices
       .enumerateDevices()
       .then((devices: MediaDeviceInfo[]) => {
+        console.log(devices);
+
         this.videoInputDevices = devices
           .filter((device: MediaDeviceInfo) => {
             return device.kind === 'videoinput';
           });
-        return this.videoInputDevices[0];
+        return this.videoInputDevices[this.videoInputDevices.length-1];
       });
   }
 
@@ -113,6 +115,7 @@ class QRReader {
     this.timout = timout || this.timout;
 
     try {
+      console.log(this.constraints);
       this.mediaStream = await navigator.mediaDevices.getUserMedia(this.constraints);
       this.setVideoPlayback(video, this.mediaStream);
     } catch (error) {
