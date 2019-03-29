@@ -44,7 +44,7 @@ class QRReader {
       then(device => {
         if (device)
           this.constraints.video = {
-            deviceId: device.deviceId,
+            // deviceId: device.deviceId,
             facingMode: this.facingMode
           }
       });
@@ -68,7 +68,7 @@ class QRReader {
           .filter((device: MediaDeviceInfo) => {
             return device.kind === 'videoinput';
           });
-        return this.videoInputDevices[this.videoInputDevices.length-1];
+        return this.videoInputDevices[0];
       });
   }
 
@@ -109,6 +109,7 @@ class QRReader {
   // PUBLIC
 
   public async startCapture(video: HTMLElement, timout?: number) {
+    console.log(video instanceof HTMLVideoElement);
     if (!video || !(video instanceof HTMLVideoElement))
       return Promise.reject(ErrorMessage.InvalidVideo);
 
@@ -117,7 +118,8 @@ class QRReader {
     try {
       console.log(this.constraints);
       this.mediaStream = await navigator.mediaDevices.getUserMedia(this.constraints);
-      this.setVideoPlayback(video, this.mediaStream);
+      console.log(this.mediaStream);
+      // this.setVideoPlayback(video, this.mediaStream);
     } catch (error) {
       this.catchError(error);
       this.stopCapture();
