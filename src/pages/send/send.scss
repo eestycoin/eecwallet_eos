@@ -8,12 +8,20 @@ page-send {
     -o-user-select: auto !important;
     user-select: auto !important;
   }
-  
+
   .grid {
-    margin: -10px;
+    margin: 0;
+    padding: 0;
   }
-  .text-right {
+
+  .AddressTo {
+    padding-left: 0;
+  }
+
+  .AddressToBtn {
     text-align: right;
+    flex-grow: 0;
+
     a {
       font-size: 36px;
       color: silver;

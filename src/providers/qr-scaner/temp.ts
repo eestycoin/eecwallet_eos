@@ -9,17 +9,13 @@ enum ErrorMessage {
 
 class QRReader {
 
-  private timout = 500;
+  private captureInterval = 500;
   private intervalId: NodeJS.Timeout | null = null;
   private canvas: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D | null;
   private constraints: MediaStreamConstraints = { audio: false, video: true };
   private mediaStream: MediaStream | null = null;
-  private videoInputDevices: MediaDeviceInfo[] = [];
   private facingMode: 'environment' | 'user' | 'left' | 'right' = 'user';
-
-  public devices: MediaDeviceInfo[] = [];
-  public isMediaStreamAPISupported = navigator && navigator.mediaDevices && 'enumerateDevices' in navigator.mediaDevices;
 
   constructor() {
     this.facingMode = this.isMobileDevice() ? 'environment' : 'user';
@@ -41,14 +37,9 @@ class QRReader {
   }
 
   private setConstraints(): void {
-    this.getVideoInputDevice().
-      then(device => {
-        if (device)
-          this.constraints.video = {
-            // deviceId: device.deviceId,
-            facingMode: this.facingMode
-          }
-      });
+    this.constraints.video = {
+      facingMode: this.facingMode
+    }
   }
 
   private setVideoPlayback(video: HTMLVideoElement, stream: MediaStream): void {
@@ -57,18 +48,7 @@ class QRReader {
     video.play();
   }
 
-  private getVideoInputDevice(): Promise<MediaDeviceInfo | undefined> {
-    return navigator.mediaDevices
-      .enumerateDevices()
-      .then((devices: MediaDeviceInfo[]) => {
-        this.videoInputDevices = devices
-          .filter((device: MediaDeviceInfo) => {
-            return device.kind === 'videoinput';
-          });
-        this.devices = this.videoInputDevices;
-        return this.videoInputDevices[0];
-      });
-  }
+  
 
   private getFrame(video: HTMLVideoElement, ctx: CanvasRenderingContext2D): Uint8ClampedArray {
     ctx.drawImage(video, 0, 0, this.canvas.width, this.canvas.height);
@@ -93,7 +73,7 @@ class QRReader {
           this.stopCapture();
           resolve(result);
         }
-      }, this.timout);
+      }, this.captureInterval);
     });
   }
 
@@ -106,11 +86,11 @@ class QRReader {
 
   // PUBLIC
 
-  public async startCapture(video: HTMLElement, timout?: number) {
+  public async startCapture(video: HTMLElement, captureInterval?: number) {
     if (!video || !(video instanceof HTMLVideoElement))
       return Promise.reject(ErrorMessage.InvalidVideo);
 
-    this.timout = timout || this.timout;
+    this.captureInterval = captureInterval || this.captureInterval;
 
     try {
       this.mediaStream = await navigator.mediaDevices.getUserMedia(this.constraints);
@@ -141,8 +121,22 @@ class QRReader {
         .forEach(track => {
           track.stop();
         });
-    }
-      
+    } 
+  }
+
+  public getVideoInputDevices(): Promise<MediaDeviceInfo[]> {
+    return navigator.mediaDevices
+      .enumerateDevices()
+      .then((devices: MediaDeviceInfo[]) => {
+        return devices
+          .filter((device: MediaDeviceInfo) => {
+            return device.kind === 'videoinput';
+          });
+      });
+  }
+
+  public isMediaStreamAPISupported(): boolean {
+    return navigator && navigator.mediaDevices && 'enumerateDevices' in navigator.mediaDevices;
   }
 }
 

@@ -10,7 +10,7 @@
   <section class="target">
     <ion-icon name="qr-scanner" item-start></ion-icon>
   </section>
-  <ion-fab right bottom>
+  <ion-fab right bottom *ngIf="devices.length > 1">
     <button ion-fab (click)="switch()">
       <ion-icon name="swap"></ion-icon>
     </button>

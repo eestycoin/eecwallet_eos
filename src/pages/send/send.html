@@ -20,11 +20,11 @@
   </p>
   <ion-grid>
     <ion-row>
-      <ion-col col-11>
+      <ion-col class="AddressTo">
         <ion-input type="text" clearInput [(ngModel)]="addressTo" id="output" [disabled]="merchant && merchant.addr">
         </ion-input>
       </ion-col>
-      <ion-col col-1 class="text-right">
+      <ion-col class="AddressToBtn text-right">
         <a (click)="qrScanerPage()">
           <ion-icon name="qr-scanner"></ion-icon>
         </a>

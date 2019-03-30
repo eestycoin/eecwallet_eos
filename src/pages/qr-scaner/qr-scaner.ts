@@ -14,6 +14,8 @@ export class QrScanerPage {
   width = window.innerWidth;
   heigth = window.innerWidth;
 
+  devices = [];
+
   constructor(
     private navCtrl: NavController, 
     private qrScaner: QRScaner,
@@ -22,6 +24,13 @@ export class QrScanerPage {
 
   ionViewDidLoad() {
     const videoEl = document.getElementsByClassName('qrviewport')[0] as HTMLElement;
+
+    this.qrScaner.getVideoInputDevices()
+      .then(r => {
+        this.devices = r;
+        console.log(r);
+      });
+
     this.qrScaner.startCapture(videoEl)
       .then(r => {
         if (this.eth.isAddress(r)) {
