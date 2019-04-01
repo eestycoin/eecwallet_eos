@@ -62,6 +62,7 @@ export class LoginPage {
         this.checkUser();
     } catch (error) {
       console.log(error);
+      this.isLoading = false;
       this.toast.showError('Private key is incorrect or wallet doesn’t exist');
     }
   }
