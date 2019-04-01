@@ -18,28 +18,33 @@
     <ion-input type="text" clearInput [(ngModel)]="privateKey" id="privateKey"></ion-input>
   </p>
 
-  <p>
-    <small>
-      Registration:
-    </small>
-  </p>
+  <section *ngIf="showRegistration">
+    <p>
+      <small>
+        Registration:
+      </small>
+    </p>
 
-  <p>
-    <ion-input type="text" placeholder="Email" clearInput [(ngModel)]="user.email" id="email"></ion-input>
-  </p>
-  <p>
-    <ion-input type="text" placeholder="Username" clearInput [(ngModel)]="user.name" id="userName"></ion-input>
-  </p>
-  <p>
-    <ion-input type="text" placeholder="Country" clearInput [(ngModel)]="user.country" id="country"></ion-input>
-  </p>
+    <p>
+      <ion-input type="text" placeholder="Email" clearInput [(ngModel)]="user.email" id="email"></ion-input>
+    </p>
+    <p>
+      <ion-input type="text" placeholder="Username" clearInput [(ngModel)]="user.name" id="userName"></ion-input>
+    </p>
+    <p>
+      <ion-input type="text" placeholder="Country" clearInput [(ngModel)]="user.country" id="country"></ion-input>
+    </p>
 
-  <ion-list>
-    <ion-item>
-      <ion-label>Merchant account</ion-label>
-      <ion-checkbox [(ngModel)]="user.merchant"></ion-checkbox>
-    </ion-item>
-  </ion-list>
+    <ion-list>
+      <ion-item>
+        <ion-label>Merchant account</ion-label>
+        <ion-checkbox [(ngModel)]="user.merchant"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+  </section>
 
-  <button ion-button block (click)="onSubmit()" [disabled]="!privateKey">Submit</button>
+  <button ion-button block (click)="onSubmit()" [disabled]="!privateKey || isLoading">
+    <span *ngIf="!isLoading">Submit</span>
+    <ion-spinner name="bubbles" color="white" *ngIf="isLoading"></ion-spinner>
+  </button>
 </ion-content>

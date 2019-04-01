@@ -32,6 +32,10 @@ export class FirebaseProvider {
     return user;
   }
 
+  getUser(user: User) {
+    return this.db.collection('merchants').doc(user.addr).get();
+  }
+
   getItems(account: string) {
     return this.db
       .collection('items')
