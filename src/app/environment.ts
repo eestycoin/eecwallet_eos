@@ -1,4 +1,4 @@
-import { AbiItem } from "web3-utils/types";
+// import { AbiItem } from "web3-utils/types";
 
 export const environment = {
   mode: 'dev',
@@ -66,7 +66,7 @@ export const environment = {
   }
 }
 
-export const erc20abi: AbiItem[] = [
+export const erc20abi: any[] = [
   {
     "constant": true,
     "inputs": [],

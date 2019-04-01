@@ -128,7 +128,7 @@ export class EthProvider {
     return this.erc20.methods
       .balanceOf(this.web3.eth.defaultAccount)
       .call()
-      .then(r => parseFloat(this.web3.utils.fromWei(r, 'ether')))
+      .then(r => parseFloat(this.web3.utils.fromWei(r.toString(), 'ether')))
   }
 
   async checkNetwork(): Promise<boolean> {
@@ -172,8 +172,9 @@ export class EthProvider {
 
   // trasfer erc20 coin
   private async transferCoin(receiver: string, value: number) {
-    const query = this.erc20.methods.transfer(receiver, value);
+    const query = this.erc20.methods.transfer(receiver, value.toString());
     const encodedABI = query.encodeABI();
+
     const rawTx = {
       nonce: await this.web3.eth.getTransactionCount(this.account.address),
       data: encodedABI,
@@ -192,7 +193,7 @@ export class EthProvider {
     const gasPrice = await this.web3.eth.getGasPrice();
 
     tx.chainId = environment.eth.networkId;
-    tx.gasPrice = parseInt(gasPrice) * 100;
+    tx.gasPrice = parseInt(gasPrice.toString()) * 100;
     tx.gasLimit = 60000;
     tx.sign(privateKey);
 
@@ -204,7 +205,8 @@ export class EthProvider {
     return this.web3.eth
       .sendSignedTransaction('0x' + serializedTx.toString('hex'))
       .once('transactionHash', r => { this.lastTx = r; })
-      .on('receipt', console.log);
+      .on('receipt', console.log)
+      .on('error', console.error);
   }
 
 }
