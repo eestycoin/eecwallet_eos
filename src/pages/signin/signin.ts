@@ -14,6 +14,7 @@ export class SigninPage {
   pin: string;
   isPinSetted: boolean;
   loading: boolean;
+  error: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -30,6 +31,14 @@ export class SigninPage {
     this.loading = true;
     if (this.pin === localStorage.getItem('pin'))
       this.eth.accountChanged.next();
+    else {
+      this.loading = false;
+      this.error = true;
+    }
+  }
+
+  onChange() {
+    this.error = false;
   }
 
   onSetPin() {

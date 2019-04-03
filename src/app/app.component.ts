@@ -43,7 +43,7 @@ export class MyApp {
       });
 
     this.platform.resume
-      .subscribe((r: Event) => {
+      .subscribe(() => {
         if (!this.isFaio) return;
         this.rootPage = 'SigninPage';
         this.showScan();
@@ -80,16 +80,8 @@ export class MyApp {
 
   private showScan() {
     this.faio.show(environment.faio)
-      .then((result: any) => {
-        console.log(result);
-        this.setRootPage();
-      })
-      .catch((error: string) => {
-        console.log(error);
-        if (error.search('user') > 0) {
-
-        }
-      });
+      .then(() => { this.setRootPage(); })
+      .catch(console.log);
   }
 
   private toMinutes(time: number): number {

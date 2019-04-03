@@ -17,9 +17,10 @@
     </small>
   </p>
   <p>PIN:</p>
-  <ion-input type="text" pattern="[0-9]*" clearInput [(ngModel)]="pin" id="pin"></ion-input>
+  <ion-input type="text" pattern="[0-9]*" clearInput (input)="onChange()" [(ngModel)]="pin" id="pin"></ion-input>
 
-  <p>&nbsp;</p>
+  <p *ngIf="!error">&nbsp;</p>
+  <p *ngIf="error">Wrong PIN code</p>
 
   <section *ngIf="loading">
     <ion-spinner name="bubbles"></ion-spinner>
