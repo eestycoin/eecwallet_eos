@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { IonicPage, NavController } from 'ionic-angular';
-import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 import { QRScaner } from '../../providers/qr-scaner/qr-scaner';
 import { EthProvider } from '../../providers/eth/eth';

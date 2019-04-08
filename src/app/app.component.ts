@@ -49,6 +49,8 @@ export class MyApp {
           this.rootPage = 'SigninPage';
           this.showScan();
         });
+    } else {
+      this.onInit();
     }
 
 

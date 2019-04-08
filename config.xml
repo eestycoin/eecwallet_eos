@@ -44,10 +44,14 @@
             <uses-feature android:name="android.hardware.camera.autofocus" />
             <uses-feature android:name="android.hardware.camera2.full" />
             <uses-feature android:name="android.hardware.camera2.autofocus" />
+            <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+            <uses-permission android:name="android.permission.RECORD_AUDIO" />
             <uses-permission android:name="android.permission.CAMERA" />
             <uses-permission android:name="android.permission.INTERNET" />
             <uses-permission android:name="android.webkit.PermissionRequest" />
         </custom-config-file>
+        <preference name="android-minSdkVersion" value="19" />
+        <preference name="android-targetSdkVersion" value="23" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
@@ -95,5 +99,4 @@
     </plugin>
     <plugin name="cordova-plugin-android-permissions" spec="1.0.0" />
     <engine name="ios" spec="^4.5.5" />
-    <engine name="android" spec="^6.3.0" />
 </widget>

@@ -116,7 +116,7 @@ export class EthProvider {
     try {
       this.account.address = await this.getAccount();
       this.account.balance = await this.getBalance();
-      console.log(this.account.balance);
+      // console.log(this.account.balance);
       this.account.privateKey = this.getPrivateKey();
       if (this.account.address !== oldAccountAddress)
         this.accountChanged.next(this.account);
