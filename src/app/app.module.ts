@@ -7,6 +7,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -45,7 +46,8 @@ import { environment } from './environment';
     BitgoProvider,
     RatesProvider,
     FirebaseProvider,
-    ToasterProvider
+    ToasterProvider,
+    AndroidPermissions
   ]
 })
 export class AppModule { }

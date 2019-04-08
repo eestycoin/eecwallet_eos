@@ -32,22 +32,25 @@ export class MyApp {
 
     this.rates.onInit();
 
-    this.platform
-      .ready()
-      .then(() => {
-        // Okay, so the platform is ready and our plugins are available.
-        // Here you can do any higher level native things you might need.
-        statusBar.styleDefault();
-        splashScreen.hide();
-        this.onInit();
-      });
+    if (this.platform.is('cordova')) {
+      this.platform
+        .ready()
+        .then(() => {
+          // Okay, so the platform is ready and our plugins are available.
+          // Here you can do any higher level native things you might need.
+          statusBar.styleDefault();
+          splashScreen.hide();
+          this.onInit();
+        });
 
-    this.platform.resume
-      .subscribe(() => {
-        if (!this.isFaio) return;
-        this.rootPage = 'SigninPage';
-        this.showScan();
-      });
+      this.platform.resume
+        .subscribe(() => {
+          if (!this.isFaio) return;
+          this.rootPage = 'SigninPage';
+          this.showScan();
+        });
+    }
+
 
     this.eth.accountChanged.subscribe(() => this.setRootPage());
   }
