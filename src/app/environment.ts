@@ -2,6 +2,7 @@
 
 export const environment = {
   mode: 'dev',
+  disableFaio: false,
   ionic: {
     preloadModules: true
   },

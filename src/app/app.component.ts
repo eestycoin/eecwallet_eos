@@ -12,6 +12,8 @@ import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
 
 import { environment } from './environment';
 
+declare var window: any;
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -45,7 +47,9 @@ export class MyApp {
 
       this.platform.resume
         .subscribe(() => {
-          if (!this.isFaio) return;
+          console.log('resume', window.disableFaio);
+          if (!this.isFaio || window.disableFaio) return;
+
           this.rootPage = 'SigninPage';
           this.showScan();
         });

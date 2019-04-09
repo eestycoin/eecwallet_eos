@@ -3,6 +3,7 @@ import QRReader from 'qrreader';
 
 // import QRReader from './temp';
 
+
 @Injectable()
 export class QRScaner {
   private qrReader: QRReader; 
