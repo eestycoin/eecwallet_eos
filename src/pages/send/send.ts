@@ -18,7 +18,7 @@ export class SendPage {
 
   merchant: User;
 
-  addressTo: string = environment.eth.wallet;
+  addressTo: string = ''; //environment.eth.wallet;
   amount: number = 1;
   max = 1;
 
