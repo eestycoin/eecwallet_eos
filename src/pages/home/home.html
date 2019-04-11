@@ -9,7 +9,7 @@
 <ion-content>
   <header (click)="itemSelected('QrShowPage')">
     <p>
-      <img alt="logo" height="40" src="assets/imgs/logo.png">
+      <img alt="logo" height="60" src="assets/imgs/logo.png">
     </p>
     <h3 [class.hidden]="eth.account.balance < 1">
       Balance: {{eth.account.balance | number:'1.0-0'}}
@@ -20,9 +20,9 @@
       <small>{{eth.account.address || 'loading...'}}</small>
       <br>
       <br>
-      <small>
+      <!-- <small>
         <sup class="dimmed">[ tap here to show qr code ]</sup>
-      </small>
+      </small> -->
     </p>
   </header>
   <section padding>
@@ -50,6 +50,10 @@
       <button ion-item (click)="itemSelected('MerchantsPage')">
         <ion-icon name="contacts" item-start></ion-icon>
         Merchants list
+      </button>
+      <button ion-item (click)="itemSelected('QrShowPage')">
+        <ion-icon name="barcode" item-start></ion-icon>
+        Your wallet QR code
       </button>
       <button ion-item (click)="itemSelected('InfoPage')">
         <ion-icon name="information-circle" item-start></ion-icon>
