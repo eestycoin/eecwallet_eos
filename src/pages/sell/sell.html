@@ -1,25 +1,32 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Sell</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>Sell</ion-title>
+    </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-  <p>
+    <p>
+        In order to sell tokens you should proceed to the SouthExchange, where Eesty Coin is listed and available to trade via USD and BTC. When you tap the button, SouthExchange will be opened in separate window due to security reasons.
+    </p>
+    <p>
+
+        <a ion-button block href="https://www.southxchange.com/" > Go to SouthExchange</a>
+    </p>
+    <!-- <p>
     <small>
-      In order to sell tokens you should enter the amount and confirm transfer transaction by pressing . Tokens will be withdrawed
+      In order to sell tokens you should enter the amount and confirm transfer transaction by pressing . Tokens will be
+      withdrawed
       from you current wallet and soon you'll recieve your ETH.
     </small>
   </p>
 
   <p>Amount, EEC:</p>
-  
-    <ion-input type="number" min="1" step="1" placeholder="1" pattern="[0-9]*" 
-      [(ngModel)]="amount" (ngModelChange)="onChange($event)"></ion-input>
-  
+
+  <ion-input type="number" min="1" step="1" placeholder="1" pattern="[0-9]*" [(ngModel)]="amount" (ngModelChange)="onChange($event)"></ion-input>
+
   <p>&nbsp;</p>
   <p>Expected amount: {{amount * rate}} USD</p>
   <p>&nbsp;</p>
-  <button ion-button block (click)="onSubmit()" [disabled]="!amount || amount >= max">Submit</button>
+  <button ion-button block (click)="onSubmit()" [disabled]="!amount || amount >= max">Submit</button> -->
 </ion-content>

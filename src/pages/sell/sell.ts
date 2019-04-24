@@ -36,6 +36,11 @@ export class SellPage {
       el.value = el.value.replace(/[^0-9]/g, '');
     }
 
+  onClick() {
+    window.open('https://www.southxchange.com/', '_system', 'location=yes'); 
+    return false;
+  }
+
   onSubmit() {
     if (!this.amount || !this.addressTo)
       return;

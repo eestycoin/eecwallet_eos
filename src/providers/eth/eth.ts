@@ -13,6 +13,7 @@ export class EthProvider {
   account = {
     address: undefined,
     balance: 0,
+    balanceEth: 0,
     privateKey: this.getPrivateKey()
   }
 
@@ -69,7 +70,7 @@ export class EthProvider {
 
   signOut() {
     localStorage.removeItem('key');
-    this.account = { address: null, balance: 0, privateKey: null };
+    this.account = { address: null, balance: 0, balanceEth: 0, privateKey: null };
   }
 
   privateKeyToAccount(privateKey: string) {
@@ -116,10 +117,11 @@ export class EthProvider {
     try {
       this.account.address = await this.getAccount();
       this.account.balance = await this.getBalance();
-      // console.log(this.account.balance);
+      this.account.balanceEth = await this.getEthBalance();
       this.account.privateKey = this.getPrivateKey();
       if (this.account.address !== oldAccountAddress)
         this.accountChanged.next(this.account);
+      console.log(this.account)
     } catch (error) {
       console.log(error);
     }
@@ -129,7 +131,12 @@ export class EthProvider {
     return this.erc20.methods
       .balanceOf(this.web3.eth.defaultAccount)
       .call()
-      .then(r => parseFloat(this.web3.utils.fromWei(r.toString(), 'ether')))
+      .then(r => parseFloat(this.web3.utils.fromWei(r, 'ether')));
+  }
+
+  async getEthBalance(): Promise<number> {
+    return this.web3.eth.getBalance(this.account.address)
+      .then(r => parseFloat(this.web3.utils.fromWei(r, 'ether')));
   }
 
   async checkNetwork(): Promise<boolean> {
