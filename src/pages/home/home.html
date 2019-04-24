@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content>
-  <header (click)="itemSelected('QrShowPage')">
+  <header>
     <p>
       <img alt="logo" height="60" src="assets/imgs/logo.png">
     </p>
@@ -21,7 +21,10 @@
     </h6>
     <p>Account
       <br>
-      <small>{{eth.account.address || 'loading...'}}</small>
+      <small> {{eth.account.address || 'loading...'}} </small>
+      <br>
+      <br>
+        <button (click)="copyMessage(eth.account.address)" value="click to copy" style="background-color: transparent; color:white; border:1px">[Copy to clipboard]</button>
       <br>
       <br>
       <!-- <small>
