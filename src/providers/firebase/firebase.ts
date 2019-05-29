@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 
-import { User, Tx } from '../../models/models';
+import { User, Order } from '../../models/models';
 
 
 @Injectable()
@@ -50,6 +50,13 @@ export class FirebaseProvider {
       .pipe(map((results: User[]) => this.mapMerchants(results)));
   }
 
+  getOrders() {
+    return this.db
+      .collection('oreders')
+      .valueChanges()
+      .pipe(map((results: Order[]) => this.mapOrders(results)));
+  }
+
   private mapItems(items: any[], account: string) {
     return items
       .sort((x, y) => x.date < y.date ? -1 : 1)
@@ -66,6 +73,10 @@ export class FirebaseProvider {
   private mapMerchants(users: User[]) {
     return users
       .filter(users => users.merchant);
+  }
+
+  private mapOrders(orders: Order[]) {
+    return orders;
   }
 
 }

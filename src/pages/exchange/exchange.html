@@ -1,0 +1,52 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Exchange</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <p>
+    Select currency to exchange:
+  </p>
+
+  <section *ngIf="loading">
+    <ion-spinner name="bubbles"></ion-spinner>
+  </section>
+
+  <section *ngIf="!loading">
+    <ion-list>
+      <ion-item>
+        <ion-label>currencyIn</ion-label>
+        <ion-select [(ngModel)]="currencyIn" (ngModelChange)="onCurrencyInChange($event)">
+          <ion-option value="{{item}}" *ngFor="let item of currencies">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-input type="number" placeholder="Amount" [(ngModel)]="amount" (ngModelChange)="onAmountChange($event)"></ion-input>
+      </ion-item>
+    </ion-list>
+    <section>
+      <p>Excahnge To:</p>
+    </section>
+    <ion-list>
+      <ion-item>
+        <ion-label>currencyOut</ion-label>
+        <ion-select [(ngModel)]="currencyOut" (ngModelChange)="onCurrencyOutChange($event)">
+          <ion-option value="{{item}}" *ngFor="let item of currenciesOut">{{item}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-input type="number" disabled [(ngModel)]="expected"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <button ion-button block (click)="onSubmit()">Confirm</button>
+
+    <p class="text-center">
+      <small>Please mind blockchain transactions and confirmations speed.</small>
+    </p>
+  </section>
+</ion-content>

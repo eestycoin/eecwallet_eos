@@ -1,0 +1,34 @@
+<!--
+  Generated template for the ExchangeConfirmPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>exchangeConfirm</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      ReceivingAddress: <b>{{receivingAddress}}</b>
+      <span item-end (click)="onCopy()">
+        <ion-icon name="copy"></ion-icon>
+      </span>
+    </ion-item>
+    <ion-item>
+      ID: {{id}}
+    </ion-item>
+    <ion-item>
+      Price: {{price}}
+    </ion-item>
+    <ion-item *ngIf="!!expiresOn">
+      Expires On: {{expiresOn.toLocaleString()}}
+    </ion-item>
+  </ion-list>
+</ion-content>

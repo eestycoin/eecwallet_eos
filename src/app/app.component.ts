@@ -47,7 +47,6 @@ export class MyApp {
 
       this.platform.resume
         .subscribe(() => {
-          console.log('resume', window.disableFaio);
           if (!this.isFaio || window.disableFaio) return;
 
           this.rootPage = 'SigninPage';

@@ -14,3 +14,7 @@ export interface Tx {
   to: string;
   error: string;
 }
+
+export interface Order {
+  
+}

@@ -15,6 +15,7 @@ import { HomePage } from '../pages/home/home';
 import { EthProvider } from '../providers/eth/eth';
 import { BitgoProvider } from '../providers/bitgo/bitgo';
 import { RatesProvider } from '../providers/rates/rates';
+import { ExchangeProvider } from '../providers/exchange/exchange';
 import { FirebaseProvider } from '../providers/firebase/firebase';
 import { ToasterProvider } from '../providers/toaster/toaster';
 
@@ -46,6 +47,7 @@ import { environment } from './environment';
     EthProvider,
     BitgoProvider,
     RatesProvider,
+    ExchangeProvider,
     FirebaseProvider,
     ToasterProvider,
     AndroidPermissions

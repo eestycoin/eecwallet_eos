@@ -121,7 +121,7 @@ export class EthProvider {
       this.account.privateKey = this.getPrivateKey();
       if (this.account.address !== oldAccountAddress)
         this.accountChanged.next(this.account);
-      console.log(this.account)
+      // console.log(this.account)
     } catch (error) {
       console.log(error);
     }

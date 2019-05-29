@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import { EthProvider } from '../../providers/eth/eth';
+import { ExchangeProvider } from '../../providers/exchange/exchange';
 
 @Component({
   selector: 'page-home',
@@ -10,14 +11,25 @@ import { EthProvider } from '../../providers/eth/eth';
 export class HomePage {
 
   constructor(
-    public navCtrl: NavController, 
-    public eth: EthProvider
-  ) { }
+    public navCtrl: NavController,
+    public eth: EthProvider,
+    private exchange: ExchangeProvider
+  ) {
+    this.exchange.getPrice()
+      .then(r => {
+        console.log(r);
+      }).catch(console.log)
+
+    this.exchange.getCoinPrice()
+      .then(r => {
+        console.log(r);
+      }).catch(console.log)
+  }
 
   itemSelected(item: string) {
     this.navCtrl.push(item);
   }
-  copyMessage(val: string){
+  copyMessage(val: string) {
     let selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
     selBox.style.left = '0';

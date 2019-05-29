@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { Currency, MarketCap, MetaData, Quote } from './interface';
+import { ExchangeProvider } from '../exchange/exchange';
 
 import { environment } from '../../app/environment';
 
@@ -19,14 +19,14 @@ export class RatesProvider {
   ) { }
 
   public onInit() {
-    timer(0, environment.rates.interval)
-      .pipe(switchMap(() => this.getPrices()))
-      .subscribe(this.setData.bind(this));
-    timer(0, environment.rates.interval)
-      .pipe(switchMap(() => this.getCoinPrice()))
-      .subscribe(r => {
-        this.list[environment.coin] = r['Last'];
-      });
+    // timer(0, environment.rates.interval)
+    //   .pipe(switchMap(() => this.getPrices()))
+    //   .subscribe(this.setData.bind(this));
+    // timer(0, environment.rates.interval)
+    //   .pipe(switchMap(() => this.getCoinPrice()))
+    //   .subscribe(r => {
+    //     this.list[environment.coin] = r['Last'];
+    //   });
   }
 
   private setData(r) {
