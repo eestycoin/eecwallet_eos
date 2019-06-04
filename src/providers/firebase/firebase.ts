@@ -3,6 +3,9 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 
 import { User, Order } from '../../models/models';
+import { environment } from '../../app/environment';
+
+enum TxType { 'Plain', 'Income', 'Exchange', 'Error' };
 
 
 @Injectable()
@@ -12,10 +15,22 @@ export class FirebaseProvider {
 
   async saveItem(tx: string, from: string, to: string, amount: number = 0, error = '') {
     const id = this.db.createId();
-    const data = { tx, from, to, amount, error, date: Date.now() };
+    const data = { type: TxType.Plain, tx, from, to, amount, error, date: Date.now() };
     try {
       await this.db.collection('items').doc(id).set(data);
       console.log("Document written with TX: ", data.tx);
+    } catch (e) {
+      console.log("Error adding document: ", e);
+    }
+    return data;
+  }
+
+  async saveOrder(from: string, to: string, amount: number = 0, orderId: string, error = '') {
+    const id = this.db.createId();
+    const data = { type: TxType.Exchange, from, to, amount, orderId, error, date: Date.now() };
+    try {
+      await this.db.collection('items').doc(id).set(data);
+      console.log("Item written: ", data);
     } catch (e) {
       console.log("Error adding document: ", e);
     }
@@ -65,6 +80,15 @@ export class FirebaseProvider {
         item.from = (item.from || '').toUpperCase();
         item.to = (item.to || '').toUpperCase();
         item.income = item.to === account;
+        item.type = (item.type === TxType.Exchange) 
+          ? TxType.Exchange
+          : (item.to === account)
+            ? TxType.Income
+            : TxType.Plain;
+        if (item.error) item.type = TxType.Error;
+        item.currency = (item.type === TxType.Exchange) 
+          ? item.to.split('-')[0]
+          : environment.coin;
         return item;
       })
       .filter(item => (item.from === account) || (item.to === account));

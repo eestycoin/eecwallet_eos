@@ -14,17 +14,7 @@ export class HomePage {
     public navCtrl: NavController,
     public eth: EthProvider,
     private exchange: ExchangeProvider
-  ) {
-    this.exchange.getPrice()
-      .then(r => {
-        console.log(r);
-      }).catch(console.log)
-
-    this.exchange.getCoinPrice()
-      .then(r => {
-        console.log(r);
-      }).catch(console.log)
-  }
+  ) { }
 
   itemSelected(item: string) {
     this.navCtrl.push(item);

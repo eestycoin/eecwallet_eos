@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { HomePage } from '../home/home';
+
 import { ToasterProvider } from '../../providers/toaster/toaster';
+import { FirebaseProvider } from '../../providers/firebase/firebase';
+import { EthProvider } from '../../providers/eth/eth';
 
 
 @IonicPage()
@@ -15,11 +19,16 @@ export class ExchangeConfirmPage {
   price: number;
   receivingAddress: string;
   expiresOn: Date;
+  currencyIn: string;
+  currencyOut: string;
+  amount: number;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private toast: ToasterProvider
+    private toast: ToasterProvider,
+    private db: FirebaseProvider,
+    private eth: EthProvider
   ) { }
 
   ionViewDidLoad() {
@@ -27,6 +36,11 @@ export class ExchangeConfirmPage {
     this.receivingAddress = this.navParams.get('ReceivingAddress');
     this.price = this.navParams.get('Price');
     this.expiresOn = new Date(this.navParams.get('ExpiresOn'));
+    this.amount = this.navParams.get('amount');
+    this.currencyIn = this.navParams.get('currencyIn');
+    this.currencyOut = this.navParams.get('currencyOut');
+
+    this.db.saveOrder(this.eth.account.address, this.currencyIn + '-' + this.currencyOut, this.amount, this.id);
 
     console.log(this.id, this.receivingAddress, this.price, this.expiresOn);
   }
@@ -34,6 +48,10 @@ export class ExchangeConfirmPage {
   onCopy() {
     this.copy(this.receivingAddress);
     this.toast.showInfo('Address copied successfully');
+  }
+
+  onSubmit() {
+    this.navCtrl.setRoot('HistoryPage');
   }
 
   private copy(val: string) {

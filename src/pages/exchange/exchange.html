@@ -25,7 +25,8 @@
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-input type="number" placeholder="Amount" [(ngModel)]="amount" (ngModelChange)="onAmountChange($event)"></ion-input>
+        <ion-input type="number" placeholder="Amount" [(ngModel)]="amount" (ngModelChange)="onAmountChange($event)">
+        </ion-input>
       </ion-item>
     </ion-list>
     <section>
@@ -43,7 +44,12 @@
       </ion-item>
     </ion-list>
 
-    <button ion-button block (click)="onSubmit()">Confirm</button>
+    <section *ngIf="!sloading">
+      <button ion-button block (click)="onSubmit()">Confirm</button>
+    </section>
+    <section *ngIf="sloading" class="text-center">
+      <ion-spinner name="bubbles"></ion-spinner>
+    </section>
 
     <p class="text-center">
       <small>Please mind blockchain transactions and confirmations speed.</small>

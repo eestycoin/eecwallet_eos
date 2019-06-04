@@ -8,17 +8,21 @@
 <ion-content>
   <ion-list>
     <button ion-item *ngFor="let item of items | async">
-      <ion-icon name="arrow-round-down" color="primary" item-start *ngIf="item.income"></ion-icon>
-      <ion-icon name="arrow-round-up" color="secondary" item-start *ngIf="!item.income && !item.error"></ion-icon>
-      <ion-icon name="close-circle" color="danger" item-start *ngIf="item.error"></ion-icon>
+      <ion-icon name="arrow-round-up" color="secondary" item-start *ngIf="item.type === 0"></ion-icon>
+      <ion-icon name="arrow-round-down" color="primary" item-start *ngIf="item.type === 1"></ion-icon>
+      <ion-icon name="sync" color="primary" item-start *ngIf="item.type === 2"></ion-icon>
+      <ion-icon name="close-circle" color="danger" item-start *ngIf="item.type === 3"></ion-icon>
       <h2>{{item.date | date:'medium'}}</h2>
       <p>
-        <small *ngIf="item.income">From: {{item.from}}</small>
-        <small *ngIf="!item.income">To: {{item.to}}</small>
+        <small *ngIf="item.type === 0">To: {{item.to}}</small>
+        <small *ngIf="item.type === 1">From: {{item.from}}</small>
+        <small *ngIf="item.type === 2">Exchange: {{item.to}}</small>
       </p>
       <h2 item-end>
-        <span *ngIf="!item.income">-</span>
+        <span *ngIf="item.type === 0">-</span>
+        <span *ngIf="item.type === 2">-</span>
         {{item.amount || 0}}
+        <small>{{item.currency}}</small>
       </h2>
     </button>
   </ion-list>

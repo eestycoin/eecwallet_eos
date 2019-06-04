@@ -21,6 +21,8 @@ export class ExchangePage {
   currencyOut = environment.coin;
   amount = 0.01;
   expected = 0;
+  loading = false;
+  sloading = false;
 
   constructor(
     public navCtrl: NavController,
@@ -37,7 +39,6 @@ export class ExchangePage {
     this.currenciesOut = (nextVal === environment.coin)
       ? cleanCurrenciesOut
       : [environment.coin];
-    console.log(this.currenciesOut, this.currenciesOut[0]);
     this.currencyOut = this.currenciesOut[0];
     this.onAmountChange(this.amount.toString());
   }
@@ -55,7 +56,6 @@ export class ExchangePage {
 
     this.exchage.getPrice(this.currencyIn, this.currencyOut, amount)
       .then((r: string) => {
-        console.log(r);
         this.expected = amount / parseFloat(r);
       }).catch(error => {
         console.log(error);
@@ -65,15 +65,16 @@ export class ExchangePage {
   }
 
   onSubmit() {
-    console.log(this.eth.account.address);
     const returnAddress = '31k7weNRwAWgxjnh2KyEoFXHh1v6T9bo5r';
-    console.log( this.eth.account.address);
+    this.sloading = true;
     this.exchage.putOrder(this.currencyIn, this.currencyOut, this.amount, this.eth.account.address, returnAddress)
-      .then(r => {
-        console.log(r);
+      .then((r: any) => {
+        r.amount = this.amount;
+        r.currencyIn = this.currencyIn;
+        r.currencyOut = this.currencyOut;
         this.navCtrl.push('ExchangeConfirmPage', r);
       }).catch(e => {
-        console.log(e.error);
+        this.sloading = false;
         this.toast.showError(e.error || 'Unknown error');
       });
   }
