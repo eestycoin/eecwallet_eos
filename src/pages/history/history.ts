@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { EthProvider } from '../../providers/eth/eth';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
+import { ExchangeProvider } from '../../providers/exchange/exchange';
 
 
 @IonicPage()
@@ -19,10 +20,12 @@ export class HistoryPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private db: FirebaseProvider,
-    private eth: EthProvider
+    private eth: EthProvider,
+    private exchange: ExchangeProvider
   ) { }
 
   ionViewDidLoad() {
     this.items = this.db.getItems(this.eth.account.address);
+    this.items.subscribe(r => this.exchange.watchOrders(r));
   }
 }

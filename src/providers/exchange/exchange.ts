@@ -3,13 +3,28 @@ import { Injectable } from '@angular/core';
 
 import { environment } from '../../app/environment';
 
+export enum OrderStatus { AwaitingDeposit, AwaitingDepositConfirmations, AwaitingTrade, Completed };
+
+export interface Order {
+  status: OrderStatus;
+  orderId: string;
+  from: string;
+  to: string;
+  amount: number;
+  error?: string;
+  price?: number;
+}
 
 @Injectable()
 export class ExchangeProvider {
 
-  constructor(
-    public http: HttpClient
-  ) { }
+  orders: Order[] = [];
+  watchOrdersInterval = 3000;
+
+  constructor(public http: HttpClient) {
+    this.restoreOrders();
+    this.watchOrders();
+  }
 
   getCoinPrice() {
     return this.http
@@ -37,4 +52,39 @@ export class ExchangeProvider {
       .toPromise();
   }
 
+  saveOrder(order: Order): void {
+    this.updateOrders([order]);
+  }
+
+  // PRIVATE
+
+  private watchOrders(): void {
+    setInterval(() => {
+      this.orders.forEach((order: Order) => {
+        console.log(order);
+        if (order.status !== OrderStatus.Completed)
+          this.getOrder(order.orderId)
+            .then(r => {
+              console.log(r);
+            });
+      });
+    }, this.watchOrdersInterval);
+  }
+
+  private restoreOrders(): void {
+    const orders = localStorage.getItem('orders');
+    if (orders)
+      this.orders = JSON.parse(orders);
+  }
+
+  private updateOrders(orders: Order[]): void {
+    orders.forEach((order: Order) => {
+      let existingOrder = this.orders.find(v => v.orderId === order.orderId);
+      if (existingOrder)
+        existingOrder = order;
+      else
+        this.orders.push(order);
+    });
+    localStorage.setItem('orders', JSON.stringify(this.orders));
+  }
 }

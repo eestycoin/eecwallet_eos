@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { HomePage } from '../home/home';
-
 import { ToasterProvider } from '../../providers/toaster/toaster';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
+import { ExchangeProvider } from '../../providers/exchange/exchange';
 import { EthProvider } from '../../providers/eth/eth';
 
 
@@ -28,7 +27,8 @@ export class ExchangeConfirmPage {
     public navParams: NavParams,
     private toast: ToasterProvider,
     private db: FirebaseProvider,
-    private eth: EthProvider
+    private eth: EthProvider,
+    private exchange: ExchangeProvider
   ) { }
 
   ionViewDidLoad() {
@@ -41,8 +41,14 @@ export class ExchangeConfirmPage {
     this.currencyOut = this.navParams.get('currencyOut');
 
     this.db.saveOrder(this.eth.account.address, this.currencyIn + '-' + this.currencyOut, this.amount, this.id);
-
-    console.log(this.id, this.receivingAddress, this.price, this.expiresOn);
+    this.exchange.saveOrder({
+      from: this.eth.account.address,
+      to: this.currencyIn + '-' + this.currencyOut, 
+      amount: this.amount, 
+      orderId: this.id,
+      status: 0,
+      price: this.price
+    });
   }
 
   onCopy() {
