@@ -14,11 +14,12 @@ import { environment } from '../../app/environment';
   templateUrl: 'exchange.html',
 })
 export class ExchangePage {
-
+  coin = environment.coin;
   currencies: string[] = environment.exchange.currencies;
   currenciesOut: string[];
   currencyIn = environment.exchange.currencies[0];
-  currencyOut = environment.coin;
+  currencyOut = this.coin;
+  returnAddress = '';
   amount = 0.01;
   expected = 0;
   loading = false;
@@ -32,6 +33,7 @@ export class ExchangePage {
   ) {
     this.onCurrencyInChange(this.currencyIn);
     this.onAmountChange(this.amount.toString());
+    this.returnAddress = this.eth.account.address;
   }
 
   onCurrencyInChange(nextVal: string) {
@@ -40,15 +42,21 @@ export class ExchangePage {
       ? cleanCurrenciesOut
       : [environment.coin];
     this.currencyOut = this.currenciesOut[0];
-    this.onAmountChange(this.amount.toString());
+    
+    this.onCurrencyOutChange(this.currencyOut);
   }
 
   onCurrencyOutChange(nextVal: string) {
+    this.returnAddress = (nextVal === 'ETH' || nextVal === this.coin) 
+      ? this.eth.account.address 
+      : '';
+
     this.onAmountChange(this.amount.toString());
   }
 
   onAmountChange(nextVal: string) {
     const amount = parseFloat(nextVal);
+
     if (!amount) {
       this.expected = 0;
       return;
@@ -65,9 +73,11 @@ export class ExchangePage {
   }
 
   onSubmit() {
-    const returnAddress = '31k7weNRwAWgxjnh2KyEoFXHh1v6T9bo5r';
+    if (!this.returnAddress)
+      return;
+
     this.sloading = true;
-    this.exchage.putOrder(this.currencyIn, this.currencyOut, this.amount, this.eth.account.address, returnAddress)
+    this.exchage.putOrder(this.currencyIn, this.currencyOut, this.amount, this.eth.account.address, this.returnAddress)
       .then((r: any) => {
         r.amount = this.amount;
         r.currencyIn = this.currencyIn;

@@ -64,9 +64,8 @@ export class ExchangeProvider {
         console.log(order);
         if (order.status !== OrderStatus.Completed)
           this.getOrder(order.orderId)
-            .then(r => {
-              console.log(r);
-            });
+            .then(console.log)
+            .catch(console.log);
       });
     }, this.watchOrdersInterval);
   }
