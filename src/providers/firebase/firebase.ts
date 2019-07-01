@@ -37,6 +37,16 @@ export class FirebaseProvider {
     return data;
   }
 
+  async updateOrder(order) {
+    try {
+      await this.db.collection('items').doc(order.id).set(order);
+      console.log("Item written: ", order);
+    } catch (e) {
+      console.log("Error updating document: ", e);
+    }
+    return order;
+  }
+
   async saveUser(user: User) {
     try {
       await this.db.collection('merchants').doc(user.addr).set(user);

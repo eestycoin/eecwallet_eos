@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { FirebaseProvider } from '../firebase/firebase';
+
 import { environment } from '../../app/environment';
 
-export enum OrderStatus { AwaitingDeposit, AwaitingDepositConfirmations, AwaitingTrade, Completed };
+export enum OrderStatus { AwaitingDeposit, AwaitingDepositConfirmations, AwaitingTrade, Completed, Expired };
 
 export interface Order {
-  status: OrderStatus;
+  status: string;
   orderId: string;
   from: string;
   to: string;
@@ -21,7 +23,7 @@ export class ExchangeProvider {
   orders: Order[] = [];
   watchOrdersInterval = 3000;
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, private db: FirebaseProvider) {
     this.restoreOrders();
     this.watchOrders();
   }
@@ -61,11 +63,12 @@ export class ExchangeProvider {
   private watchOrders(): void {
     setInterval(() => {
       this.orders.forEach((order: Order) => {
-        console.log(order);
-        if (order.status !== OrderStatus.Completed)
+        if (order.status !== 'completed')
           this.getOrder(order.orderId)
-            .then(r => {
+            .then((r: string) => {
               console.log(123, r)
+              order.status = r;
+              this.db.updateOrder(order);
             })
             .catch(console.log);
       });

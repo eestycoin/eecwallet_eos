@@ -26,6 +26,5 @@ export class HistoryPage {
 
   ionViewDidLoad() {
     this.items = this.db.getItems(this.eth.account.address);
-    // this.items.subscribe(r => this.exchange.watchOrders());
   }
 }

@@ -16,5 +16,10 @@ export interface Tx {
 }
 
 export interface Order {
-  
+  id: string;
+  to: string;
+  from: string;
+  error: string;
+  status: string;
+  date: number;
 }
