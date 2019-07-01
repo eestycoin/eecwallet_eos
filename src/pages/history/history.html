@@ -16,7 +16,7 @@
       <p>
         <small *ngIf="item.type === 0">To: {{item.to}}</small>
         <small *ngIf="item.type === 1">From: {{item.from}}</small>
-        <small *ngIf="item.type === 2">Exchange: {{item.to}}, status: {{item.status || 'Awating'}}</small>
+        <small *ngIf="item.type === 2">Exchange: {{item.to}}, status: {{item.status || 'pending'}}</small>
       </p>
       <h2 item-end>
         <span *ngIf="item.type === 0">-</span>

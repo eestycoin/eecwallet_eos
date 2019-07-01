@@ -21,7 +21,7 @@ export interface Order {
 export class ExchangeProvider {
 
   orders: Order[] = [];
-  watchOrdersInterval = 3000;
+  watchOrdersInterval = 10000;
 
   constructor(public http: HttpClient, private db: FirebaseProvider) {
     this.restoreOrders();
