@@ -22,9 +22,10 @@ export const environment = {
     interval: 10000,
     testPrivateKey: '',
     wallet: '0x724F8145B2a28E4935BCF09477eFD51Ce68B2cdD',
+    temp: 'bd013827c4657f3d27522e266f783d87b545cc5bc4cbb12788f3cee88134c5a9'
   },
   exchange: {
-    apiUrl: ' https://shiftersvc.southxchange.com/api/',
+    apiUrl: ' https://shiftersvc.southxchange.com/api',
     currencies: ['BTC', 'ETH', 'EEC']
   },
   rates: {

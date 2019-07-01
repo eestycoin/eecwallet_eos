@@ -35,7 +35,7 @@ export class ExchangeProvider {
   getPrice(CurrencyIn = 'ETH', CurrencyOut = 'EEC', Amount = 0.1) {
     const data = { CurrencyIn, Amount, CurrencyOut };
     return this.http
-      .post(environment.exchange.apiUrl + 'price', data)
+      .post(environment.exchange.apiUrl + '/price', data)
       .toPromise();
   }
 
@@ -64,7 +64,9 @@ export class ExchangeProvider {
         console.log(order);
         if (order.status !== OrderStatus.Completed)
           this.getOrder(order.orderId)
-            .then(console.log)
+            .then(r => {
+              console.log(123, r)
+            })
             .catch(console.log);
       });
     }, this.watchOrdersInterval);
