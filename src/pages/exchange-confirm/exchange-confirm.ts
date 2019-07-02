@@ -46,7 +46,7 @@ export class ExchangeConfirmPage {
       to: this.currencyIn + '-' + this.currencyOut, 
       amount: this.amount, 
       orderId: this.id,
-      status: 0,
+      status: '',
       price: this.price
     });
   }
