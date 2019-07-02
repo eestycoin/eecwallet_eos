@@ -50,7 +50,7 @@ export class ExchangeProvider {
 
   getOrder(id: string) {
     return this.http
-      .get(environment.exchange.apiUrl + '/order/' + id)
+      .get(environment.exchange.apiUrl + '/order/' + id + '?t=' + Date.now())
       .toPromise();
   }
 
@@ -63,10 +63,11 @@ export class ExchangeProvider {
   private watchOrders(): void {
     setInterval(() => {
       this.orders.forEach((order: Order) => {
+        // console.log(order);
         if (order.status !== 'completed')
           this.getOrder(order.orderId)
             .then((r: string) => {
-              console.log(123, r)
+              // console.log(123, r, order)
               order.status = r;
               this.db.updateOrder(order);
             })

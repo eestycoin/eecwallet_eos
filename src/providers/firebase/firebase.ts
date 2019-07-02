@@ -64,7 +64,7 @@ export class FirebaseProvider {
   getItems(account: string) {
     return this.db
       .collection('items')
-      .valueChanges()
+      .snapshotChanges()
       .pipe(map(results => this.mapItems(results, account.toUpperCase())));
   }
 
@@ -86,7 +86,9 @@ export class FirebaseProvider {
     return items
       .sort((x, y) => x.date < y.date ? -1 : 1)
       .reverse()
-      .map(item => {
+      .map(a => {
+        const item = a.payload.doc.data()
+        const id = a.payload.doc.id;
         item.from = (item.from || '').toUpperCase();
         item.to = (item.to || '').toUpperCase();
         item.income = item.to === account;
@@ -99,7 +101,7 @@ export class FirebaseProvider {
         item.currency = (item.type === TxType.Exchange) 
           ? item.to.split('-')[0]
           : environment.coin;
-        return item;
+        return { id, ...item };
       })
       .filter(item => (item.from === account) || (item.to === account));
   }
@@ -110,6 +112,7 @@ export class FirebaseProvider {
   }
 
   private mapOrders(orders: Order[]) {
+    console.log(orders)
     return orders;
   }
 

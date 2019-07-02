@@ -7,6 +7,7 @@ export interface User {
 }
 
 export interface Tx {
+  id?: string;
   tx: string;
   amount: string;
   date: number;
