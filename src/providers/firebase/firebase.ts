@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 
 import { User, Order } from '../../models/models';
 import { environment } from '../../app/environment';
+import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 
 enum TxType { 'Plain', 'Income', 'Exchange', 'Error' };
 
@@ -101,6 +102,7 @@ export class FirebaseProvider {
         item.currency = (item.type === TxType.Exchange) 
           ? item.to.split('-')[0]
           : environment.coin;
+        console.log({ id, ...item })
         return { id, ...item };
       })
       .filter(item => (item.from === account) || (item.to === account));
