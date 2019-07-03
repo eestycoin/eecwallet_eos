@@ -6,6 +6,7 @@ import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { ExchangeProvider } from '../../providers/exchange/exchange';
 import { EthProvider } from '../../providers/eth/eth';
 
+import { environment } from '../../app/environment';
 
 @IonicPage()
 @Component({
@@ -21,6 +22,9 @@ export class ExchangeConfirmPage {
   currencyIn: string;
   currencyOut: string;
   amount: number;
+
+  isTransferAvailable = false;
+  loading = false;
 
   constructor(
     public navCtrl: NavController,
@@ -44,6 +48,14 @@ export class ExchangeConfirmPage {
       .then(order => {
         this.exchange.saveOrder(order);
       });
+
+    if ((this.currencyIn === 'ETH') && (this.eth.account.balanceEth > this.amount)) {
+      this.isTransferAvailable = true;
+    }
+
+    if ((this.currencyIn === environment.coin) && (this.eth.account.balance > this.amount)) {
+      this.isTransferAvailable = true;
+    }
   }
 
   onCopy() {
@@ -53,6 +65,37 @@ export class ExchangeConfirmPage {
 
   onSubmit() {
     this.navCtrl.setRoot('HistoryPage');
+  }
+
+  onSubmitTransfer() {
+    this.transfer(this.onSubmit);
+  }
+
+  private transfer(cb: Function) {
+    this.loading = true;
+
+    let func;
+
+    if (!this.isTransferAvailable) return;
+
+    if (this.currencyIn === 'ETH') {
+      func = this.eth.buy(this.amount, this.receivingAddress);
+    }
+
+    if (this.currencyIn === environment.coin) {
+      func = this.eth.tranfer(this.receivingAddress, this.amount);
+    }
+
+    if (!func) return;
+
+    func
+      .then(() => {
+        cb();
+      })
+      .catch(console.log)
+      .finally(() => {
+        this.loading = false;
+      });
   }
 
   private copy(val: string) {

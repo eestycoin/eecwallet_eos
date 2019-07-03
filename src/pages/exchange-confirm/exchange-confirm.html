@@ -34,7 +34,17 @@
       Expires On: {{expiresOn.toLocaleString()}}
     </ion-item>
   </ion-list>
-  <p>
+
+  <p *ngIf="!isTransferAvailable">
     <button ion-button block (click)="onSubmit()">Ok</button>
   </p>
+  <div *ngIf="isTransferAvailable && !loading"> 
+    <button ion-button block (click)="onSubmitTransfer()">Transfer</button>
+    <p class="text-center" (click)="onSubmit()">
+      <a>I'll send by myself</a>
+    </p>
+  </div>
+  <section *ngIf="loading">
+    <ion-spinner name="bubbles"></ion-spinner>
+  </section>
 </ion-content>

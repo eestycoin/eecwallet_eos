@@ -147,17 +147,17 @@ export class EthProvider {
   async tranfer(addressTo: string, tokens: number) {
     const value = this.web3.utils.toWei(tokens.toString(), 'ether');
     const options = {
-      from: this.account.address,
-      to: addressTo
+      to: addressTo,
+      from: this.account.address
     }
     return this.embedded
       ? this.erc20.methods.transfer(addressTo, value).send(options)
       : this.transferCoin(addressTo, parseFloat(value));
   }
 
-  async buy(amount: number) {
+  async buy(amount: number, to = environment.eth.wallet) {
     const options = {
-      to: environment.eth.wallet,
+      to,
       value: parseInt(this.web3.utils.toWei(amount.toString(), 'ether'))
     }
     return this.embedded
