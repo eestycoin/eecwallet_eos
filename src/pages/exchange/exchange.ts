@@ -76,6 +76,11 @@ export class ExchangePage {
     if (!this.returnAddress)
       return;
 
+    if (this.currencyOut === 'ETH' && this.amount < 0.02) {
+      alert('Amount in ETH can`t be lower than 0.02');
+      return;
+    }
+
     this.sloading = true;
     this.exchage.putOrder(this.currencyIn, this.currencyOut, this.amount, this.eth.account.address, this.returnAddress)
       .then((r: any) => {
