@@ -6,15 +6,18 @@ import { FirebaseProvider } from '../firebase/firebase';
 import { environment } from '../../app/environment';
 
 export enum OrderStatus { AwaitingDeposit, AwaitingDepositConfirmations, AwaitingTrade, Completed, Expired };
+enum TxType { Plain, Income, Exchange, Error };
 
 export interface Order {
-  status: string;
+  status?: string;
   orderId: string;
   from: string;
   to: string;
   amount: number;
   error?: string;
   price?: number;
+  id?: string;
+  type: TxType;
 }
 
 @Injectable()
@@ -63,13 +66,13 @@ export class ExchangeProvider {
   private watchOrders(): void {
     setInterval(() => {
       this.orders.forEach((order: Order) => {
-        // console.log(order);
         if (order.status !== 'completed')
           this.getOrder(order.orderId)
             .then((r: string) => {
-              // console.log(123, r, order)
-              order.status = r;
-              this.db.updateOrder(order);
+              if (r !== order.status) {
+                order.status = r;
+                this.db.updateOrder(order);
+              }
             })
             .catch(console.log);
       });

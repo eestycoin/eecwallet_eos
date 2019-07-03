@@ -40,15 +40,10 @@ export class ExchangeConfirmPage {
     this.currencyIn = this.navParams.get('currencyIn');
     this.currencyOut = this.navParams.get('currencyOut');
 
-    this.db.saveOrder(this.eth.account.address, this.currencyIn + '-' + this.currencyOut, this.amount, this.id);
-    this.exchange.saveOrder({
-      from: this.eth.account.address,
-      to: this.currencyIn + '-' + this.currencyOut, 
-      amount: this.amount, 
-      orderId: this.id,
-      status: '',
-      price: this.price
-    });
+    this.db.saveOrder(this.eth.account.address, this.currencyIn + '-' + this.currencyOut, this.amount, this.id)
+      .then(order => {
+        this.exchange.saveOrder(order);
+      });
   }
 
   onCopy() {

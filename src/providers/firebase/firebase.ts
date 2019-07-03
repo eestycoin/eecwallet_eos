@@ -4,7 +4,6 @@ import { map } from 'rxjs/operators';
 
 import { User, Order } from '../../models/models';
 import { environment } from '../../app/environment';
-import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 
 enum TxType { 'Plain', 'Income', 'Exchange', 'Error' };
 
@@ -35,10 +34,11 @@ export class FirebaseProvider {
     } catch (e) {
       console.log("Error adding document: ", e);
     }
-    return data;
+    return { id, ...data };
   }
 
   async updateOrder(order) {
+    // console.log(123, order)
     try {
       await this.db.collection('items').doc(order.id).set(order);
       console.log("Item written: ", order);
@@ -85,27 +85,28 @@ export class FirebaseProvider {
 
   private mapItems(items: any[], account: string) {
     return items
-      .sort((x, y) => x.date < y.date ? -1 : 1)
-      .reverse()
+      
       .map(a => {
         const item = a.payload.doc.data()
         const id = a.payload.doc.id;
         item.from = (item.from || '').toUpperCase();
         item.to = (item.to || '').toUpperCase();
         item.income = item.to === account;
-        item.type = (item.type === TxType.Exchange) 
+        item.type = (item.type === TxType.Exchange)
           ? TxType.Exchange
           : (item.to === account)
             ? TxType.Income
             : TxType.Plain;
         if (item.error) item.type = TxType.Error;
-        item.currency = (item.type === TxType.Exchange) 
+        item.currency = (item.type === TxType.Exchange)
           ? item.to.split('-')[0]
           : environment.coin;
-        console.log({ id, ...item })
+        // console.log({ id, ...item })
         return { id, ...item };
       })
-      .filter(item => (item.from === account) || (item.to === account));
+      .filter(item => (item.from === account) || (item.to === account))
+      .sort((x, y) => x.date < y.date ? -1 : 1)
+      .reverse();
   }
 
   private mapMerchants(users: User[]) {
@@ -114,7 +115,7 @@ export class FirebaseProvider {
   }
 
   private mapOrders(orders: Order[]) {
-    console.log(orders)
+    // console.log(orders)
     return orders;
   }
 
