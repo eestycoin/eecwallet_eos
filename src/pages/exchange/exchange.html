@@ -19,7 +19,7 @@
   <section *ngIf="!loading">
     <ion-list>
       <ion-item>
-        <ion-label>currencyIn</ion-label>
+        <ion-label>Currency From</ion-label>
         <ion-select [(ngModel)]="currencyIn" (ngModelChange)="onCurrencyInChange($event)">
           <ion-option value="{{item}}" *ngFor="let item of currencies">{{item}}</ion-option>
         </ion-select>
@@ -34,7 +34,7 @@
       <p>Excahnge To:</p>
       <ion-list>
         <ion-item>
-          <ion-label>currencyOut</ion-label>
+          <ion-label>Currency To</ion-label>
           <ion-select [(ngModel)]="currencyOut" (ngModelChange)="onCurrencyOutChange($event)">
             <ion-option value="{{item}}" *ngFor="let item of currenciesOut">{{item}}</ion-option>
           </ion-select>
@@ -46,10 +46,10 @@
     </section>
 
     <section>
-      <p>Return address ({{currencyOut}}):</p>
+      <p>Please input your <b>{{currencyOut}}</b> wallet address:</p>
       <ion-list>
         <ion-item>
-          <ion-input type="text" clearInput [(ngModel)]="returnAddress"></ion-input>
+          <ion-input placeholder="Input your BTC address" type="text" clearInput [(ngModel)]="returnAddress"></ion-input>
         </ion-item>
       </ion-list>
     </section>

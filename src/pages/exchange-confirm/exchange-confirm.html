@@ -10,28 +10,31 @@
 <ion-content padding>
   <ion-list>
     <ion-item>
-      ReceivingAddress: <b>{{receivingAddress}}</b>
+      Send to Address: <b>{{receivingAddress}}</b>
       <span item-end (click)="onCopy()">
         <ion-icon name="copy"></ion-icon>
       </span>
     </ion-item>
     <ion-item>
-      ID: {{id}}
+      Order ID: <b>{{id}}</b>
+      <span item-end (click)="onCopy()">
+        <ion-icon name="copy"></ion-icon>
+      </span>
     </ion-item>
     <ion-item>
-      currencyIn: {{currencyIn}}
+      Currency From: <b>{{currencyIn}}</b>
     </ion-item>
     <ion-item>
-      currencyOut: {{currencyOut}}
+      Currency To: <b>{{currencyOut}}</b>
     </ion-item>
     <ion-item>
-      amount: {{amount}}
+      Amount: <b>{{amount}}</b>
     </ion-item>
     <ion-item>
-      Price: {{price}}
+      Price: <b>{{price}}</b>
     </ion-item>
     <ion-item *ngIf="!!expiresOn">
-      Expires On: {{expiresOn.toLocaleString()}}
+      Expires On: <b>{{expiresOn.toLocaleString()}}</b>
     </ion-item>
   </ion-list>
 
