@@ -12,7 +12,8 @@
       <img alt="logo" height="60" src="assets/imgs/logo.png">
     </p>
     <h1 [class.hidden]="eos.account.balance < 1">
-      Balance: {{eos.account.balance | number:'1.0-0'}}
+      <small>Balance:</small>
+      {{eos.account.balance | number:'1.0-0'}}
       <small>EEC</small>
     </h1>
     <p>Account

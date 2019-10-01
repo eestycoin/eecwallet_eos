@@ -1,12 +1,10 @@
 import { Component, HostListener } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { EthProvider } from '../../providers/eth/eth';
+import { EosProvider } from '../../providers/eos/eos';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 
 import { User } from '../../models/models';
-
-import { environment } from '../../app/environment';
 
 
 @IonicPage()
@@ -25,23 +23,24 @@ export class SendPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private eth: EthProvider,
+    private eos: EosProvider,
     private db: FirebaseProvider
-  ) { 
-    this.max = this.eth.account.balance;
+  ) {
+    this.max = this.eos.account.balance;
   }
 
   ionViewDidLoad() {
     this.merchant = this.navParams.get('user');
+
     if (this.merchant)
       this.addressTo = this.merchant.addr;
   }
 
   @HostListener('input', ['$event'])
-    onInput(event: Event) {
-      const el = <HTMLInputElement>event.srcElement;
-      el.value = el.value.replace(/[^0-9]/g, '');
-    }
+  onInput(event: Event) {
+    const el = <HTMLInputElement>event.srcElement;
+    el.value = el.value.replace(/[^0-9]/g, '');
+  }
 
   onSubmit() {
     if (!this.amount || !this.addressTo)
@@ -62,9 +61,12 @@ export class SendPage {
   }
 
   async onTransfer() {
-    return this.eth
-      .tranfer(this.addressTo, this.amount)
-      .then(tx => this.db.saveItem(tx.transactionHash, this.eth.account.address, this.addressTo, this.amount));
+    return this.eos
+      .transfer(this.eos.account.name, this.addressTo, this.amount, '')
+      .then(tx => {
+        console.log(tx);
+      });
+      //.then(tx => this.db.saveItem(tx.transactionHash, this.eth.account.address, this.addressTo, this.amount));
   }
 
 }
