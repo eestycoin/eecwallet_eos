@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
 
-import { EthProvider } from '../../providers/eth/eth';
+import { EosProvider } from '../../providers/eos/eos';
 
 
 @IonicPage()
@@ -11,16 +11,14 @@ import { EthProvider } from '../../providers/eth/eth';
 })
 export class QrShowPage {
 
-  qrdata = '';
-  level = 'L';
-  size = window.innerWidth;
+  public qrdata = '';
+  public level = 'L';
+  public size = window.innerWidth;
 
-  constructor(public eth: EthProvider) { }
+  constructor(public eos: EosProvider) { }
 
   ionViewDidLoad() { 
-    this.qrdata = this.eth.account.address;
+    this.qrdata = this.eos.account.address;
     this.size = window.innerWidth;
-    console.log(this.qrdata);
   }
-
 }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { EthProvider } from '../../providers/eth/eth';
+import { EosProvider } from '../../providers/eos/eos';
 
 
 @IonicPage()
@@ -19,7 +19,7 @@ export class SigninPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private eth: EthProvider) {
+    private eos: EosProvider) {
   }
 
   ionViewDidLoad() {
@@ -30,7 +30,7 @@ export class SigninPage {
   onSubmit() {
     this.loading = true;
     if (this.pin === localStorage.getItem('pin'))
-      this.eth.accountChanged.next();
+      this.eos.accountChanged.next();
     else {
       this.loading = false;
       this.error = true;
@@ -44,7 +44,7 @@ export class SigninPage {
   onSetPin() {
     this.loading = true;
     localStorage.setItem('pin', this.pin);
-    this.eth.detectAccount();
+    this.eos.detectAccount();
   }
 
 }

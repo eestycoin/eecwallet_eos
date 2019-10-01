@@ -12,7 +12,7 @@ import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
-import { EthProvider } from '../providers/eth/eth';
+import { EosProvider } from '../providers/eos/eos';
 import { BitgoProvider } from '../providers/bitgo/bitgo';
 import { RatesProvider } from '../providers/rates/rates';
 import { FirebaseProvider } from '../providers/firebase/firebase';
@@ -43,7 +43,7 @@ import { environment } from './environment';
     SplashScreen,
     FingerprintAIO,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    EthProvider,
+    EosProvider,
     BitgoProvider,
     RatesProvider,
     FirebaseProvider,

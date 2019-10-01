@@ -11,38 +11,31 @@
     <p>
       <img alt="logo" height="60" src="assets/imgs/logo.png">
     </p>
-    <h1 [class.hidden]="eth.account.balance < 1">
-      Balance: {{eth.account.balance | number:'1.0-0'}}
+    <h1 [class.hidden]="eos.account.balance < 1">
+      Balance: {{eos.account.balance | number:'1.0-0'}}
       <small>EEC</small>
     </h1>
-    <h6>
-      {{eth.account.balanceEth | number:'1.4-4'}}
-      <small>ETH</small>
-    </h6>
     <p>Account
       <br>
-      <small> {{eth.account.address || 'loading...'}} </small>
+      <small> {{eos.account.name || 'loading...'}} </small>
       <br>
       <br>
-        <button (click)="copyMessage(eth.account.address)" value="click to copy" style="background-color: transparent; color:white; border:1px">[Copy to clipboard]</button>
-      <br>
-      <br>
-      <!-- <small>
-        <sup class="dimmed">[ tap here to show qr code ]</sup>
-      </small> -->
+      <button class="copyMessage" (click)="copyMessage(eos.account.address)">
+        [Copy address to clipboard]
+      </button>
     </p>
   </header>
   <section padding>
     <ion-list>
-      <button ion-item (click)="itemSelected('BuyPage')">
+      <button ion-item (click)="itemSelected('BuyPage')" disabled>
         <ion-icon name="add" item-start></ion-icon>
         Buy
       </button>
-      <button ion-item (click)="itemSelected('SellPage')">
+      <button ion-item (click)="itemSelected('SellPage')" disabled>
         <ion-icon name="card" item-start></ion-icon>
         Sell
       </button>
-      <button ion-item (click)="itemSelected('SendPage')">
+      <button ion-item (click)="itemSelected('SendPage')" >
         <ion-icon name="flash" item-start></ion-icon>
         Send
       </button>
@@ -66,7 +59,7 @@
         <ion-icon name="information-circle" item-start></ion-icon>
         Info
       </button>
-      <button ion-item (click)="signOut()" *ngIf="!eth.embedded && eth.account.address">
+      <button ion-item (click)="signOut()" *ngIf="!eos.account.address">
         <ion-icon name="log-out" item-start></ion-icon>
         Sign out
       </button>

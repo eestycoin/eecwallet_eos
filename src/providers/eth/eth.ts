@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject } from '../../../node_modules/rxjs/Subject';
 
-import { default as Web3 } from 'web3';
-import { default as Tx } from 'ethereumjs-tx';
+// import { default as Web3 } from 'web3';
+// import { default as Tx } from 'ethereumjs-tx';
 
 import { environment, erc20abi } from '../../app/environment';
 
@@ -22,7 +22,7 @@ export class EthProvider {
   lastTx: string;
 
   private erc20: any;
-  private web3: Web3;
+  private web3: any;
 
   embedded: boolean;
 
@@ -45,10 +45,10 @@ export class EthProvider {
 
   initWeb3() {
     this.embedded = typeof window['web3'] !== 'undefined';
-    const provider = this.embedded
-      ? window['web3'].currentProvider
-      : new Web3.providers.HttpProvider(environment.eth.apiUrl);
-    this.web3 = new Web3(provider);
+    // const provider = this.embedded
+    //   ? window['web3'].currentProvider
+    //   : new Web3.providers.HttpProvider(environment.eth.apiUrl);
+    // this.web3 = new Web3(provider);
   }
 
   connectContract() {
@@ -194,10 +194,10 @@ export class EthProvider {
   }
 
   // sign & send tx
-  private async sendTx(rawTx: Tx) {
+  private async sendTx(rawTx) {
     delete this.lastTx;
     const privateKey = Buffer.from(this.account.privateKey, 'hex');
-    const tx = new Tx(rawTx);
+    const tx: any = {} ;// new Tx(rawTx);
     const gasPrice = await this.web3.eth.getGasPrice();
 
     tx.chainId = environment.eth.networkId;

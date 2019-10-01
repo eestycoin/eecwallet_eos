@@ -15,6 +15,16 @@ export const environment = {
     walletIndex: 0,
     currencyPrefix: ''
   },
+  eos: {
+    nodeUrl: 'http://13.125.130.214:8888',
+    testkey: '5JZ59m3jxdgbqRfGf4Qgb1wX7qCaU7fNxbwbxuCUXs9Ypmt4EwA',
+    interval: 1000,
+    contractName: 'eosio.token',
+    transactOptions: {
+      blocksBehind: 3,
+      expireSeconds: 30
+    }
+  },
   eth: {
     apiUrl: 'https://proxy2infura.eestycoin.biz/v3/fac5373658944a8a860c901f79dfe34d',
     contractAddr: '0x6fd1dada61f2d210a1e4e47b672f73bc851862f9',

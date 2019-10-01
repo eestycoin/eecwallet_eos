@@ -3,7 +3,7 @@ import { IonicPage, NavController } from 'ionic-angular';
 
 import { HomePage } from '../home/home';
 
-import { EthProvider } from '../../providers/eth/eth';
+import { EosProvider } from '../../providers/eos/eos';
 import { ToasterProvider } from '../../providers/toaster/toaster';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 
@@ -34,7 +34,7 @@ export class LoginPage {
 
   constructor(
     public navCtrl: NavController,
-    private eth: EthProvider,
+    private eos: EosProvider,
     private toast: ToasterProvider,
     private db: FirebaseProvider
   ) { }
@@ -50,7 +50,7 @@ export class LoginPage {
     this.isLoading = true;
 
     try {
-      this.user.addr = this.eth.privateKeyToAccount(this.privateKey).address;
+      this.user.addr = ''; // this.eos.privateKeyToAccount(this.privateKey).address;
 
       if (this.showRegistration) {
         this.db.saveUser(this.user)
@@ -68,8 +68,8 @@ export class LoginPage {
   }
 
   initUser() {
-    this.eth.savePrivateKey(this.privateKey);
-    this.eth.onInit();
+    // this.eos.savePrivateKey(this.privateKey);
+    // this.eos.onInit();
     this.navCtrl.setRoot(HomePage);
   }
 

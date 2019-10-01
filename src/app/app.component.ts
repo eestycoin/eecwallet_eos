@@ -6,7 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 
 import { RatesProvider } from '../providers/rates/rates';
-import { EthProvider } from '../providers/eth/eth';
+import { EosProvider } from '../providers/eos/eos';
 
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
 
@@ -18,6 +18,7 @@ declare var window: any;
   templateUrl: 'app.html'
 })
 export class MyApp {
+
   rootPage: any;
   isFaio = false;
 
@@ -27,7 +28,7 @@ export class MyApp {
     splashScreen: SplashScreen,
     private faio: FingerprintAIO,
     private rates: RatesProvider,
-    private eth: EthProvider
+    private eos: EosProvider
   ) {
 
     history.pushState('', document.title, window.location.pathname + window.location.search);
@@ -47,7 +48,6 @@ export class MyApp {
 
       this.platform.resume
         .subscribe(() => {
-          console.log('resume', window.disableFaio);
           if (!this.isFaio || window.disableFaio) return;
 
           this.rootPage = 'SigninPage';
@@ -58,7 +58,7 @@ export class MyApp {
     }
 
 
-    this.eth.accountChanged.subscribe(() => this.setRootPage());
+    this.eos.accountChanged.subscribe(() => this.setRootPage());
   }
 
 
@@ -70,20 +70,18 @@ export class MyApp {
       console.log(error);
     }
 
-    if (this.platform.is('core'))
-      this.eth.detectAccount();
-    else
-      this.rootPage = 'SigninPage';
+    // if (this.platform.is('core'))
+    //   // this.eth.detectAccount();
+    // else
+    this.rootPage = 'SigninPage';
   }
 
   async setRootPage() {
-    const account = await this.eth.getAccount();
-    const checkNetwork = await this.eth.checkNetwork();
-    if (account && checkNetwork) {
-      this.eth.onInit();
+    if (this.eos.account.name) {
+      this.eos.onInit();
       this.rootPage = HomePage;
     } else {
-      this.rootPage = this.eth.embedded ? 'Noweb3Page' : 'LoginPage';
+      this.rootPage = 'LoginPage';
     }
   }
 
@@ -92,10 +90,5 @@ export class MyApp {
       .then(() => { this.setRootPage(); })
       .catch(console.log);
   }
-
-  private toMinutes(time: number): number {
-    return Math.floor(time / 1000 / 60);
-  }
-
 }
 
