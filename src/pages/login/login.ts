@@ -39,18 +39,16 @@ export class LoginPage {
     private db: FirebaseProvider
   ) { }
 
-  ionViewDidLoad() {
+  ionViewDidLoad() { }
 
-  }
-
-  onSubmit() {
+  async onSubmit() {
     if (!this.privateKey)
       return;
 
     this.isLoading = true;
 
     try {
-      this.user.addr = ''; // this.eos.privateKeyToAccount(this.privateKey).address;
+      this.user.addr = this.eos.privateToPublic(this.privateKey);
 
       if (this.showRegistration) {
         this.db.saveUser(this.user)
@@ -61,15 +59,15 @@ export class LoginPage {
       } else
         this.checkUser();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       this.isLoading = false;
       this.toast.showError('Private key is incorrect or wallet doesn’t exist');
     }
   }
 
   initUser() {
-    // this.eos.savePrivateKey(this.privateKey);
-    // this.eos.onInit();
+    this.eos.signIn(this.privateKey);
+    
     this.navCtrl.setRoot(HomePage);
   }
 

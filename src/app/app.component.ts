@@ -43,6 +43,7 @@ export class MyApp {
           // Here you can do any higher level native things you might need.
           statusBar.styleDefault();
           splashScreen.hide();
+
           this.onInit();
         });
 
@@ -54,9 +55,9 @@ export class MyApp {
           this.showScan();
         });
     } else {
+      // if desktop
       this.onInit();
     }
-
 
     this.eos.accountChanged.subscribe(() => this.setRootPage());
   }
@@ -70,19 +71,16 @@ export class MyApp {
       console.log(error);
     }
 
-    // if (this.platform.is('core'))
-    //   // this.eth.detectAccount();
-    // else
-    this.rootPage = 'SigninPage';
+    console.log(123, this.platform)
+
+    if (this.platform.is('core'))
+      this.setRootPage();
+    else
+      this.rootPage = 'SigninPage';
   }
 
-  async setRootPage() {
-    if (this.eos.account.name) {
-      this.eos.onInit();
-      this.rootPage = HomePage;
-    } else {
-      this.rootPage = 'LoginPage';
-    }
+  setRootPage() {
+    this.rootPage = this.eos.account.name ? HomePage : 'LoginPage';
   }
 
   private showScan() {

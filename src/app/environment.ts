@@ -18,7 +18,7 @@ export const environment = {
   eos: {
     nodeUrl: 'http://13.125.130.214:8888',
     testkey: '5JZ59m3jxdgbqRfGf4Qgb1wX7qCaU7fNxbwbxuCUXs9Ypmt4EwA',
-    interval: 1000,
+    interval: 10000,
     contractName: 'eosio.token',
     transactOptions: {
       blocksBehind: 3,

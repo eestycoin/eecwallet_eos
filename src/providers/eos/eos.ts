@@ -18,44 +18,19 @@ export class EosProvider {
   private signatureProvider: JsSignatureProvider;
   private rpc: JsonRpc = new JsonRpc(environment.eos.nodeUrl);
 
+  private interval: any;
+  private emptyAccount = { address: '', name: '', balance: 0, privateKey: '' };
+
   public account: Account;
   public accountChanged: Subject<Account | null> = new Subject();
 
-  constructor() {
-    // TODO: remove
-    this.signIn(environment.eos.testkey);
-    this.test();
-  }
-
-  async onInit() {
-    // setInterval(this.updateAccount.bind(this), environment.eos.interval);
-  }
-
-  async test() {    
-    // this.getAccount('eosio.dev').then(console.log);
-    // this.getInfo().then(console.log);
+  constructor() { 
+    const account: Account | null = this.getStoredAccount();
     
-
-    setTimeout(() => {
-      // this.tr3();
-      // this.getAllAccounts().then(console.log); 
-    }, 1500);
-    
-
-    return true;
+    if (account) this.account = account;
   }
 
-  async tr3() {
-    try {
-      this.transfer(this.account.name, 'eosio.dev', 1, 'test');
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  
-
-  detectAccount() { }
+  // ------
 
   setStoredAccount(account: Account) {
     localStorage.setItem('account', JSON.stringify(account));
@@ -63,16 +38,14 @@ export class EosProvider {
 
   getStoredAccount() {
     const accountJSON = localStorage.getItem('account')
-    return JSON.parse(accountJSON);
+    return (accountJSON && JSON.parse(accountJSON)) || null ;
   }
 
-  
+  clearStoredAccount() {
+    localStorage.removeItem('account');
+  }
 
   // ------
-
-  init() {
-
-  }
 
   isLogged() {
     return !!this.account.name;
@@ -117,8 +90,12 @@ export class EosProvider {
     }];
 
     return this.api.transact({ actions }, environment.eos.transactOptions)
+      .then(r => {
+        this.updateAccount();
+        return r;
+      })
       .catch(error => {
-        console.log(error.message)
+        console.log(error.message);
         return { error: error.message };
       });
   }
@@ -135,6 +112,10 @@ export class EosProvider {
     }); 
   }
 
+  privateToPublic(privateKey: string) {
+    return ecc.privateToPublic(privateKey);
+  }
+
   // -----
 
   async signIn(privateKey) {
@@ -147,25 +128,35 @@ export class EosProvider {
       textEncoder: new TextEncoder()
     });
 
-    const address = ecc.privateToPublic(privateKey);
+    const address = this.privateToPublic(privateKey);
     const name = await this.getKeyAccounts(address);
     const balance = await this.getBalance(name);
 
     this.account = { address, name, balance, privateKey };
 
-    console.log('SignIn Account', this.account);
-
     this.accountChanged.next(this.account);
+
+    this.setStoredAccount(this.account);
+    this.interval = setInterval(this.updateAccount.bind(this), environment.eos.interval);
   }
 
   async signOut() {
-    this.account = { address: '', name: '', balance: 0, privateKey: '' };
-    this.accountChanged.next(this.account);
+    this.accountChanged.next(this.emptyAccount);
+
+    this.interval && clearInterval(this.interval);
+    this.clearStoredAccount();
   }
 
   async updateAccount() {
     if (!this.isLogged()) return;
 
     this.account.balance = await this.getBalance(this.account.name);
+  }
+
+  reInitAccount() {
+    this.account = this.account || this.emptyAccount;
+    this.accountChanged.next(this.account);
+
+    this.interval = setInterval(this.updateAccount.bind(this), environment.eos.interval);
   }
 }

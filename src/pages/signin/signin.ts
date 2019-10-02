@@ -19,8 +19,8 @@ export class SigninPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private eos: EosProvider) {
-  }
+    private eos: EosProvider
+  ) { }
 
   ionViewDidLoad() {
     this.loading = false;
@@ -30,7 +30,7 @@ export class SigninPage {
   onSubmit() {
     this.loading = true;
     if (this.pin === localStorage.getItem('pin'))
-      this.eos.accountChanged.next();
+      this.eos.reInitAccount();
     else {
       this.loading = false;
       this.error = true;
@@ -44,7 +44,7 @@ export class SigninPage {
   onSetPin() {
     this.loading = true;
     localStorage.setItem('pin', this.pin);
-    this.eos.detectAccount();
+    // this.eos.detectAccount();
   }
 
 }
