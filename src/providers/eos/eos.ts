@@ -119,7 +119,7 @@ export class EosProvider {
     return this.api.transact({ actions }, environment.eos.transactOptions)
       .catch(error => {
         console.log(error.message)
-        return error.message;
+        return { error: error.message };
       });
   }
 

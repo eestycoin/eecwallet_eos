@@ -7,8 +7,14 @@
 
 <ion-content padding>
     <section *ngIf="data">
-        <h4>Transaction Hash:</h4>
-        <p><small>{{data.tx || data.transactionHash}}</small></p>
+        <div *ngIf="data.error">
+            <h4>Transaction Error:</h4>
+            <p><small>{{data.error}}</small></p>
+        </div>
+        <div *ngIf="!data.error">
+            <h4>Transaction Hash:</h4>
+            <p><small>{{data.tx || data.transactionHash}}</small></p>
+        </div>
         <h4>Date, Time:</h4>
         <p><small>{{data.date | date:'medium'}}</small></p>
         <h4>From:</h4>

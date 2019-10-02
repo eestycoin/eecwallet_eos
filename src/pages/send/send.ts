@@ -69,9 +69,10 @@ export class SendPage {
     return this.eos
       .transfer(this.eos.account.name, this.nameTo, this.amount, '')
       .then((tx: any) => {
-        console.log('onTransfer', tx);
-        this.db.saveItem(tx.transaction_id, this.eos.account.address, this.nameTo, this.amount);
-        return { tx: tx.transaction_id, from: this.eos.account.name, to: this.nameTo, amount: this.amount };
+        if (!tx.error)
+          this.db.saveItem(tx.transaction_id, this.eos.account.address, this.nameTo, this.amount);
+          
+        return { tx: tx.transaction_id, from: this.eos.account.name, to: this.nameTo, amount: this.amount, error: tx.error };
       });
   }
 
