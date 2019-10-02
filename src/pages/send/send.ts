@@ -17,6 +17,9 @@ export class SendPage {
   merchant: User;
 
   addressTo: string = ''; //environment.eth.wallet;
+  addressToDisabled = false;
+  nameTo: string = '';
+  nameToDisabled = false;
   amount: number = 1;
   max = 1;
 
@@ -38,13 +41,16 @@ export class SendPage {
 
   @HostListener('input', ['$event'])
   onInput(event: Event) {
-    const el = <HTMLInputElement>event.srcElement;
-    el.value = el.value.replace(/[^0-9]/g, '');
+    // const el = <HTMLInputElement>event.srcElement;
+    // el.value = el.value.replace(/[^0-9]/g, '');
   }
 
-  onSubmit() {
-    if (!this.amount || !this.addressTo)
+  async onSubmit() {
+    if (!this.amount || (!this.addressTo && !this.nameTo))
       return;
+
+    if (!!this.addressTo)
+      this.nameTo = await this.eos.getKeyAccounts(this.addressTo);
 
     this.navCtrl.push('ConfirmPage', { func: this.onTransfer.bind(this) })
   }
@@ -52,7 +58,6 @@ export class SendPage {
   qrScanerPage() {
     this.navCtrl.push('QrScanerPage');
   }
-
 
   onChange(e: number) {
     // setTimeout(() => {
@@ -62,11 +67,11 @@ export class SendPage {
 
   async onTransfer() {
     return this.eos
-      .transfer(this.eos.account.name, this.addressTo, this.amount, '')
-      .then(tx => {
-        console.log(tx);
+      .transfer(this.eos.account.name, this.nameTo, this.amount, '')
+      .then((tx: any) => {
+        console.log('onTransfer', tx);
+        this.db.saveItem(tx.transaction_id, this.eos.account.address, this.nameTo, this.amount);
       });
-      //.then(tx => this.db.saveItem(tx.transactionHash, this.eth.account.address, this.addressTo, this.amount));
   }
 
 }

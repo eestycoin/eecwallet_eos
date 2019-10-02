@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs';
 
-import { EthProvider } from '../../providers/eth/eth';
+import { EosProvider } from '../../providers/eos/eos';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 
 
@@ -19,10 +19,10 @@ export class HistoryPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private db: FirebaseProvider,
-    private eth: EthProvider
+    private eos: EosProvider
   ) { }
 
   ionViewDidLoad() {
-    this.items = this.db.getItems(this.eth.account.address);
+    this.items = this.db.getItems(this.eos.account.address);
   }
 }

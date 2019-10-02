@@ -16,18 +16,29 @@
   <p>
     <b *ngIf="merchant && merchant.name">{{merchant.name}}'s </b>
     <span *ngIf="!merchant || !merchant.name">Recepient's</span>
-    <span>wallet public key:</span>
+    <span> wallet public key:</span>
   </p>
   <ion-grid>
     <ion-row>
       <ion-col class="AddressTo">
-        <ion-input type="text" clearInput [(ngModel)]="addressTo" id="output" [disabled]="merchant && merchant.addr">
+        <ion-input type="text" clearInput [(ngModel)]="addressTo" [disabled]="(merchant && merchant.addr)  || !!nameTo">
         </ion-input>
       </ion-col>
       <ion-col class="AddressToBtn text-right">
         <a (click)="qrScanerPage()">
           <ion-icon name="qr-scanner"></ion-icon>
         </a>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="AddressTo">
+        <p>
+          or
+          <b *ngIf="merchant && merchant.name">{{merchant.name}}'s </b>
+          <span *ngIf="!merchant || !merchant.name">recepient's</span> account name: 
+        </p>
+        <ion-input type="text" clearInput [(ngModel)]="nameTo" [disabled]="(merchant && merchant.addr) || !!addressTo">
+        </ion-input>
       </ion-col>
     </ion-row>
   </ion-grid>

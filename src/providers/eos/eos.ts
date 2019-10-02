@@ -28,7 +28,7 @@ export class EosProvider {
   }
 
   async onInit() {
-    setInterval(this.updateAccount.bind(this), environment.eos.interval);
+    // setInterval(this.updateAccount.bind(this), environment.eos.interval);
   }
 
   async test() {    
@@ -113,13 +113,13 @@ export class EosProvider {
       account: environment.eos.contractName,
       name: 'transfer',
       authorization: [{ actor: from,  permission: 'active' }],
-      data: { from, to, quantity: quantity + '.0000 ' + environment.coin, memo }
+      data: { from, to, quantity: quantity + ' ' + environment.coin, memo }
     }];
 
     return this.api.transact({ actions }, environment.eos.transactOptions)
-      .then(console.log)
       .catch(error => {
         console.log(error.message)
+        return error.message;
       });
   }
 

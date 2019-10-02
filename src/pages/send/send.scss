@@ -9,6 +9,10 @@ page-send {
     user-select: auto !important;
   }
 
+  .text-input:disabled {
+    // background-color: #ccc;
+  }
+
   .grid {
     margin: 0;
     padding: 0;
