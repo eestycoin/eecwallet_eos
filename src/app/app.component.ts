@@ -80,7 +80,7 @@ export class MyApp {
   }
 
   setRootPage() {
-    this.rootPage = this.eos.account.name ? HomePage : 'LoginPage';
+    this.rootPage = (this.eos.account && this.eos.account.name) ? HomePage : 'LoginPage';
   }
 
   private showScan() {
