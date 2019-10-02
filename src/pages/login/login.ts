@@ -41,7 +41,7 @@ export class LoginPage {
   ) { }
 
   ionViewDidLoad() { 
-    this.user = this.navParams.get('user');
+    this.user = this.navParams.get('user') || {};
   }
 
   async onSubmit() {
@@ -62,7 +62,7 @@ export class LoginPage {
       } else
         this.checkUser();
     } catch (error) {
-      // console.log(error);
+      console.log(error);
       this.isLoading = false;
       this.toast.showError('Private key is incorrect or wallet doesn’t exist');
     }
