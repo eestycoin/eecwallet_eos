@@ -14,9 +14,18 @@
     </small>
   </p>
   <p>Private key: <span class="dimmed pull-right">required</span></p>
-  <p>
-    <ion-input type="text" clearInput [(ngModel)]="privateKey" id="privateKey"></ion-input>
-  </p>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="AddressTo">
+        <ion-input type="text" clearInput [(ngModel)]="privateKey" id="privateKey"></ion-input>
+      </ion-col>
+      <ion-col class="AddressToBtn text-right">
+        <a (click)="qrScanerPage()">
+          <ion-icon name="qr-scanner"></ion-icon>
+        </a>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <section *ngIf="showRegistration">
     <p>

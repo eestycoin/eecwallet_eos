@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { HomePage } from '../home/home';
 
@@ -34,12 +34,15 @@ export class LoginPage {
 
   constructor(
     public navCtrl: NavController,
+    public navParams: NavParams,
     private eos: EosProvider,
     private toast: ToasterProvider,
     private db: FirebaseProvider
   ) { }
 
-  ionViewDidLoad() { }
+  ionViewDidLoad() { 
+    this.user = this.navParams.get('user');
+  }
 
   async onSubmit() {
     if (!this.privateKey)
@@ -84,5 +87,9 @@ export class LoginPage {
         this.isLoading = false;
       }
     });
+  }
+
+  qrScanerPage() {
+    this.navCtrl.push('QrScanerPage', { backPage: 'LoginPage' });
   }
 }

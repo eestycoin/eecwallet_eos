@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 import { QRScaner } from '../../providers/qr-scaner/qr-scaner';
-import { EthProvider } from '../../providers/eth/eth';
 
 declare var window: any;
 
@@ -19,18 +18,16 @@ interface PermissionResult {
 })
 export class QrScanerPage {
 
-  width = window.innerWidth;
-  heigth = window.innerWidth;
+  private videoEl: HTMLVideoElement;
+  private backPage = 'SendPage';
 
-  devices = [];
-
-  videoEl: HTMLVideoElement;
+  public devices = [];
 
   constructor(
     private platform: Platform,
     private navCtrl: NavController,
+    private navParams: NavParams, 
     private qrScaner: QRScaner,
-    private eth: EthProvider,
     private androidPermissions: AndroidPermissions,
   ) { }
 
@@ -55,6 +52,8 @@ export class QrScanerPage {
   }
 
   ionViewDidLoad() {
+    this.backPage = this.navParams.get('backPage');
+
     window.disableFaio = true;
 
     this.videoEl = document.getElementsByClassName('qrviewport')[0] as HTMLVideoElement;
@@ -62,7 +61,6 @@ export class QrScanerPage {
     this.qrScaner.getVideoInputDevices()
       .then(r => {
         this.devices = r;
-        console.log('getVideoInputDevices', r);
       });
 
     if (this.platform.is('cordova') && this.platform.is('android')) {
@@ -78,12 +76,8 @@ export class QrScanerPage {
   startCapture() {
     this.qrScaner.startCapture(this.videoEl)
       .then(r => {
-        if (this.eth.isAddress(r)) {
-          const user = { addr: r }
-          this.navCtrl.push('SendPage', { user });
-        } else {
-          alert('invalid qr code');
-        }
+        const user = { addr: r }
+        this.navCtrl.push(this.backPage, { user });
       }).catch(console.log);
   }
 

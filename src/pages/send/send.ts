@@ -56,7 +56,7 @@ export class SendPage {
   }
 
   qrScanerPage() {
-    this.navCtrl.push('QrScanerPage');
+    this.navCtrl.push('QrScanerPage', { backPage: 'SendPage' });
   }
 
   onChange(e: number) {
