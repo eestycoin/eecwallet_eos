@@ -71,7 +71,7 @@ export class MyApp {
       console.log(error);
     }
 
-    console.log(123, this.platform)
+    // console.log(123, this.platform)
 
     if (this.platform.is('core'))
       this.setRootPage();

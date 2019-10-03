@@ -19,6 +19,8 @@ export class RatesProvider {
   ) { }
 
   public onInit() {
+    return;
+    
     timer(0, environment.rates.interval)
       .pipe(switchMap(() => this.getPrices()))
       .subscribe(this.setData.bind(this));
