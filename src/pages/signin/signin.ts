@@ -44,6 +44,7 @@ export class SigninPage {
   onSetPin() {
     this.loading = true;
     localStorage.setItem('pin', this.pin);
+    this.eos.reInitAccount();
     // this.eos.detectAccount();
   }
 
