@@ -16,11 +16,11 @@ export class SendPage {
 
   merchant: User;
 
-  addressTo: string = ''; //environment.eth.wallet;
+  addressTo: string = '';
   addressToDisabled = false;
   nameTo: string = '';
   nameToDisabled = false;
-  amount: number = 1;
+  amount = 1;
   max = 1;
 
   constructor(
