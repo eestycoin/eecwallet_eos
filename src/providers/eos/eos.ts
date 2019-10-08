@@ -27,7 +27,10 @@ export class EosProvider {
   constructor() { 
     const account: Account | null = this.getStoredAccount();
     
-    if (account) this.account = account;
+    if (account) {
+      this.account = account;
+      this.initApi(account.privateKey);
+    }
   }
 
   // ------
@@ -118,7 +121,7 @@ export class EosProvider {
 
   // -----
 
-  async signIn(privateKey) {
+  initApi(privateKey) {
     this.signatureProvider = new JsSignatureProvider([privateKey]);
 
     this.api = new Api({
@@ -127,6 +130,12 @@ export class EosProvider {
       textDecoder: new TextDecoder(),
       textEncoder: new TextEncoder()
     });
+  }
+
+  // -----
+
+  async signIn(privateKey) {
+    this.initApi(privateKey);
 
     const address = this.privateToPublic(privateKey);
     const name = await this.getKeyAccounts(address);

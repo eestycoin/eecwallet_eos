@@ -40,7 +40,7 @@ export class FirebaseProvider {
     return this.db
       .collection('items')
       .valueChanges()
-      .pipe(map(results => this.mapItems(results, account.toUpperCase())));
+      .pipe(map(results => this.mapItems(results, account)));
   }
 
   getMerchants() {
@@ -55,8 +55,8 @@ export class FirebaseProvider {
       .sort((x, y) => x.date < y.date ? -1 : 1)
       .reverse()
       .map(item => {
-        item.from = (item.from || '').toUpperCase();
-        item.to = (item.to || '').toUpperCase();
+        item.from = (item.from || '');
+        item.to = (item.to || '');
         item.income = item.to === account;
         return item;
       })

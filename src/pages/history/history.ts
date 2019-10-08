@@ -23,6 +23,6 @@ export class HistoryPage {
   ) { }
 
   ionViewDidLoad() {
-    this.items = this.db.getItems(this.eos.account.address);
+    this.items = this.db.getItems(this.eos.account.name);
   }
 }

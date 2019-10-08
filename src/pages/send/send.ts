@@ -70,7 +70,7 @@ export class SendPage {
       .transfer(this.eos.account.name, this.nameTo, this.amount, '')
       .then((tx: any) => {
         if (!tx.error)
-          this.db.saveItem(tx.transaction_id, this.eos.account.address, this.nameTo, this.amount);
+          this.db.saveItem(tx.transaction_id, this.eos.account.name, this.nameTo, this.amount);
           
         return { tx: tx.transaction_id, from: this.eos.account.name, to: this.nameTo, amount: this.amount, error: tx.error };
       });

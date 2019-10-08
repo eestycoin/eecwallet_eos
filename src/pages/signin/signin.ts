@@ -42,10 +42,10 @@ export class SigninPage {
   }
 
   onSetPin() {
-    this.loading = true;
     localStorage.setItem('pin', this.pin);
+
+    this.loading = true;
     this.eos.reInitAccount();
-    // this.eos.detectAccount();
   }
 
 }
