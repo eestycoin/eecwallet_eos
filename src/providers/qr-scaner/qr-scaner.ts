@@ -14,6 +14,7 @@ export class QRScaner {
   }
 
   public startCapture(videoEl: HTMLElement): Promise<string> {
+    this.qrReader = new QRReader();
     return this.qrReader.startCapture(videoEl, this.interval);
   }
 

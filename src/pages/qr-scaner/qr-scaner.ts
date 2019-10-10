@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Platform, ViewController } from 'ionic-angular';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 
@@ -11,22 +11,19 @@ interface PermissionResult {
   hasPermission: boolean;
 }
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-qr-scaner',
   templateUrl: 'qr-scaner.html',
 })
-export class QrScanerPage {
+export class QrScanerModal {
 
   private videoEl: HTMLVideoElement;
-  private backPage = 'SendPage';
-
   public devices = [];
 
   constructor(
     private platform: Platform,
-    private navCtrl: NavController,
-    private navParams: NavParams, 
+    private viewCtrl: ViewController,
     private qrScaner: QRScaner,
     private androidPermissions: AndroidPermissions,
   ) { }
@@ -52,8 +49,6 @@ export class QrScanerPage {
   }
 
   ionViewDidLoad() {
-    this.backPage = this.navParams.get('backPage');
-
     window.disableFaio = true;
 
     this.videoEl = document.getElementsByClassName('qrviewport')[0] as HTMLVideoElement;
@@ -76,8 +71,8 @@ export class QrScanerPage {
   startCapture() {
     this.qrScaner.startCapture(this.videoEl)
       .then(r => {
-        const user = { addr: r }
-        this.navCtrl.push(this.backPage, { user });
+        // console.log(123123, r);
+        this.viewCtrl.dismiss({ addr: r });
       }).catch(console.log);
   }
 
@@ -89,6 +84,10 @@ export class QrScanerPage {
   switch() {
     this.qrScaner.stopAndSwitchCamera();
     this.ionViewDidLoad();
+  }
+
+  dissmiss() {
+    this.viewCtrl.dismiss();
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, ModalController, NavController, NavParams } from 'ionic-angular';
 
 import { HomePage } from '../home/home';
 
@@ -8,6 +8,8 @@ import { ToasterProvider } from '../../providers/toaster/toaster';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 
 import { User } from '../../models/models';
+
+import { QrScanerModal } from '../qr-scaner/qr-scaner';
 
 import { environment } from '../../app/environment';
 
@@ -35,6 +37,7 @@ export class LoginPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public modalController: ModalController,
     private eos: EosProvider,
     private toast: ToasterProvider,
     private db: FirebaseProvider
@@ -89,7 +92,12 @@ export class LoginPage {
     });
   }
 
-  qrScanerPage() {
-    this.navCtrl.push('QrScanerPage', { backPage: 'LoginPage' });
+  async qrScanerPage() {
+    const modal = await this.modalController.create(QrScanerModal);
+    modal.onDidDismiss(data => {
+      this.user.addr = data.addr;
+    });
+    return await modal.present();
+    // this.navCtrl.push('QrScanerPage', { backPage: 'LoginPage' });
   }
 }

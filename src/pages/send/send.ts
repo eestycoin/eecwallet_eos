@@ -1,10 +1,12 @@
 import { Component, HostListener } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, ModalController, NavController, NavParams } from 'ionic-angular';
 
 import { EosProvider } from '../../providers/eos/eos';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 
 import { User } from '../../models/models';
+
+import { QrScanerModal } from '../qr-scaner/qr-scaner';
 
 
 @IonicPage()
@@ -26,6 +28,7 @@ export class SendPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public modalController: ModalController,
     private eos: EosProvider,
     private db: FirebaseProvider
   ) {
@@ -55,8 +58,14 @@ export class SendPage {
     this.navCtrl.push('ConfirmPage', { func: this.onTransfer.bind(this) })
   }
 
-  qrScanerPage() {
-    this.navCtrl.push('QrScanerPage', { backPage: 'SendPage' });
+  async qrScanerPage() {
+    const modal = await this.modalController.create(QrScanerModal);
+    modal.onDidDismiss(data => {
+      // console.log(data);
+      this.addressTo = data.addr;
+    });
+    return await modal.present();
+    // this.navCtrl.push('QrScanerPage', { backPage: 'SendPage' });
   }
 
   onChange(e: number) {

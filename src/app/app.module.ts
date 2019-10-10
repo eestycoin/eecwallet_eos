@@ -11,20 +11,24 @@ import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { QrScanerModal } from '../pages/qr-scaner/qr-scaner';
 
 import { EosProvider } from '../providers/eos/eos';
 import { BitgoProvider } from '../providers/bitgo/bitgo';
 import { RatesProvider } from '../providers/rates/rates';
 import { FirebaseProvider } from '../providers/firebase/firebase';
 import { ToasterProvider } from '../providers/toaster/toaster';
+import { QRScaner } from '../providers/qr-scaner/qr-scaner';
 
 import { environment } from './environment';
+import { from } from 'rxjs';
 
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    QrScanerModal
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,8 @@ import { environment } from './environment';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    QrScanerModal
   ],
   providers: [
     StatusBar,
@@ -48,6 +53,7 @@ import { environment } from './environment';
     RatesProvider,
     FirebaseProvider,
     ToasterProvider,
+    QRScaner,
     AndroidPermissions
   ]
 })

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
+
 import { SendPage } from './send';
 
 @NgModule({
@@ -8,6 +9,6 @@ import { SendPage } from './send';
   ],
   imports: [
     IonicPageModule.forChild(SendPage),
-  ],
+  ]
 })
 export class SendPageModule {}
