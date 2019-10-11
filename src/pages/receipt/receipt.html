@@ -8,8 +8,8 @@
 <ion-content padding>
     <section *ngIf="data">
         <div *ngIf="data.error">
-            <h4>Transaction Error:</h4>
-            <p><small>{{data.error}}</small></p>
+            <h4 class="red">Transaction Error:</h4>
+            <p  class="red"><small>{{data.error}}</small></p>
         </div>
         <div *ngIf="!data.error">
             <h4>Transaction Hash:</h4>

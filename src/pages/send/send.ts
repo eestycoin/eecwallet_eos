@@ -78,6 +78,7 @@ export class SendPage {
     return this.eos
       .transfer(this.eos.account.name, this.nameTo, this.amount, '')
       .then((tx: any) => {
+        console.log(tx)
         if (!tx.error)
           this.db.saveItem(tx.transaction_id, this.eos.account.name, this.nameTo, this.amount);
           
