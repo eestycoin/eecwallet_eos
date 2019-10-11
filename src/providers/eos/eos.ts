@@ -147,6 +147,8 @@ export class EosProvider {
 
     this.setStoredAccount(this.account);
     this.interval = setInterval(this.updateAccount.bind(this), environment.eos.interval);
+
+    return this.account;
   }
 
   async signOut() {

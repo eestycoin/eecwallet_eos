@@ -71,8 +71,8 @@ export class LoginPage {
     }
   }
 
-  initUser() {
-    this.eos.signIn(this.privateKey);
+  async initUser() {
+    await this.eos.signIn(this.privateKey);
     
     this.navCtrl.setRoot(HomePage);
   }
@@ -95,9 +95,8 @@ export class LoginPage {
   async qrScanerPage() {
     const modal = await this.modalController.create(QrScanerModal);
     modal.onDidDismiss(data => {
-      this.user.addr = data.addr;
+      this.privateKey = data.addr;
     });
     return await modal.present();
-    // this.navCtrl.push('QrScanerPage', { backPage: 'LoginPage' });
   }
 }
