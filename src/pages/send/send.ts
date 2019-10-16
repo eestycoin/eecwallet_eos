@@ -75,7 +75,7 @@ export class SendPage {
 
   async onTransfer() {
     return this.eos
-      .transfer(this.eos.account.name, this.nameTo, this.amount, '')
+      .transfer(this.eos.account.name, this.nameTo, this.amount, Date.now() + '')
       .then((tx: any) => {
         if (!tx.error)
           this.db.saveItem(tx.transaction_id, this.eos.account.name, this.nameTo, this.amount);
