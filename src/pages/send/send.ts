@@ -65,7 +65,6 @@ export class SendPage {
       this.addressTo = data.addr;
     });
     return await modal.present();
-    // this.navCtrl.push('QrScanerPage', { backPage: 'SendPage' });
   }
 
   onChange(e: number) {
