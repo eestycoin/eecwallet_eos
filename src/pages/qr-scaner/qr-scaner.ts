@@ -90,6 +90,8 @@ export class QrScanerModal {
       let scanSub = this.qrScanner.scan().subscribe((text: string) => {
         console.log('Scanned something', text);
 
+        this.viewCtrl.dismiss({ addr: text });
+
         window.disableFaio = false;
 
         this.qrScanner.hide(); // hide camera preview
