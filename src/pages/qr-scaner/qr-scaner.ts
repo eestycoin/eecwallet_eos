@@ -52,7 +52,9 @@ export class QrScanerModal {
   ionViewDidLoad() {
     window.disableFaio = true;
 
-    if (!this.platform.is('cordova') && this.platform.is('ios')) {
+    console.log(123, this.platform.is('cordova'), this.platform.is('ios'));
+
+    if (this.platform.is('cordova') && this.platform.is('ios')) {
       this.qrScanner.prepare()
         .then((status: QRScannerStatus) => {
           console.log(status);
