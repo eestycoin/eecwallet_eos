@@ -1,23 +1,21 @@
 import { Injectable } from '@angular/core';
-import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
+
 import QRReader from 'qrreader';
 
 // import QRReader from './temp';
 
 
 @Injectable()
-export class QRScaner {
+export class QRScanerWeb {
   private qrReader: QRReader; 
   private interval: 500;
 
-  constructor(private qrScanner: QRScanner) {
-    // this.qrReader = new QRReader();
-
-    this.qrScanner.prepare()
-      .then((status: QRScannerStatus) => {
-        console.log(status);
-      })
-      .catch((e: any) => console.log('Error is', e));
+  constructor() {
+    try {
+      this.qrReader = new QRReader();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   public startCapture(videoEl: HTMLElement): Promise<string> {

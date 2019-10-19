@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Platform, ViewController } from 'ionic-angular';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 
-import { QRScaner } from '../../providers/qr-scaner/qr-scaner';
+import { QRScanerWeb } from '../../providers/qr-scaner/qr-scaner';
+import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 
 declare var window: any;
 
@@ -24,7 +24,8 @@ export class QrScanerModal {
   constructor(
     private platform: Platform,
     private viewCtrl: ViewController,
-    private qrScaner: QRScaner,
+    private qrScaner: QRScanerWeb,
+    private qrScanner: QRScanner,
     private androidPermissions: AndroidPermissions,
   ) { }
 
@@ -51,6 +52,17 @@ export class QrScanerModal {
   ionViewDidLoad() {
     window.disableFaio = true;
 
+    if (!this.platform.is('cordova') && this.platform.is('ios')) {
+      this.qrScanner.prepare()
+        .then((status: QRScannerStatus) => {
+          console.log(status);
+          this.startCaptureIos(status);
+        })
+        .catch((e: any) => console.log('Error is', e));
+
+      return;
+    }
+
     this.videoEl = document.getElementsByClassName('qrviewport')[0] as HTMLVideoElement;
 
     this.qrScaner.getVideoInputDevices()
@@ -64,6 +76,30 @@ export class QrScanerModal {
 
     if (!this.platform.is('cordova')) {
       this.startCapture();
+    }
+  }
+
+  startCaptureIos(status) {
+    if (status.authorized) {
+      // camera permission was granted
+
+
+      // start scanning
+      let scanSub = this.qrScanner.scan().subscribe((text: string) => {
+        console.log('Scanned something', text);
+
+        window.disableFaio = false;
+
+        this.qrScanner.hide(); // hide camera preview
+        scanSub.unsubscribe(); // stop scanning
+      });
+
+    } else if (status.denied) {
+      // camera permission was permanently denied
+      // you must use QRScanner.openSettings() method to guide the user to the settings page
+      // then they can grant the permission from there
+    } else {
+      // permission was denied, but not permanently. You can ask for permission again at a later time.
     }
   }
 

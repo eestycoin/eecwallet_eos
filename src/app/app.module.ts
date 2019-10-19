@@ -8,6 +8,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
+
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -18,7 +20,7 @@ import { BitgoProvider } from '../providers/bitgo/bitgo';
 import { RatesProvider } from '../providers/rates/rates';
 import { FirebaseProvider } from '../providers/firebase/firebase';
 import { ToasterProvider } from '../providers/toaster/toaster';
-import { QRScaner } from '../providers/qr-scaner/qr-scaner';
+import { QRScanerWeb } from '../providers/qr-scaner/qr-scaner';
 
 import { environment } from './environment';
 import { from } from 'rxjs';
@@ -53,7 +55,8 @@ import { from } from 'rxjs';
     RatesProvider,
     FirebaseProvider,
     ToasterProvider,
-    QRScaner,
+    QRScanner,
+    QRScanerWeb,
     AndroidPermissions
   ]
 })
