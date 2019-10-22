@@ -25,4 +25,9 @@ export class HistoryPage {
   ionViewDidLoad() {
     this.items = this.db.getItems(this.eos.account.name);
   }
+
+  onClick(item) {
+    // console.log(item);
+    window.open("https://explorer.eestycoin.biz/" + item.tx, '_system', 'location=yes');
+  }
 }
