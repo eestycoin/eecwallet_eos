@@ -89,7 +89,7 @@ export class EosProvider {
       account: environment.eos.contractName,
       name: 'transfer',
       authorization: [{ actor: from,  permission: 'active' }],
-      data: { from, to, quantity: quantity + ' ' + environment.coin, memo }
+      data: { from, to, quantity: quantity + '.00000000' + ' ' + environment.coin, memo }
     }];
 
     return this.api.transact({ actions }, environment.eos.transactOptions)
