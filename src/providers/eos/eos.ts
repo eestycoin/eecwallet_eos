@@ -89,7 +89,7 @@ export class EosProvider {
       account: environment.eos.contractName,
       name: 'transfer',
       authorization: [{ actor: from,  permission: 'active' }],
-      data: { from, to, quantity: quantity.toFixed(8) + ' ' + environment.coin, memo }
+      data: { from, to, quantity: parseFloat(quantity.toString()).toFixed(8) + ' ' + environment.coin, memo }
     }];
 
     console.log(actions)
