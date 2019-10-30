@@ -28,6 +28,6 @@ export class HistoryPage {
 
   onClick(item) {
     // console.log(item);
-    window.open("https://explorer.eestycoin.biz/" + item.tx, '_system', 'location=yes');
+    window.open("https://explorer.eestycoin.biz/transaction/" + item.tx, '_system', 'location=yes');
   }
 }
