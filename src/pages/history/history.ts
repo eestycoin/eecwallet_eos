@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { EosProvider } from '../../providers/eos/eos';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @IonicPage()
 @Component({
@@ -19,7 +20,8 @@ export class HistoryPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private db: FirebaseProvider,
-    private eos: EosProvider
+    private eos: EosProvider,
+    private iab: InAppBrowser
   ) { }
 
   ionViewDidLoad() {
