@@ -31,6 +31,7 @@ export class EosProvider {
       this.account = account;
       this.initApi(account.privateKey);
 
+      this.updateAccount();
       this.interval = setInterval(this.updateAccount.bind(this), environment.eos.interval);
     }
   }
