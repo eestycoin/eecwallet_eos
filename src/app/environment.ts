@@ -16,7 +16,7 @@ export const environment = {
     currencyPrefix: ''
   },
   eos: {
-    nodeUrl: 'https://seoul.eestycoin.biz',
+    nodeUrl: 'https://mumbai.eestycoin.biz',
     testkey: '5JZ59m3jxdgbqRfGf4Qgb1wX7qCaU7fNxbwbxuCUXs9Ypmt4EwA',
     interval: 10000,
     contractName: 'eosio.token',
