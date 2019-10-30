@@ -30,6 +30,9 @@ export class EosProvider {
     if (account) {
       this.account = account;
       this.initApi(account.privateKey);
+
+      this.updateAccount();
+      this.interval = setInterval(this.updateAccount.bind(this), environment.eos.interval);
     }
   }
 
@@ -89,8 +92,10 @@ export class EosProvider {
       account: environment.eos.contractName,
       name: 'transfer',
       authorization: [{ actor: from,  permission: 'active' }],
-      data: { from, to, quantity: quantity + ' ' + environment.coin, memo }
+      data: { from, to, quantity: parseFloat(quantity.toString()).toFixed(8) + ' ' + environment.coin, memo }
     }];
+
+    // console.log(actions)
 
     return this.api.transact({ actions }, environment.eos.transactOptions)
       .then(r => {
@@ -162,6 +167,8 @@ export class EosProvider {
     if (!this.isLogged()) return;
 
     this.account.balance = await this.getBalance(this.account.name);
+
+    this.setStoredAccount(this.account);
   }
 
   reInitAccount() {
